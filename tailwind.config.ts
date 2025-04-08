@@ -25,15 +25,15 @@ export default {
 			},
 			colors: {
 				primary: {
-					DEFAULT: '#0F766E', // deep green
-					light: '#14B8A6',
-					dark: '#115E59',
+					DEFAULT: '#003049', // deep blue
+					light: '#1A4D68',
+					dark: '#001F2F',
 					foreground: '#ffffff'
 				},
 				secondary: {
-					DEFAULT: '#1E3A8A', // dark blue
-					light: '#3B82F6',
-					dark: '#1E3A8A',
+					DEFAULT: '#F77F00', // vibrant orange
+					light: '#FF9827',
+					dark: '#D96C00',
 					foreground: '#ffffff'
 				},
 				accent: {

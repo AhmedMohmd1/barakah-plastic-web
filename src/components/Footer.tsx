@@ -16,16 +16,16 @@ const Footer = () => {
               نحن متخصصون في صناعة الأكياس البلاستيكية بجودة عالية منذ عام 2011.
             </p>
             <div className="flex space-x-4 space-x-reverse">
-              <a href="#" className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors">
+              <a href="#" className="bg-white/10 hover:bg-secondary/80 p-2 rounded-full transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors">
+              <a href="#" className="bg-white/10 hover:bg-secondary/80 p-2 rounded-full transition-colors">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors">
+              <a href="#" className="bg-white/10 hover:bg-secondary/80 p-2 rounded-full transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors">
+              <a href="#" className="bg-white/10 hover:bg-secondary/80 p-2 rounded-full transition-colors">
                 <Youtube className="h-5 w-5" />
               </a>
             </div>
@@ -34,22 +34,23 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-lg mb-4">روابط سريعة</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">الرئيسية</a></li>
-              <li><a href="#about" className="text-white/80 hover:text-white transition-colors">من نحن</a></li>
-              <li><a href="#products" className="text-white/80 hover:text-white transition-colors">منتجاتنا</a></li>
-              <li><a href="#features" className="text-white/80 hover:text-white transition-colors">مميزاتنا</a></li>
-              <li><a href="#contact" className="text-white/80 hover:text-white transition-colors">تواصل معنا</a></li>
+              <li><a href="#" className="text-white/80 hover:text-secondary transition-colors">الرئيسية</a></li>
+              <li><a href="#about" className="text-white/80 hover:text-secondary transition-colors">من نحن</a></li>
+              <li><a href="#products" className="text-white/80 hover:text-secondary transition-colors">منتجاتنا</a></li>
+              <li><a href="#features" className="text-white/80 hover:text-secondary transition-colors">مميزاتنا</a></li>
+              <li><a href="#faq" className="text-white/80 hover:text-secondary transition-colors">الأسئلة المتكررة</a></li>
+              <li><a href="#contact" className="text-white/80 hover:text-secondary transition-colors">تواصل معنا</a></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-bold text-lg mb-4">منتجاتنا</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">أكياس تسوق</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">أكياس تغليف</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">أكياس قمامة</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">أكياس مطبوعة</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">أكياس بمقاسات خاصة</a></li>
+              <li><a href="#" className="text-white/80 hover:text-secondary transition-colors">أكياس تسوق</a></li>
+              <li><a href="#" className="text-white/80 hover:text-secondary transition-colors">أكياس تغليف</a></li>
+              <li><a href="#" className="text-white/80 hover:text-secondary transition-colors">أكياس قمامة</a></li>
+              <li><a href="#" className="text-white/80 hover:text-secondary transition-colors">أكياس مطبوعة</a></li>
+              <li><a href="#" className="text-white/80 hover:text-secondary transition-colors">أكياس بمقاسات خاصة</a></li>
             </ul>
           </div>
           
@@ -62,11 +63,11 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <span className="ml-2 text-white/80">الهاتف:</span>
-                <span className="text-white dir-ltr">+966 55 123 4567</span>
+                <span className="text-white dir-ltr">01009923040</span>
               </li>
               <li className="flex items-center">
                 <span className="ml-2 text-white/80">البريد:</span>
-                <span className="text-white">info@barakahplast.com</span>
+                <span className="text-white">info@elbarkaplast.com</span>
               </li>
             </ul>
           </div>
@@ -81,8 +82,8 @@ const Footer = () => {
           </p>
           <div className="mt-4 md:mt-0">
             <ul className="flex space-x-6 space-x-reverse">
-              <li><a href="#" className="text-white/80 hover:text-white text-sm">سياسة الخصوصية</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white text-sm">الشروط والأحكام</a></li>
+              <li><a href="#" className="text-white/80 hover:text-secondary text-sm">سياسة الخصوصية</a></li>
+              <li><a href="#" className="text-white/80 hover:text-secondary text-sm">الشروط والأحكام</a></li>
             </ul>
           </div>
         </div>

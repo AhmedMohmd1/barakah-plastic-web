@@ -32,7 +32,7 @@ const Products = () => {
   ];
 
   return (
-    <section id="products" className="section-padding bg-muted/30">
+    <section id="products" className="section-padding bg-gray-50">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2 className="heading-2 text-primary mb-4">منتجاتنا</h2>
@@ -45,21 +45,21 @@ const Products = () => {
           {products.map((product) => (
             <div 
               key={product.id} 
-              className="card-shadow bg-white rounded-xl overflow-hidden border border-muted hover:border-primary/30 transition-all duration-300"
+              className="modern-card group"
             >
               <div className="h-52 overflow-hidden">
                 <img 
                   src={product.image} 
                   alt={product.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
               <div className="p-5">
-                <h3 className="font-bold text-xl mb-2 text-gray-800">{product.name}</h3>
+                <h3 className="font-bold text-xl mb-2 text-primary">{product.name}</h3>
                 <p className="text-gray-600 mb-4">{product.description}</p>
                 <Button 
                   variant="outline" 
-                  className="w-full border-primary text-primary hover:bg-primary hover:text-white"
+                  className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white transition-all duration-300"
                 >
                   المزيد من التفاصيل
                   <ArrowLeft className="mr-2 h-4 w-4" />
@@ -70,7 +70,7 @@ const Products = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <Button size="lg" className="bg-primary hover:bg-primary-dark">
+          <Button size="lg" className="bg-secondary hover:bg-secondary-dark rounded-lg">
             استعرض جميع المنتجات
             <ArrowLeft className="mr-2 h-4 w-4" />
           </Button>

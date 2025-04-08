@@ -21,10 +21,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 183 100% 26%;
+    --primary: 209 100% 14%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 221 74% 33%;
+    --secondary: 29 100% 48%;
     --secondary-foreground: 0 0% 100%;
 
     --accent: 45 93% 47%;
@@ -38,7 +38,7 @@
 
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 183 100% 26%;
+    --ring: 209 100% 14%;
 
     --radius: 0.5rem;
 
@@ -83,6 +83,22 @@
   }
   
   .card-shadow {
-    @apply shadow-lg hover:shadow-xl transition-shadow duration-300;
+    @apply shadow-md hover:shadow-lg transition-shadow duration-300;
+  }
+
+  .modern-card {
+    @apply bg-white rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300;
+  }
+  
+  .modern-input {
+    @apply bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/30 focus:border-primary/50 outline-none transition-all duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark transition-colors duration-300 rounded-lg font-medium;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondary-dark transition-colors duration-300 rounded-lg font-medium;
   }
 }

@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 const Contact = () => {
   return (
-    <section id="contact" className="section-padding bg-muted/30">
+    <section id="contact" className="section-padding bg-gray-50">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2 className="heading-2 text-primary mb-4">تواصل معنا</h2>
@@ -21,28 +21,28 @@ const Contact = () => {
             <h3 className="heading-3 text-primary mb-6">معلومات التواصل</h3>
             
             <div className="flex items-start gap-4">
-              <div className="bg-primary/10 p-3 rounded-full">
-                <Phone className="h-5 w-5 text-primary" />
+              <div className="bg-secondary/10 p-3 rounded-full">
+                <Phone className="h-5 w-5 text-secondary" />
               </div>
               <div>
                 <h4 className="font-bold mb-1">رقم الهاتف</h4>
-                <p className="text-gray-700 dir-ltr text-right">+966 55 123 4567</p>
+                <p className="text-gray-700 dir-ltr text-right">01009923040</p>
               </div>
             </div>
             
             <div className="flex items-start gap-4">
-              <div className="bg-primary/10 p-3 rounded-full">
-                <Mail className="h-5 w-5 text-primary" />
+              <div className="bg-secondary/10 p-3 rounded-full">
+                <Mail className="h-5 w-5 text-secondary" />
               </div>
               <div>
                 <h4 className="font-bold mb-1">البريد الإلكتروني</h4>
-                <p className="text-gray-700">info@barakahplast.com</p>
+                <p className="text-gray-700">info@elbarkaplast.com</p>
               </div>
             </div>
             
             <div className="flex items-start gap-4">
-              <div className="bg-primary/10 p-3 rounded-full">
-                <MapPin className="h-5 w-5 text-primary" />
+              <div className="bg-secondary/10 p-3 rounded-full">
+                <MapPin className="h-5 w-5 text-secondary" />
               </div>
               <div>
                 <h4 className="font-bold mb-1">العنوان</h4>
@@ -73,7 +73,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-3 card-shadow bg-white p-8 rounded-xl border border-muted">
+          <div className="lg:col-span-3 modern-card p-8">
             <h3 className="heading-3 text-primary mb-6">أرسل رسالة</h3>
             
             <form className="space-y-6">
@@ -85,7 +85,7 @@ const Contact = () => {
                   <Input 
                     id="name" 
                     placeholder="أدخل اسمك الكامل" 
-                    className="border-muted-foreground/30"
+                    className="modern-input"
                   />
                 </div>
                 
@@ -96,7 +96,7 @@ const Contact = () => {
                   <Input 
                     id="phone" 
                     placeholder="أدخل رقم الجوال" 
-                    className="border-muted-foreground/30"
+                    className="modern-input"
                   />
                 </div>
               </div>
@@ -109,7 +109,7 @@ const Contact = () => {
                   id="email" 
                   type="email" 
                   placeholder="أدخل بريدك الإلكتروني" 
-                  className="border-muted-foreground/30"
+                  className="modern-input"
                 />
               </div>
               
@@ -120,7 +120,7 @@ const Contact = () => {
                 <Input 
                   id="subject" 
                   placeholder="موضوع الرسالة" 
-                  className="border-muted-foreground/30"
+                  className="modern-input"
                 />
               </div>
               
@@ -132,11 +132,11 @@ const Contact = () => {
                   id="message" 
                   placeholder="اكتب رسالتك هنا" 
                   rows={5} 
-                  className="border-muted-foreground/30"
+                  className="modern-input resize-none"
                 />
               </div>
               
-              <Button type="submit" className="bg-primary hover:bg-primary-dark w-full">
+              <Button type="submit" className="bg-secondary hover:bg-secondary-dark w-full rounded-lg">
                 إرسال الرسالة
                 <Send className="mr-2 h-4 w-4" />
               </Button>
