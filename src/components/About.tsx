@@ -1,10 +1,7 @@
-
 import React from 'react';
 import { CheckCircle, Award, Clock } from 'lucide-react';
-
 const About = () => {
-  return (
-    <section id="about" className="section-padding bg-white">
+  return <section id="about" className="section-padding bg-white rounded-md">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2 className="heading-2 text-primary mb-4">من نحن</h2>
@@ -76,8 +73,6 @@ const About = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default About;
