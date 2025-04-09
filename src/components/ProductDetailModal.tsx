@@ -409,7 +409,6 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               
               <Button 
                 className="mt-6 w-full bg-secondary hover:bg-secondary-dark text-white py-6 rounded-xl"
-                size="lg"
                 onClick={() => setIsQuoteModalOpen(true)}
               >
                 <ShoppingBag className="mr-2 h-5 w-5" />

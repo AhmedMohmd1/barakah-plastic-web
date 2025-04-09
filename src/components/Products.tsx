@@ -40,37 +40,37 @@ const Products = () => {
       id: 3,
       name: 'اكياس سلوفان بشريطه',
       description: 'أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم',
-      image: 'https://images.unsplash.com/photo-1610963196817-7d1415647028?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+      image: 'public\\images\\slofan.png',
     },
     {
       id: 4,
       name: 'أكياس مطبوعة',
       description: 'أكياس مطبوعة بشعار الشركة أو الشعارات التجارية بألوان متعددة',
-      image: 'https://images.unsplash.com/photo-1601661222035-fdd50d0d4b35?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+      image: 'public\\images\\pack 1.jpg',
     },
     {
       id: 5,
       name: 'شنط قماش',
       description: 'شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية',
-      image: 'https://images.unsplash.com/photo-1597740049284-388659a41286?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+      image: 'public\\images\\image.png',
     },
     {
       id: 6,
       name: 'اكياس ذات غالق - ziplock bags',
       description: 'أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات',
-      image: 'https://images.unsplash.com/photo-1604166280644-22bb70f5b5ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+      image: 'public\\images\\ziplockBags.png',
     },
     {
       id: 7,
       name: 'Plastic spoons & forks',
       description: 'ملاعق وشوك وسكاكين بلاستيكية للاستخدام مرة واحدة',
-      image: 'https://images.unsplash.com/photo-1610476905657-200ae6cfc907?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+      image: 'public\\images\\spoone.png',
     },
     {
       id: 8,
       name: 'شنط سوفت للمحلات الملابس',
       description: 'شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية',
-      image: 'https://images.unsplash.com/photo-1556905200-bd982f883637?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+      image: 'public\\images\\softBags.jpg',
     },
   ];
 
@@ -101,8 +101,7 @@ const Products = () => {
                 <h3 className="font-bold text-xl mb-2 text-primary">{product.name}</h3>
                 <p className="text-gray-600 mb-4">{product.description}</p>
                 <Button 
-                  variant="outline" 
-                  className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white transition-all duration-300"
+                  className="w-full border border-secondary text-secondary hover:bg-secondary hover:text-white transition-all duration-300"
                   onClick={() => openProductDetail(product.id)}
                 >
                   المزيد من التفاصيل
@@ -114,7 +113,7 @@ const Products = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <Button size="lg" className="bg-secondary hover:bg-secondary-dark rounded-lg">
+          <Button className="bg-secondary hover:bg-secondary-dark rounded-lg py-3 px-6">
             استعرض جميع المنتجات
             <ArrowLeft className="mr-2 h-4 w-4" />
           </Button>
