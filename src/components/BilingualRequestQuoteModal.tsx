@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -24,17 +23,23 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const translations = {
     ar: {
       title: "طلب عرض سعر",
-      description: "يرجى ملء البيانات التالية للحصول على عرض سعر مخصص لأكياس مطبوعة",
+      description: "يرجى ملء البيانات التالية للحصول على عرض سعر مخصص",
       product: "المنتج",
       productOptions: {
         "printed-bags": "أكياس مطبوعة بشعار الشركة",
         "custom-size": "أكياس بمقاسات خاصة",
         "shopping-bags": "أكياس تسوق",
         "packaging-bags": "أكياس تغليف",
+        "cellophane-bags": "اكياس سلوفان بشريطه",
+        "cloth-bags": "شنط قماش",
+        "ziplock-bags": "اكياس ذات غالق - ziplock bags",
+        "disposable-utensils": "Plastic,spoons&forks",
+        "soft-bags": "شنط سوفت للمحلات الملابس",
       },
       name: "الاسم",
       contact: "رقم الهاتف / البريد الإلكتروني",
@@ -43,16 +48,23 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
       submit: "طلب",
       successMessage: "تم إرسال طلبك بنجاح، سنتواصل معك قريباً",
       errorMessage: "حدث خطأ أثناء إرسال طلبك، يرجى المحاولة مرة أخرى",
+      phoneError: "يرجى إدخال رقم هاتف صحيح",
+      quantityError: "يرجى إدخال رقم صحيح للكمية",
     },
     en: {
       title: "Request a Quote",
-      description: "Please fill out the following details to get a custom quote for printed bags",
+      description: "Please fill out the following details to get a custom quote",
       product: "Product",
       productOptions: {
         "printed-bags": "Company logo printed bags",
         "custom-size": "Custom size bags",
         "shopping-bags": "Shopping bags",
         "packaging-bags": "Packaging bags",
+        "cellophane-bags": "Cellophane bags with tape",
+        "cloth-bags": "Cloth bags",
+        "ziplock-bags": "Ziplock bags",
+        "disposable-utensils": "Plastic spoons & forks",
+        "soft-bags": "Soft bags for clothing stores",
       },
       name: "Name",
       contact: "Phone Number / Email",
@@ -61,14 +73,42 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
       submit: "Request",
       successMessage: "Your request has been sent successfully, we will contact you soon",
       errorMessage: "An error occurred while sending your request, please try again",
+      phoneError: "Please enter a valid phone number",
+      quantityError: "Please enter a valid quantity",
     }
   };
 
   const text = translations[language];
   const isRTL = language === 'ar';
 
+  const validatePhone = (value: string) => {
+    if (value.includes('@')) return true;
+    return /^\d+$/.test(value);
+  };
+
+  const validateQuantity = (value: string) => {
+    return /^\d+$/.test(value);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = {...prev};
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+    
+    if (name === 'contact' && value && !validatePhone(value)) {
+      setErrors(prev => ({...prev, contact: text.phoneError}));
+    }
+    
+    if (name === 'quantity' && value && !validateQuantity(value)) {
+      setErrors(prev => ({...prev, quantity: text.quantityError}));
+    }
+    
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
@@ -78,20 +118,33 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const newErrors: {[key: string]: string} = {};
+    
+    if (formData.contact && !validatePhone(formData.contact)) {
+      newErrors.contact = text.phoneError;
+    }
+    
+    if (formData.quantity && !validateQuantity(formData.quantity)) {
+      newErrors.quantity = text.quantityError;
+    }
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
-      // Here you would typically send the data to your backend
-      // For demonstration purposes, we'll just simulate an API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       console.log('Form data submitted:', formData);
       
-      // Show success message
       toast.success(text.successMessage);
       
-      // Reset form and close modal
       setFormData({ product: 'printed-bags', name: '', contact: '', quantity: '', notes: '' });
+      setErrors({});
       onClose();
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -159,7 +212,11 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
               className={`modern-input ${!isRTL ? 'ltr' : ''}`}
               dir={!isRTL ? "ltr" : "rtl"}
               required
+              aria-invalid={!!errors.contact}
             />
+            {errors.contact && (
+              <p className="text-sm text-red-500">{errors.contact}</p>
+            )}
           </div>
           
           <div className="space-y-2">
@@ -173,7 +230,12 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
               onChange={handleChange}
               className="modern-input"
               required
+              inputMode="numeric"
+              aria-invalid={!!errors.quantity}
             />
+            {errors.quantity && (
+              <p className="text-sm text-red-500">{errors.quantity}</p>
+            )}
           </div>
           
           <div className="space-y-2">
@@ -193,7 +255,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
             <Button 
               type="submit" 
               className="w-full bg-secondary hover:bg-secondary-dark rounded-xl"
-              disabled={isSubmitting}
+              disabled={isSubmitting || Object.keys(errors).length > 0}
             >
               {isSubmitting ? '...' : text.submit}
             </Button>

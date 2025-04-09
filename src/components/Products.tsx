@@ -32,8 +32,8 @@ const Products = () => {
     },
     {
       id: 3,
-      name: 'أكياس قمامة',
-      description: 'أكياس قمامة قوية بأحجام مختلفة للاستخدام المنزلي والتجاري',
+      name: 'اكياس سلوفان بشريطه',
+      description: 'أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم',
       image: 'https://images.unsplash.com/photo-1610963196817-7d1415647028?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
     },
     {
@@ -42,7 +42,34 @@ const Products = () => {
       description: 'أكياس مطبوعة بشعار الشركة أو الشعارات التجارية بألوان متعددة',
       image: 'https://images.unsplash.com/photo-1601661222035-fdd50d0d4b35?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
     },
+    {
+      id: 5,
+      name: 'شنط قماش',
+      description: 'شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية',
+      image: 'https://images.unsplash.com/photo-1597740049284-388659a41286?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+    },
+    {
+      id: 6,
+      name: 'اكياس ذات غالق',
+      description: 'أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات',
+      image: 'https://images.unsplash.com/photo-1604166280644-22bb70f5b5ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+    },
+    {
+      id: 7,
+      name: 'Plastic Utensils',
+      description: 'ملاعق وشوك وسكاكين بلاستيكية للاستخدام مرة واحدة',
+      image: 'https://images.unsplash.com/photo-1610476905657-200ae6cfc907?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+    },
+    {
+      id: 8,
+      name: 'شنط سوفت للمحلات الملابس',
+      description: 'شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية',
+      image: 'https://images.unsplash.com/photo-1556905200-bd982f883637?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+    },
   ];
+
+  // Select only the first 4 products to display
+  const displayedProducts = products.slice(0, 4);
 
   return (
     <section id="products" className="section-padding bg-gray-50">
@@ -55,7 +82,7 @@ const Products = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
+          {displayedProducts.map((product) => (
             <div 
               key={product.id} 
               className="modern-card group"
