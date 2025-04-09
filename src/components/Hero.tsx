@@ -12,7 +12,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-primary/10 to-secondary/10 min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/30 dark:to-secondary/30 min-h-[90vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent z-10"></div>
         <img 

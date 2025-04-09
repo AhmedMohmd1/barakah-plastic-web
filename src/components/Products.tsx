@@ -1,9 +1,22 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ProductDetailModal from './ProductDetailModal';
 
 const Products = () => {
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [language, setLanguage] = useState<'ar' | 'en'>('ar');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  
+  const toggleLanguage = () => {
+    setLanguage(prev => prev === 'ar' ? 'en' : 'ar');
+  };
+  
+  const toggleTheme = () => {
+    setIsDarkMode(prev => !prev);
+  };
+
   const products = [
     {
       id: 1,
@@ -60,6 +73,7 @@ const Products = () => {
                 <Button 
                   variant="outline" 
                   className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white transition-all duration-300"
+                  onClick={() => product.id === 4 ? setIsDetailModalOpen(true) : null}
                 >
                   المزيد من التفاصيل
                   <ArrowLeft className="mr-2 h-4 w-4" />
@@ -75,6 +89,15 @@ const Products = () => {
             <ArrowLeft className="mr-2 h-4 w-4" />
           </Button>
         </div>
+        
+        <ProductDetailModal 
+          isOpen={isDetailModalOpen}
+          onClose={() => setIsDetailModalOpen(false)}
+          language={language}
+          toggleLanguage={toggleLanguage}
+          isDarkMode={isDarkMode}
+          toggleTheme={toggleTheme}
+        />
       </div>
     </section>
   );
