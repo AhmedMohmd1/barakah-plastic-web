@@ -58,7 +58,7 @@ const Products = () => {
     description: 'شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية',
     image: 'https://images.unsplash.com/photo-1556905200-bd982f883637?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80'
   }];
-  return <section id="products" className="section-padding bg-gray-50">
+  return <section id="products" className="section-padding bg-slate-100 py-[42px]">
       <div className="container-custom my-0 py-0 bg-slate-100">
         <div className="text-center mb-12">
           <h2 className="heading-2 text-primary mb-4">منتجاتنا</h2>
