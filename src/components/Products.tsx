@@ -6,6 +6,7 @@ import ProductDetailModal from './ProductDetailModal';
 
 const Products = () => {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
   const [language, setLanguage] = useState<'ar' | 'en'>('ar');
   const [isDarkMode, setIsDarkMode] = useState(false);
   
@@ -15,6 +16,11 @@ const Products = () => {
   
   const toggleTheme = () => {
     setIsDarkMode(prev => !prev);
+  };
+
+  const openProductDetail = (productId: number) => {
+    setSelectedProductId(productId);
+    setIsDetailModalOpen(true);
   };
 
   const products = [
@@ -50,13 +56,13 @@ const Products = () => {
     },
     {
       id: 6,
-      name: 'اكياس ذات غالق',
+      name: 'اكياس ذات غالق - ziplock bags',
       description: 'أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات',
       image: 'https://images.unsplash.com/photo-1604166280644-22bb70f5b5ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
     },
     {
       id: 7,
-      name: 'Plastic Utensils',
+      name: 'Plastic spoons & forks',
       description: 'ملاعق وشوك وسكاكين بلاستيكية للاستخدام مرة واحدة',
       image: 'https://images.unsplash.com/photo-1610476905657-200ae6cfc907?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
     },
@@ -67,9 +73,6 @@ const Products = () => {
       image: 'https://images.unsplash.com/photo-1556905200-bd982f883637?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
     },
   ];
-
-  // Select only the first 4 products to display
-  const displayedProducts = products.slice(0, 4);
 
   return (
     <section id="products" className="section-padding bg-gray-50">
@@ -82,7 +85,7 @@ const Products = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {displayedProducts.map((product) => (
+          {products.map((product) => (
             <div 
               key={product.id} 
               className="modern-card group"
@@ -100,7 +103,7 @@ const Products = () => {
                 <Button 
                   variant="outline" 
                   className="w-full border-secondary text-secondary hover:bg-secondary hover:text-white transition-all duration-300"
-                  onClick={() => product.id === 4 ? setIsDetailModalOpen(true) : null}
+                  onClick={() => openProductDetail(product.id)}
                 >
                   المزيد من التفاصيل
                   <ArrowLeft className="mr-2 h-4 w-4" />
@@ -124,6 +127,7 @@ const Products = () => {
           toggleLanguage={toggleLanguage}
           isDarkMode={isDarkMode}
           toggleTheme={toggleTheme}
+          productId={selectedProductId}
         />
       </div>
     </section>
