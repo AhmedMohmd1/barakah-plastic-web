@@ -56,7 +56,8 @@ const Products = () => {
     {
       image: 'https://images.unsplash.com/photo-1610963196817-7d1415647028?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
       badge: 'جديد'
-    }, {
+    },
+    {
       id: 4,
       name: 'أكياس مطبوعة',
       description: 'أكياس مطبوعة بشعار الشركة أو الشعارات التجارية بألوان متعددة',
@@ -94,7 +95,7 @@ const Products = () => {
       name: 'شنط سوفت للمحلات الملابس',
       description: 'شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية',
       image: 'public\\images\\softBags.jpg',
-    },
+    },{
       image: 'https://images.unsplash.com/photo-1556905200-bd982f883637?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
       badge: 'فاخر'
     }
