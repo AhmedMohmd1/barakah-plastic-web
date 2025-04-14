@@ -39,14 +39,14 @@ const Products = () => {
       id: 1,
       name: 'أكياس تسوق',
       description: 'أكياس تسوق متينة بمقاسات مختلفة مناسبة للمحلات التجارية والمطاعم',
-      image: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+      image: '/images/pack1.jpg', // Local image path
       badge: 'الأكثر مبيعاً',
     },
     {
       id: 2,
       name: 'أكياس تغليف',
       description: 'أكياس تغليف شفافة وملونة لحماية المنتجات وتخزينها',
-      image: 'https://images.unsplash.com/photo-1565384257472-2ada861d1ffe?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80',
+      image: '',
     },
     {
       id: 3,
