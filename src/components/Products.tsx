@@ -296,7 +296,7 @@ const Products = () => {
         )}
 
         <div className="mt-12 text-center">
-          <Button className="bg-secondary hover:bg-secondary-dark rounded-lg py-3 px-6">
+          <Button className="bg-secondary hover:bg-secondary-dark rounded-lg py-3 px-6" />
           <Button 
             size="lg" 
             className="bg-secondary hover:bg-secondary-dark rounded-lg group transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]"
