@@ -1,0 +1,36 @@
+
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { LayoutGrid, List } from 'lucide-react';
+
+interface ViewToggleProps {
+  viewMode: 'grid' | 'list';
+  onViewChange: (mode: 'grid' | 'list') => void;
+}
+
+const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onViewChange }) => {
+  return (
+    <div className="flex justify-end mb-6">
+      <div className="bg-white rounded-lg p-1 inline-flex shadow-sm">
+        <Button 
+          variant={viewMode === 'grid' ? "secondary" : "ghost"} 
+          size="icon" 
+          onClick={() => onViewChange('grid')}
+          className="rounded-md"
+        >
+          <LayoutGrid size={18} />
+        </Button>
+        <Button 
+          variant={viewMode === 'list' ? "secondary" : "ghost"} 
+          size="icon" 
+          onClick={() => onViewChange('list')}
+          className="rounded-md"
+        >
+          <List size={18} />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default ViewToggle;
