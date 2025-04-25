@@ -52,13 +52,13 @@ const Products = () => {
       id: 3,
       name: 'اكياس سلوفان بشريطه',
       description: 'أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم',
-      image: '/images/slofan.png', // Local image path
+      image: '/images/كيس سلوفان.jpeg', // Local image path
     },
     {
       id: 4,
       name: 'أكياس مطبوعة',
       description: 'أكياس مطبوعة بشعار الشركة أو الشعارات التجارية بألوان متعددة',
-      image: '/images/pack1.jpg', // Local image path
+      image: '/images/plasticbag.jpeg', // Local image path
     },
     {
       id: 5,
