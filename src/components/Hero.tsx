@@ -4,10 +4,10 @@ import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
-  const scrollToContactForm = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -37,13 +37,18 @@ const Hero = () => {
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button 
                   size="lg" 
-                  onClick={scrollToContactForm}
+                  onClick={() => scrollToSection('contact')}
                   className="bg-primary hover:bg-primary-dark font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
                 >
                   تواصل معنا
                   <ChevronLeft className="mr-2 h-4 w-4" />
                 </Button>
-                <Button size="lg" variant="outline" className="border-secondary bg-white/80 text-secondary hover:bg-secondary/10 font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  onClick={() => scrollToSection('products')}
+                  className="border-secondary bg-white/80 text-secondary hover:bg-secondary/10 font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+                >
                   استعرض منتجاتنا
                 </Button>
               </div>
