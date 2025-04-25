@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import {
   Facebook,
@@ -14,22 +13,13 @@ import { cn } from "@/lib/utils";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-=======
-import React from 'react';
-import { Facebook, Twitter, Instagram, Youtube, MapPin, Phone, Mail } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  
->>>>>>> b4385119d73a74965eb235e48bf7ae5744a11911
+
   return (
     <footer className="bg-primary text-white">
       <div className="container-custom py-12">
@@ -46,24 +36,14 @@ const Footer = () => {
               >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a
-                href="#"
-                className="bg-white/10 hover:bg-secondary/80 p-2 rounded-full transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
+
               <a
                 href="#"
                 className="bg-white/10 hover:bg-secondary/80 p-2 rounded-full transition-colors"
               >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a
-                href="#"
-                className="bg-white/10 hover:bg-secondary/80 p-2 rounded-full transition-colors"
-              >
-                <Youtube className="h-5 w-5" />
-              </a>
+
             </div>
           </div>
 
@@ -71,62 +51,6 @@ const Footer = () => {
             <h4 className="font-bold text-lg mb-4">روابط سريعة</h4>
             <ul className="space-y-2">
               <li>
-<<<<<<< HEAD
-                <a
-                  href="#"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  الرئيسية
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#about"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  من نحن
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#products"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  منتجاتنا
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#features"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  مميزاتنا
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#testimonials"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  آراء العملاء
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#faq"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  الأسئلة المتكررة
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  تواصل معنا
-                </a>
-=======
                 <button onClick={() => scrollToSection('hero')} className="text-white/80 hover:text-secondary transition-colors">الرئيسية</button>
               </li>
               <li>
@@ -146,7 +70,6 @@ const Footer = () => {
               </li>
               <li>
                 <button onClick={() => scrollToSection('contact')} className="text-white/80 hover:text-secondary transition-colors">تواصل معنا</button>
->>>>>>> b4385119d73a74965eb235e48bf7ae5744a11911
               </li>
             </ul>
           </div>
@@ -155,46 +78,6 @@ const Footer = () => {
             <h4 className="font-bold text-lg mb-4">منتجاتنا</h4>
             <ul className="space-y-2">
               <li>
-<<<<<<< HEAD
-                <a
-                  href="#"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  أكياس تسوق
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  أكياس تغليف
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  أكياس قمامة
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  أكياس مطبوعة
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-white/80 hover:text-secondary transition-colors"
-                >
-                  أكياس بمقاسات خاصة
-                </a>
-=======
                 <button onClick={() => scrollToSection('products')} className="text-white/80 hover:text-secondary transition-colors">أكياس تسوق</button>
               </li>
               <li>
@@ -208,7 +91,6 @@ const Footer = () => {
               </li>
               <li>
                 <button onClick={() => scrollToSection('products')} className="text-white/80 hover:text-secondary transition-colors">أكياس بمقاسات خاصة</button>
->>>>>>> b4385119d73a74965eb235e48bf7ae5744a11911
               </li>
             </ul>
           </div>
@@ -219,7 +101,6 @@ const Footer = () => {
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 ml-2 text-secondary mt-1 shrink-0" />
                 <span className="text-white">
-                  {" "}
                   قليوب - طريق مصر اسكندريه الزراعي، المنطقة الصناعية الأولي
                 </span>
               </li>
@@ -232,12 +113,7 @@ const Footer = () => {
                 <span className="text-white">info@elbarkaplast.com</span>
               </li>
             </ul>
-<<<<<<< HEAD
 
-            {/* Map location */}
-=======
-            
->>>>>>> b4385119d73a74965eb235e48bf7ae5744a11911
             <div className="mt-4 rounded-lg overflow-hidden shadow-md h-48">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.4401111516273!2d46.75606387584941!3d24.719785978978414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f0336b3cd4021%3A0x819fcf3c87518671!2sIndustrial%20City%202%2C%20Riyadh!5e0!3m2!1sen!2ssa!4v1712685247097!5m2!1sen!2ssa"

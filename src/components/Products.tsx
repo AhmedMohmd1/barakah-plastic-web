@@ -11,21 +11,39 @@ const Products = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
-  
+
   const toggleLanguage = () => {
     setLanguage(prev => prev === 'ar' ? 'en' : 'ar');
   };
-  
+
   const toggleTheme = () => {
     setIsDarkMode(prev => !prev);
   };
-  
+
   const openProductDetail = (productId: number) => {
     setSelectedProductId(productId);
     setIsDetailModalOpen(true);
   };
-  
+
   const products = [
+    {
+      id: 4,
+      name: 'أكياس مطبوعة',
+      description: 'أكياس مطبوعة بشعار الشركة أو الشعارات التجارية بألوان متعددة',
+      image: '/images/plasticbag.jpeg', // Local image path
+    },
+    {
+      id: 5,
+      name: 'شنط قماش',
+      description: 'شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية',
+      image: '/images/canvas.jpeg', // Local image path
+    },
+    {
+      id: 3,
+      name: 'اكياس سلوفان بشريطه',
+      description: 'أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم',
+      image: '/images/كيس سلوفان.jpeg', // Local image path
+    },
     {
       id: 1,
       name: 'أكياس تسوق',
@@ -40,35 +58,17 @@ const Products = () => {
       image: '',
     },
     {
-      id: 3,
-      name: 'اكياس سلوفان بشريطه',
-      description: 'أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم',
-      image: '/images/كيس سلوفان.jpeg', // Local image path
-    },
-    {
-      id: 4,
-      name: 'أكياس مطبوعة',
-      description: 'أكياس مطبوعة بشعار الشركة أو الشعارات التجارية بألوان متعددة',
-      image: '/images/plasticbag.jpeg', // Local image path
-    },
-    {
-      id: 5,
-      name: 'شنط قماش',
-      description: 'شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية',
-      image: '/images/image.png', // Local image path
-    },
-    {
       id: 6,
       name: 'اكياس ذات غالق - ziplock bags',
       description: 'أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات',
       image: '/images/ziplockBags.png', // Local image path
     },
-    {
-      id: 7,
-      name: 'Plastic spoons & forks',
-      description: 'ملاعق وشوك وسكاكين بلاستيكية للاستخدام مرة واحدة',
-      image: '/images/spoone.png', // Local image path
-    },
+    // {
+    //   id: 7,
+    //   name: 'Plastic spoons & forks',
+    //   description: 'ملاعق وشوك وسكاكين بلاستيكية للاستخدام مرة واحدة',
+    //   image: '/images/spoone.png', // Local image path
+    // },
     {
       id: 8,
       name: 'شنط سوفت للمحلات الملابس',
@@ -101,15 +101,15 @@ const Products = () => {
             />
           ))}
         </ProductsSection>
-        
-        <ProductDetailModal 
-          isOpen={isDetailModalOpen} 
-          onClose={() => setIsDetailModalOpen(false)} 
-          language={language} 
-          toggleLanguage={toggleLanguage} 
-          isDarkMode={isDarkMode} 
-          toggleTheme={toggleTheme} 
-          productId={selectedProductId} 
+
+        <ProductDetailModal
+          isOpen={isDetailModalOpen}
+          onClose={() => setIsDetailModalOpen(false)}
+          language={language}
+          toggleLanguage={toggleLanguage}
+          isDarkMode={isDarkMode}
+          toggleTheme={toggleTheme}
+          productId={selectedProductId}
         />
       </div>
     </section>
