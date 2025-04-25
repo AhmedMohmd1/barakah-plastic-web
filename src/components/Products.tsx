@@ -256,14 +256,6 @@ const Products = () => {
         <div className="mt-12 text-center">
           <div>
             <Button className="bg-secondary hover:bg-secondary-dark rounded-lg py-3 px-6" />
-        
-            <Button 
-              size="lg" 
-              className="bg-secondary hover:bg-secondary-dark rounded-lg group transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]"
-            >
-              استعرض جميع المنتجات
-              <ArrowLeft className="mr-2 h-4 w-4 group-hover:transform group-hover:translate-x-[-3px] transition-transform" />
-            </Button>
           </div>
         </div>
         
