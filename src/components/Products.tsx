@@ -1,28 +1,16 @@
 import React, { useState } from 'react';
-import ProductDetailModal from './ProductDetailModal';
+import { useNavigate } from 'react-router-dom';
 import ProductCard from './products/ProductCard';
 import ViewToggle from './products/ViewToggle';
 import ProductsSection from './products/ProductsSection';
 
 const Products = () => {
-  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
-  const [language, setLanguage] = useState<'ar' | 'en'>('ar');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
 
-  const toggleLanguage = () => {
-    setLanguage(prev => prev === 'ar' ? 'en' : 'ar');
-  };
-
-  const toggleTheme = () => {
-    setIsDarkMode(prev => !prev);
-  };
-
   const openProductDetail = (productId: number) => {
-    setSelectedProductId(productId);
-    setIsDetailModalOpen(true);
+    navigate(`/products/${productId}`);
   };
 
   const products = [
@@ -63,12 +51,6 @@ const Products = () => {
       description: 'أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات',
       image: '/images/ziplockBags.png', // Local image path
     },
-    // {
-    //   id: 7,
-    //   name: 'Plastic spoons & forks',
-    //   description: 'ملاعق وشوك وسكاكين بلاستيكية للاستخدام مرة واحدة',
-    //   image: '/images/spoone.png', // Local image path
-    // },
     {
       id: 8,
       name: 'شنط سوفت للمحلات الملابس',
@@ -101,16 +83,6 @@ const Products = () => {
             />
           ))}
         </ProductsSection>
-
-        <ProductDetailModal
-          isOpen={isDetailModalOpen}
-          onClose={() => setIsDetailModalOpen(false)}
-          language={language}
-          toggleLanguage={toggleLanguage}
-          isDarkMode={isDarkMode}
-          toggleTheme={toggleTheme}
-          productId={selectedProductId}
-        />
       </div>
     </section>
   );
