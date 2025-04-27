@@ -1,11 +1,11 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, ShoppingBag, Moon, Sun, Languages, ImageIcon } from 'lucide-react';
+import { Star, ShoppingBag, Moon, Sun, Languages, ImageIcon, ArrowLeft } from 'lucide-react';
 import { Toggle } from "@/components/ui/toggle";
 import RequestQuoteModal from './BilingualRequestQuoteModal';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductDetailModalProps {
   isOpen: boolean;
@@ -28,6 +28,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 }) => {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
+  const navigate = useNavigate();
 
   // Product data
   const productsData = {
@@ -284,29 +285,25 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   const rating = 4.7;
   const reviewCount = language === 'ar' ? '(238 تقييم)' : '(238 reviews)';
 
+  const handleBack = () => {
+    onClose(); // Close the modal
+    navigate('/'); // Navigate back to the home page
+  };
+
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className={`max-w-4xl p-0 overflow-hidden ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
-          <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
-            <Toggle
-              pressed={isDarkMode}
-              onPressedChange={toggleTheme}
-              aria-label="Toggle dark mode"
-              className={`rounded-full p-2 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}
+          <div className="absolute top-4 left-4 z-10">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={handleBack}
+              className="rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+              aria-label={language === 'ar' ? 'العودة' : 'Back'}
             >
-              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Toggle>
-
-            <Toggle
-              pressed={language === 'en'}
-              onPressedChange={toggleLanguage}
-              aria-label="Toggle language"
-              className={`rounded-full p-2 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}
-            >
-              <Languages className="h-4 w-4" />
-              <span className="sr-only">{language === 'ar' ? 'English' : 'العربية'}</span>
-            </Toggle>
+              <ArrowLeft className="h-6 w-6" />
+            </Button>
           </div>
 
           <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
