@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Star, ShoppingBag, ImageIcon } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import RequestQuoteModal from '../BilingualRequestQuoteModal';
+import ImageGallery from './detail/ImageGallery';
+import ProductInfo from './detail/ProductInfo';
+import ProductSpecifications from './detail/ProductSpecifications';
 
 interface ProductDetailContentProps {
   productId: number;
@@ -12,7 +15,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
   const [selectedImage, setSelectedImage] = useState(0);
   const [language] = useState<'ar' | 'en'>('ar');
 
-  // Reuse the same product data structure
   const productsData = {
     1: {
       ar: {
@@ -116,7 +118,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
           { name: "الحد الأدنى للطلب", value: "2000 قطعة" }
         ],
         images: [
-
           "/images/solfan2.jpeg",
           "/images/كيس سلوفان.jpeg"
         ]
@@ -149,7 +150,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
         images: [
           "/images/canvas.jpeg",
           "/images/canvas2.png"
-
         ]
       },
       en: {
@@ -198,7 +198,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
       }
     },
     7: {
-
       title: "Plastic Utensils",
       description: "Disposable plastic spoons, forks, and knives, ideal for restaurants and events",
       specs: [
@@ -216,7 +215,7 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
     8: {
       ar: {
         title: "أكياس تغليف",
-        description: "أكياس تغليف شفافة وملونة لحماية المنتجات وتخزينها، متوفرة بمقاسات وألوان متعددة",
+        description: "أكياس تغليف شفافة ومل��نة لحماية المنتجات وتخزينها، متوفرة بمقاسات وألوان متعددة",
         specs: [
           { name: "المواد", value: "بولي إيثيلين" },
           { name: "الشفافية", value: "شفاف أو ملون" },
@@ -252,80 +251,28 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
   const rating = 4.7;
   const reviewCount = '(238 تقييم)';
 
+  const handleZoom = (image: string) => {
+    console.log('Zoom image:', image);
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="relative">
-        <img
-          src={product.images[selectedImage]}
-          alt={product.title}
-          className="w-full rounded-lg overflow-hidden"
-        />
-        {product.images.length > 1 && (
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-            <div className="flex items-center gap-2 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1.5">
-              {product.images.map((img, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(index)}
-                  className={`w-10 h-10 rounded-md overflow-hidden border-2 transition-all ${
-                    selectedImage === index
-                      ? 'border-white scale-110 shadow-lg'
-                      : 'border-transparent opacity-70'
-                  }`}
-                >
-                  <img src={img} alt={`${product.title} ${index + 1}`} className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-        <button
-          onClick={() => console.log('Zoom image:', product.images[selectedImage])}
-          className="absolute bottom-4 right-4 bg-white/20 backdrop-blur-sm text-white rounded-full p-2"
-          aria-label="Zoom image"
-        >
-          <ImageIcon className="w-5 h-5" />
-        </button>
-      </div>
+      <ImageGallery
+        images={product.images}
+        selectedImage={selectedImage}
+        onImageSelect={setSelectedImage}
+        onZoom={handleZoom}
+      />
 
       <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star
-                  key={star}
-                  fill={star <= Math.floor(rating) ? "currentColor" : "none"}
-                  className={`h-5 w-5 ${star <= Math.floor(rating) ? 'text-amber-500' : 'text-gray-300'}`}
-                />
-              ))}
-            </div>
-            <span className="font-semibold">{rating}</span>
-            <span className="text-sm text-muted-foreground">{reviewCount}</span>
-          </div>
-        </div>
+        <ProductInfo
+          title={product.title}
+          description={product.description}
+          rating={rating}
+          reviewCount={reviewCount}
+        />
 
-        <div className="p-6 rounded-xl bg-gray-50">
-          <h3 className="text-lg font-semibold mb-2">وصف المنتج</h3>
-          <p className="text-muted-foreground">{product.description}</p>
-        </div>
-
-        <div>
-          <h3 className="text-xl font-semibold mb-4">المواصفات</h3>
-          <div className="space-y-3">
-            {product.specs.map((spec, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                <div className="w-3 h-3 rounded-full bg-secondary shrink-0"></div>
-                <div>
-                  <span className="font-medium">{spec.name}</span>
-                  <span className="mx-2">-</span>
-                  <span className="text-gray-600">{spec.value}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <ProductSpecifications specs={product.specs} />
 
         <Button
           className="mt-6 w-full bg-secondary hover:bg-secondary/90 text-white py-6 rounded-xl"
