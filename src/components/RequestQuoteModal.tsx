@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -6,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
+import { productOptions } from '@/data/productOptions';
 
 interface RequestQuoteModalProps {
   isOpen: boolean;
@@ -66,11 +66,11 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
                 <SelectValue placeholder="اختر المنتج" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="shopping-bags">أكياس تسوق</SelectItem>
-                <SelectItem value="packaging-bags">أكياس تغليف</SelectItem>
-                <SelectItem value="garbage-bags">أكياس قمامة</SelectItem>
-                <SelectItem value="printed-bags">أكياس مطبوعة</SelectItem>
-                <SelectItem value="custom-bags">أكياس بمقاسات خاصة</SelectItem>
+                {productOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
