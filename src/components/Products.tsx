@@ -15,48 +15,35 @@ const Products = () => {
 
   const products = [
     {
-      id: 4,
-      name: 'أكياس مطبوعة',
-      description: 'أكياس مطبوعة بشعار الشركة أو الشعارات التجارية بألوان متعددة',
-      image: '/images/plasticbag.jpeg', // Local image path
-    },
-    {
-      id: 5,
-      name: 'شنط قماش',
-      description: 'شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية',
-      image: '/images/canvas.jpeg', // Local image path
-    },
-    {
-      id: 3,
-      name: 'اكياس سلوفان بشريطه',
-      description: 'أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم',
-      image: '/images/كيس سلوفان.jpeg', // Local image path
-    },
-    {
       id: 1,
-      name: 'أكياس تسوق',
-      description: 'أكياس تسوق متينة بمقاسات مختلفة مناسبة للمحلات التجارية والمطاعم',
-      image: '/images/pack1.jpg', // Local image path
-      badge: 'الأكثر مبيعاً',
+      name: " شُنط مطبوعة بشعارك",
+      description: "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة وصديقة للبيئة، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
+      image: "images/plasticbag.jpeg",
     },
     {
       id: 2,
-      name: 'أكياس تغليف',
-      description: 'أكياس تغليف شفافة وملونة لحماية المنتجات وتخزينها',
-      image: '',
+      name: "شنط سوفت للمحلات الملابس",
+      description: "شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية، مثالية لتعزيز تجربة التسوق",
+      image: "/images/softBags.jpg",
     },
     {
-      id: 6,
-      name: 'اكياس ذات غالق - ziplock bags',
-      description: 'أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات',
-      image: '/images/ziplockBags.png', // Local image path
+      id: 3,
+      name: "شنط قماش",
+      description: "شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية، مثالية للتسوق وحمل المشتريات اليومية",
+      image: "/images/canvas.jpeg",
     },
     {
-      id: 8,
-      name: 'شنط سوفت للمحلات الملابس',
-      description: 'شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية',
-      image: '/images/softBags.jpg', // Local image path
+      id: 4,
+      name: "اكياس سلوفان بشريطه",
+      description: "أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم، مثالية لتغليف المنتجات الصغيرة والهدايا بشكل أنيق",
+      image: "/images/كيس سلوفان.jpeg",
     },
+    {
+      id: 5,
+      name: "اكياس ذات غالق - ziplock bags",
+      description: "أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات، متوفرة بأحجام مختلفة",
+      image: "https://images.unsplash.com/photo-1604166280644-22bb70f5b5ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80",
+    }
   ];
 
   return (

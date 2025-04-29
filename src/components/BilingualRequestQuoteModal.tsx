@@ -21,9 +21,9 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
     quantity: '',
     notes: '',
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const translations = {
     ar: {
@@ -32,13 +32,10 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
       product: "المنتج",
       productOptions: {
         "printed-bags": "أكياس مطبوعة بشعار الشركة",
-        "custom-size": "أكياس بمقاسات خاصة",
-        "shopping-bags": "أكياس تسوق",
         "packaging-bags": "أكياس تغليف",
         "cellophane-bags": "اكياس سلوفان بشريطه",
         "cloth-bags": "شنط قماش",
         "ziplock-bags": "اكياس ذات غالق - ziplock bags",
-        "disposable-utensils": "Plastic,spoons&forks",
         "soft-bags": "شنط سوفت للمحلات الملابس",
       },
       name: "الاسم",
@@ -57,13 +54,10 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
       product: "Product",
       productOptions: {
         "printed-bags": "Company logo printed bags",
-        "custom-size": "Custom size bags",
-        "shopping-bags": "Shopping bags",
         "packaging-bags": "Packaging bags",
         "cellophane-bags": "Cellophane bags with tape",
         "cloth-bags": "Cloth bags",
         "ziplock-bags": "Ziplock bags",
-        "disposable-utensils": "Plastic spoons & forks",
         "soft-bags": "Soft bags for clothing stores",
       },
       name: "Name",
@@ -92,23 +86,23 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    
+
     if (errors[name]) {
       setErrors(prev => {
-        const newErrors = {...prev};
+        const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
       });
     }
-    
+
     if (name === 'contact' && value && !validatePhone(value)) {
-      setErrors(prev => ({...prev, contact: text.phoneError}));
+      setErrors(prev => ({ ...prev, contact: text.phoneError }));
     }
-    
+
     if (name === 'quantity' && value && !validateQuantity(value)) {
-      setErrors(prev => ({...prev, quantity: text.quantityError}));
+      setErrors(prev => ({ ...prev, quantity: text.quantityError }));
     }
-    
+
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
@@ -118,31 +112,31 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const newErrors: {[key: string]: string} = {};
-    
+
+    const newErrors: { [key: string]: string } = {};
+
     if (formData.contact && !validatePhone(formData.contact)) {
       newErrors.contact = text.phoneError;
     }
-    
+
     if (formData.quantity && !validateQuantity(formData.quantity)) {
       newErrors.quantity = text.quantityError;
     }
-    
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       console.log('Form data submitted:', formData);
-      
+
       toast.success(text.successMessage);
-      
+
       setFormData({ product: 'printed-bags', name: '', contact: '', quantity: '', notes: '' });
       setErrors({});
       onClose();
@@ -168,7 +162,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
             {text.description}
           </DialogDescription>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="product" className="text-sm font-medium">
@@ -185,7 +179,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
               </SelectContent>
             </Select>
           </div>
-          
+
           <div className="space-y-2">
             <label htmlFor="name" className="text-sm font-medium">
               {text.name}
@@ -199,7 +193,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
               required
             />
           </div>
-          
+
           <div className="space-y-2">
             <label htmlFor="contact" className="text-sm font-medium">
               {text.contact}
@@ -218,7 +212,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
               <p className="text-sm text-red-500">{errors.contact}</p>
             )}
           </div>
-          
+
           <div className="space-y-2">
             <label htmlFor="quantity" className="text-sm font-medium">
               {text.quantity}
@@ -237,7 +231,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
               <p className="text-sm text-red-500">{errors.quantity}</p>
             )}
           </div>
-          
+
           <div className="space-y-2">
             <label htmlFor="notes" className="text-sm font-medium">
               {text.notes}
@@ -250,10 +244,10 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
               className="modern-input min-h-[80px]"
             />
           </div>
-          
+
           <DialogFooter className="mt-6">
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full bg-secondary hover:bg-secondary-dark rounded-xl"
               disabled={isSubmitting || Object.keys(errors).length > 0}
             >
