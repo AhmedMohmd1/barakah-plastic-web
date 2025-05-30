@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Phone, Mail, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,7 @@ const Contact = () => {
     <section id="contact" className="section-padding bg-gray-50">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="heading-2 text-primary mb-4">تواصل معنا</h2>
+          <h2 className="heading-2 text-primary mb-4">اوصل لينا بسهولة</h2>
           <p className="text-muted-foreground max-w-3xl mx-auto">
             نحن سعداء بالرد على استفساراتكم وتلبية طلباتكم. يمكنكم التواصل معنا
             من خلال النموذج أدناه
