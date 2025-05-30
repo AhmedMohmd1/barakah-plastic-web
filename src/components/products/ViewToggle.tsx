@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { LayoutGrid, List } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ViewToggleProps {
   viewMode: 'grid' | 'list';
@@ -9,6 +10,13 @@ interface ViewToggleProps {
 }
 
 const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onViewChange }) => {
+  const isMobile = useIsMobile();
+
+  // Hide the toggle completely on mobile devices
+  if (isMobile) {
+    return null;
+  }
+
   return (
     <div className="flex justify-end mb-6">
       <div className="bg-white rounded-lg p-1 inline-flex shadow-sm">

@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "./products/ProductCard";
 import ViewToggle from "./products/ViewToggle";
 import ProductsSection from "./products/ProductsSection";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Products = () => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
 
+  // Force list view on mobile
+  useEffect(() => {
+    if (isMobile) {
+      setViewMode("list");
+    }
+  }, [isMobile]);
+
   const openProductDetail = (productId: number) => {
     navigate(`/products/${productId}`);
+  };
+
+  const handleViewChange = (mode: "grid" | "list") => {
+    // Only allow view changes on non-mobile devices
+    if (!isMobile) {
+      setViewMode(mode);
+    }
   };
 
   const products = [
@@ -62,7 +78,7 @@ const Products = () => {
           </p>
         </div>
 
-        <ViewToggle viewMode={viewMode} onViewChange={setViewMode} />
+        <ViewToggle viewMode={viewMode} onViewChange={handleViewChange} />
 
         <ProductsSection viewMode={viewMode}>
           {products.map((product) => (
