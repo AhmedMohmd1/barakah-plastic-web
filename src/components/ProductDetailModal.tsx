@@ -55,7 +55,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           { name: "نوع الطباعة", value: "طباعة أوفست عالية الجودة" },
           { name: "الحد الأدنى للطلب", value: "1000 قطعة" },
         ],
-        images: ["images/plasticbag.jpeg"],
+        images: ["/images/plasticbag.jpeg"],
       },
     },
     2: {
@@ -69,7 +69,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           { name: "المقبض", value: "حبل قطني متين" },
           { name: "التخصيص", value: "طباعة شعار بجودة عالية" },
         ],
-        images: ["/images/softBags.jpg", "images/softBags.jpg"],
+        images: ["/images/softBags.jpg",
+          "images/softBags"],
       },
     },
     3: {
@@ -147,9 +148,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent
-          className={`max-w-4xl p-0 overflow-hidden ${
-            isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-          }`}
+          className={`max-w-4xl p-0 overflow-hidden ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+            }`}
         >
           <div className="absolute top-4 left-4 z-10">
             <Button
@@ -164,9 +164,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           </div>
 
           <div
-            className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${
-              language === "ar" ? "rtl" : "ltr"
-            }`}
+            className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${language === "ar" ? "rtl" : "ltr"
+              }`}
           >
             <div className="relative h-[300px] md:h-full">
               <img
@@ -181,11 +180,10 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       <button
                         key={index}
                         onClick={() => handleImageSelect(index)}
-                        className={`w-10 h-10 rounded-md overflow-hidden border-2 transition-all ${
-                          selectedImage === index
+                        className={`w-10 h-10 rounded-md overflow-hidden border-2 transition-all ${selectedImage === index
                             ? "border-white scale-110 shadow-lg"
                             : "border-transparent opacity-70"
-                        }`}
+                          }`}
                       >
                         <img
                           src={img}
@@ -220,11 +218,10 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                         fill={
                           star <= Math.floor(rating) ? "currentColor" : "none"
                         }
-                        className={`h-5 w-5 ${
-                          star <= Math.floor(rating)
+                        className={`h-5 w-5 ${star <= Math.floor(rating)
                             ? "text-amber-500"
                             : "text-gray-300"
-                        }`}
+                          }`}
                       />
                     ))}
                   </div>
@@ -236,9 +233,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               </DialogHeader>
 
               <div
-                className={`mt-4 p-6 rounded-xl ${
-                  isDarkMode ? "bg-gray-800/50" : "bg-gray-50"
-                }`}
+                className={`mt-4 p-6 rounded-xl ${isDarkMode ? "bg-gray-800/50" : "bg-gray-50"
+                  }`}
               >
                 <h3 className="text-lg font-semibold mb-2">
                   {language === "ar" ? "وصف المنتج" : "Product Description"}
@@ -254,9 +250,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   {product.specs.map((spec, i) => (
                     <div
                       key={i}
-                      className={`flex items-center gap-3 p-3 rounded-lg ${
-                        isDarkMode ? "bg-gray-800/50" : "bg-gray-50"
-                      }`}
+                      className={`flex items-center gap-3 p-3 rounded-lg ${isDarkMode ? "bg-gray-800/50" : "bg-gray-50"
+                        }`}
                     >
                       <div className="w-3 h-3 rounded-full bg-secondary shrink-0"></div>
                       <div>

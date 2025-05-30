@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -17,9 +18,10 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
     product: '',
     name: '',
     phone: '',
+    note: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -37,7 +39,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
     toast.success('تم إرسال طلبك بنجاح، سنتواصل معك قريباً');
     
     // Reset form and close modal
-    setFormData({ product: '', name: '', phone: '' });
+    setFormData({ product: '', name: '', phone: '', note: '' });
     onClose();
   };
 
@@ -102,6 +104,19 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
               className="modern-input ltr"
               dir="ltr"
               required
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <label htmlFor="note" className="text-sm font-medium">
+              ملاحظات
+            </label>
+            <Textarea
+              id="note"
+              name="note"
+              value={formData.note}
+              onChange={handleChange}
+              className="modern-input min-h-[80px]"
             />
           </div>
           

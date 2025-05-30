@@ -87,17 +87,19 @@ const Contact = () => {
                     id="name"
                     placeholder="أدخل اسمك الكامل"
                     className="modern-input"
+                    required
                   />
                 </div>
 
                 <div className="space-y-2">
                   <label htmlFor="phone" className="block font-medium">
-                    رقم الجوال
+                    رقم الهاتف
                   </label>
                   <Input
                     id="phone"
-                    placeholder="أدخل رقم الجوال"
+                    placeholder="أدخل رقم الهاتف"
                     className="modern-input"
+                    required
                   />
                 </div>
               </div>
@@ -134,6 +136,7 @@ const Contact = () => {
                   placeholder="اكتب رسالتك هنا"
                   rows={5}
                   className="modern-input resize-none"
+                  required
                 />
               </div>
 
