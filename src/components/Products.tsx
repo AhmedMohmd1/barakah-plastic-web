@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ProductCard from './products/ProductCard';
-import ViewToggle from './products/ViewToggle';
-import ProductsSection from './products/ProductsSection';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ProductCard from "./products/ProductCard";
+import ViewToggle from "./products/ViewToggle";
+import ProductsSection from "./products/ProductsSection";
 
 const Products = () => {
   const navigate = useNavigate();
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
 
   const openProductDetail = (productId: number) => {
@@ -17,33 +17,38 @@ const Products = () => {
     {
       id: 1,
       name: " شُنط مطبوعة بشعارك",
-      description: "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة وصديقة للبيئة، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
+      description:
+        "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة وصديقة للبيئة، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
       image: "images/plasticbag.jpeg",
     },
     {
       id: 2,
       name: "شنط سوفت للمحلات الملابس",
-      description: "شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية، مثالية لتعزيز تجربة التسوق",
+      description:
+        "شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية، مثالية لتعزيز تجربة التسوق",
       image: "/images/softBags.jpg",
     },
     {
       id: 3,
       name: "شنط قماش",
-      description: "شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية، مثالية للتسوق وحمل المشتريات اليومية",
+      description:
+        "شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية، مثالية للتسوق وحمل المشتريات اليومية",
       image: "/images/canvas.jpeg",
     },
     {
       id: 4,
       name: "اكياس سلوفان بشريطه",
-      description: "أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم، مثالية لتغليف المنتجات الصغيرة والهدايا بشكل أنيق",
+      description:
+        "أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم، مثالية لتغليف المنتجات الصغيرة والهدايا بشكل أنيق",
       image: "/images/كيس سلوفان.jpeg",
     },
     {
       id: 5,
       name: "اكياس ذات غالق - ziplock bags",
-      description: "أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات، متوفرة بأحجام مختلفة",
-      image: "https://images.unsplash.com/photo-1604166280644-22bb70f5b5ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80",
-    }
+      description:
+        "أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات، متوفرة بأحجام مختلفة",
+      image: "/images/اكياس-بقفل.png",
+    },
   ];
 
   return (
@@ -52,14 +57,15 @@ const Products = () => {
         <div className="text-center mb-12">
           <h2 className="heading-2 text-primary mb-4">منتجاتنا</h2>
           <p className="text-muted-foreground max-w-3xl mx-auto">
-            نقدم مجموعة متنوعة من الأكياس البلاستيكية عالية الجودة التي تناسب مختلف الاحتياجات
+            نقدم مجموعة متنوعة من الأكياس البلاستيكية عالية الجودة التي تناسب
+            مختلف الاحتياجات
           </p>
         </div>
 
         <ViewToggle viewMode={viewMode} onViewChange={setViewMode} />
 
         <ProductsSection viewMode={viewMode}>
-          {products.map(product => (
+          {products.map((product) => (
             <ProductCard
               key={product.id}
               product={product}
