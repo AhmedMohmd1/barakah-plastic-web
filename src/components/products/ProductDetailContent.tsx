@@ -17,7 +17,7 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomedImage, setZoomedImage] = useState('');
 
-  // Updated product data to match the correct IDs from Products.tsx
+  // Corrected product data to match the IDs from Products.tsx
   const productsData = {
     1: {
       id: 1,

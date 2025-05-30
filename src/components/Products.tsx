@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "./products/ProductCard";
@@ -32,7 +33,7 @@ const Products = () => {
   const products = [
     {
       id: 1,
-      name: " شُنط مطبوعة بشعارك",
+      name: "شُنط مطبوعة بشعارك",
       description:
         "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة وصديقة للبيئة، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
       image: "images/plasticbag.jpeg",
