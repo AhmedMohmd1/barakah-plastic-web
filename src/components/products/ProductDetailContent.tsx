@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import ImageGallery from './detail/ImageGallery';
@@ -17,13 +16,17 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomedImage, setZoomedImage] = useState('');
 
-  // Corrected product data to match the IDs from Products.tsx
+  // Updated product data with multiple images
   const productsData = {
     1: {
       id: 1,
       name: "شُنط مطبوعة بشعارك",
       description: "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة وصديقة للبيئة، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
-      images: ["images/plasticbag.jpeg"],
+      images: [
+        "images/plasticbag.jpeg",
+        "/images/softBags.jpg",
+        "/images/canvas.jpeg"
+      ],
       rating: 4.8,
       reviewCount: "124 تقييم",
       specs: [
@@ -37,7 +40,11 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
       id: 2,
       name: "شنط سوفت للمحلات الملابس",
       description: "شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية، مثالية لتعزيز تجربة التسوق",
-      images: ["/images/softBags.jpg"],
+      images: [
+        "/images/softBags.jpg",
+        "/images/canvas.jpeg",
+        "images/plasticbag.jpeg"
+      ],
       rating: 4.7,
       reviewCount: "98 تقييم",
       specs: [
@@ -51,7 +58,11 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
       id: 3,
       name: "شنط قماش",
       description: "شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية، مثالية للتسوق وحمل المشتريات اليومية",
-      images: ["/images/canvas.jpeg"],
+      images: [
+        "/images/canvas.jpeg",
+        "/images/softBags.jpg",
+        "images/plasticbag.jpeg"
+      ],
       rating: 4.9,
       reviewCount: "156 تقييم",
       specs: [
@@ -65,7 +76,11 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
       id: 4,
       name: "اكياس سلوفان بشريطه",
       description: "أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم، مثالية لتغليف المنتجات الصغيرة والهدايا بشكل أنيق",
-      images: ["/images/كيس سلوفان.jpeg"],
+      images: [
+        "/images/كيس سلوفان.jpeg",
+        "/images/solfan2.jpeg",
+        "/images/اكياس-بقفل.png"
+      ],
       rating: 4.6,
       reviewCount: "87 تقييم",
       specs: [
@@ -79,7 +94,11 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
       id: 5,
       name: "اكياس ذات غالق - ziplock bags",
       description: "أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات، متوفرة بأحجام مختلفة",
-      images: ["/images/اكياس-بقفل.png"],
+      images: [
+        "/images/اكياس-بقفل.png",
+        "/images/كيس سلوفان.jpeg",
+        "/images/solfan2.jpeg"
+      ],
       rating: 4.5,
       reviewCount: "203 تقييم",
       specs: [
@@ -104,17 +123,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
     );
   }
 
-  const handleBreadcrumbNavigation = () => {
-    navigate('/');
-    // Use setTimeout to ensure navigation completes before scrolling
-    setTimeout(() => {
-      const productsSection = document.getElementById('products');
-      if (productsSection) {
-        productsSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
-  };
-
   const handleZoom = (image: string) => {
     setZoomedImage(image);
     setIsZoomed(true);
@@ -123,25 +131,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container-custom py-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm mb-8">
-          <button 
-            onClick={() => navigate('/')}
-            className="text-primary hover:underline"
-          >
-            الرئيسية
-          </button>
-          <ChevronLeft className="w-4 h-4" />
-          <button 
-            onClick={handleBreadcrumbNavigation}
-            className="text-primary hover:underline"
-          >
-            المنتجات
-          </button>
-          <ChevronLeft className="w-4 h-4" />
-          <span className="text-gray-600">تفاصيل المنتج</span>
-        </nav>
-
         {/* Product Detail Content */}
         <div className="grid lg:grid-cols-2 gap-12">
           <ImageGallery
@@ -164,10 +153,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
             <div className="flex gap-4">
               <Button size="lg" className="flex-1">
                 طلب عرض سعر
-              </Button>
-              <Button variant="outline" size="lg" onClick={() => navigate('/')}>
-                <ArrowRight className="w-4 h-4 ml-2" />
-                العودة
               </Button>
             </div>
           </div>
