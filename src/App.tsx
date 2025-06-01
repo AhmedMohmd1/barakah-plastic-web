@@ -6,12 +6,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import { useState } from "react";
 import ProductDetails from "./pages/ProductDetails";
 
-const App = () => {
-  const [queryClient] = useState(() => new QueryClient());
+// Create QueryClient outside of component to avoid recreation on every render
+const queryClient = new QueryClient();
 
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
