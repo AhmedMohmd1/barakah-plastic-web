@@ -1,21 +1,25 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ProductCard from "./products/ProductCard";
 import ViewToggle from "./products/ViewToggle";
-import ProductsSection from "./products/ProductsSection";
+import ProductGrid from "./products/ProductGrid";
 import QuoteRequestModal from "./products/QuoteRequestModal";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useProductQuote } from "@/hooks/useProductQuote";
+import { PRODUCTS } from "@/constants/products";
 
 const Products = () => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<{
-    name: string;
-    image: string;
-  }>({ name: '', image: '' });
+  
+  const {
+    isModalOpen,
+    selectedProduct,
+    openQuoteModal,
+    closeQuoteModal,
+  } = useProductQuote();
 
   // Force list view on mobile
   useEffect(() => {
@@ -24,10 +28,6 @@ const Products = () => {
     }
   }, [isMobile]);
 
-  const openProductDetail = (productId: number) => {
-    navigate(`/products/${productId}`);
-  };
-
   const handleViewChange = (mode: "grid" | "list") => {
     // Only allow view changes on non-mobile devices
     if (!isMobile) {
@@ -35,53 +35,9 @@ const Products = () => {
     }
   };
 
-  const handleQuoteRequest = (productName: string, productImage: string) => {
-    setSelectedProduct({ name: productName, image: productImage });
-    setIsModalOpen(true);
+  const openProductDetail = (productId: number) => {
+    navigate(`/products/${productId}`);
   };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedProduct({ name: '', image: '' });
-  };
-
-  const products = [
-    {
-      id: 1,
-      name: "شُنط مطبوعة بشعارك",
-      description:
-        "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة وصديقة للبيئة، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
-      image: "images/plasticbag.jpeg",
-    },
-    {
-      id: 2,
-      name: "شنط سوفت للمحلات الملابس",
-      description:
-        "شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية، مثالية لتعزيز تجربة التسوق",
-      image: "/images/softBags.jpg",
-    },
-    {
-      id: 3,
-      name: "شنط قماش",
-      description:
-        "شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية، مثالية للتسوق وحمل المشتريات اليومية",
-      image: "/images/canvas.jpeg",
-    },
-    {
-      id: 4,
-      name: "اكياس سلوفان بشريطه",
-      description:
-        "أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم، مثالية لتغليف المنتجات الصغيرة والهدايا بشكل أنيق",
-      image: "/images/كيس سلوفان.jpeg",
-    },
-    {
-      id: 5,
-      name: "اكياس ذات غالق - ziplock bags",
-      description:
-        "أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات، متوفرة بأحجام مختلفة",
-      image: "/images/اكياس-بقفل.png",
-    },
-  ];
 
   return (
     <>
@@ -97,25 +53,20 @@ const Products = () => {
 
           <ViewToggle viewMode={viewMode} onViewChange={handleViewChange} />
 
-          <ProductsSection viewMode={viewMode}>
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                viewMode={viewMode}
-                hoveredProduct={hoveredProduct}
-                onHover={setHoveredProduct}
-                onViewDetails={openProductDetail}
-                onQuoteRequest={handleQuoteRequest}
-              />
-            ))}
-          </ProductsSection>
+          <ProductGrid
+            products={PRODUCTS}
+            viewMode={viewMode}
+            hoveredProduct={hoveredProduct}
+            onHover={setHoveredProduct}
+            onViewDetails={openProductDetail}
+            onQuoteRequest={openQuoteModal}
+          />
         </div>
       </section>
 
       <QuoteRequestModal
         isOpen={isModalOpen}
-        onClose={closeModal}
+        onClose={closeQuoteModal}
         productName={selectedProduct.name}
         productImage={selectedProduct.image}
       />
