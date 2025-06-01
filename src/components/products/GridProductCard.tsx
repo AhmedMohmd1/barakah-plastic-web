@@ -15,11 +15,16 @@ import { cn } from "@/lib/utils";
 import { ArrowLeft } from 'lucide-react';
 import { ProductCardProps } from './types';
 
-const GridProductCard: React.FC<Omit<ProductCardProps, 'viewMode'>> = ({
+interface GridProductCardProps extends Omit<ProductCardProps, 'viewMode'> {
+  onQuoteRequest: (productName: string, productImage: string) => void;
+}
+
+const GridProductCard: React.FC<GridProductCardProps> = ({
   product,
   hoveredProduct,
   onHover,
   onViewDetails,
+  onQuoteRequest,
 }) => {
   return (
     <Card 
@@ -30,6 +35,8 @@ const GridProductCard: React.FC<Omit<ProductCardProps, 'viewMode'>> = ({
       )}
       onMouseEnter={() => onHover(product.id)}
       onMouseLeave={() => onHover(null)}
+      data-name={product.name}
+      data-img={product.image}
     >
       <div className="relative h-52 overflow-hidden">
         <img 
@@ -69,7 +76,7 @@ const GridProductCard: React.FC<Omit<ProductCardProps, 'viewMode'>> = ({
           {product.description}
         </CardDescription>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
+      <CardFooter className="p-4 pt-0 flex flex-col gap-2">
         <Button 
           variant="outline" 
           className={cn(
@@ -81,6 +88,12 @@ const GridProductCard: React.FC<Omit<ProductCardProps, 'viewMode'>> = ({
         >
           المزيد من التفاصيل
           <ArrowLeft className="mr-2 h-4 w-4 group-hover:transform group-hover:translate-x-[-3px] transition-transform" />
+        </Button>
+        <Button 
+          className="w-full"
+          onClick={() => onQuoteRequest(product.name, product.image)}
+        >
+          طلب عرض سعر
         </Button>
       </CardFooter>
     </Card>

@@ -12,9 +12,14 @@ import { cn } from "@/lib/utils";
 import { ArrowLeft } from 'lucide-react';
 import { ProductCardProps } from './types';
 
-const ListProductCard: React.FC<Omit<ProductCardProps, 'viewMode'>> = ({
+interface ListProductCardProps extends Omit<ProductCardProps, 'viewMode'> {
+  onQuoteRequest: (productName: string, productImage: string) => void;
+}
+
+const ListProductCard: React.FC<ListProductCardProps> = ({
   product,
   onViewDetails,
+  onQuoteRequest,
 }) => {
   return (
     <Card 
@@ -23,6 +28,8 @@ const ListProductCard: React.FC<Omit<ProductCardProps, 'viewMode'>> = ({
         "hover:shadow-lg hover:translate-y-[-2px]",
         "bg-white hover:bg-white/95"
       )}
+      data-name={product.name}
+      data-img={product.image}
     >
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/3 h-52 md:h-auto overflow-hidden relative">
@@ -63,17 +70,25 @@ const ListProductCard: React.FC<Omit<ProductCardProps, 'viewMode'>> = ({
           <CardDescription className="text-gray-600 mb-4 flex-grow">
             {product.description}
           </CardDescription>
-          <Button 
-            variant="outline" 
-            className={cn(
-              "w-fit border-secondary text-secondary transition-all duration-300",
-              "hover:bg-secondary hover:text-white group"
-            )}
-            onClick={() => onViewDetails(product.id)}
-          >
-            المزيد من التفاصيل
-            <ArrowLeft className="mr-2 h-4 w-4 group-hover:transform group-hover:translate-x-[-3px] transition-transform" />
-          </Button>
+          <div className="flex gap-2 flex-col sm:flex-row">
+            <Button 
+              variant="outline" 
+              className={cn(
+                "flex-1 border-secondary text-secondary transition-all duration-300",
+                "hover:bg-secondary hover:text-white group"
+              )}
+              onClick={() => onViewDetails(product.id)}
+            >
+              المزيد من التفاصيل
+              <ArrowLeft className="mr-2 h-4 w-4 group-hover:transform group-hover:translate-x-[-3px] transition-transform" />
+            </Button>
+            <Button 
+              className="flex-1"
+              onClick={() => onQuoteRequest(product.name, product.image)}
+            >
+              طلب عرض سعر
+            </Button>
+          </div>
         </div>
       </div>
     </Card>
