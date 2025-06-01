@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { getProductById } from '@/utils/productUtils';
+import { PRODUCTS } from '@/constants/products';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -21,7 +23,31 @@ const ProductDetails = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (!productId) return null;
+  if (!productId || isNaN(Number(productId))) {
+    return (
+      <div className="container-custom py-8">
+        <div className="text-center py-12">
+          <h2 className="text-2xl font-bold text-primary mb-4">معرف المنتج غير صالح</h2>
+          <p className="text-muted-foreground mb-4">عذراً، معرف المنتج المطلوب غير صحيح.</p>
+          <Button onClick={() => navigate('/')}>العودة للرئيسية</Button>
+        </div>
+      </div>
+    );
+  }
+
+  const product = getProductById(PRODUCTS, parseInt(productId));
+
+  if (!product) {
+    return (
+      <div className="container-custom py-8">
+        <div className="text-center py-12">
+          <h2 className="text-2xl font-bold text-primary mb-4">المنتج غير موجود</h2>
+          <p className="text-muted-foreground mb-4">عذراً، لم نتمكن من العثور على المنتج المطلوب.</p>
+          <Button onClick={() => navigate('/')}>العودة للرئيسية</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container-custom py-8">
@@ -47,7 +73,7 @@ const ProductDetails = () => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>تفاصيل المنتج</BreadcrumbPage>
+              <BreadcrumbPage>{product.name}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

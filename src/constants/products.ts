@@ -100,6 +100,6 @@ export const PRODUCTS = [
     rating: 4.5,
     reviewCount: "21 تقييم"
   },
-] as const;
+];
 
 export type ProductType = typeof PRODUCTS[number];
