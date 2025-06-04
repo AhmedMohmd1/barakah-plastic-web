@@ -18,7 +18,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
 }) => {
   const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
     console.log('Image failed to load:', event.currentTarget.src);
-    event.currentTarget.src = '/images/placeholder.svg';
+    event.currentTarget.src = '/placeholder.svg';
   };
 
   const goToPrevious = () => {
@@ -32,11 +32,11 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   return (
     <div className="relative group">
       {/* Main Image */}
-      <div className="relative overflow-hidden rounded-lg bg-gray-100">
+      <div className="relative overflow-hidden rounded-lg bg-gray-100 aspect-square">
         <img
           src={images[selectedImage]}
           alt="Product"
-          className="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-300"
+          className="w-full h-full object-cover transition-transform duration-300"
           onError={handleImageError}
         />
         
@@ -82,7 +82,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
               <button
                 key={index}
                 onClick={() => onImageSelect(index)}
-                className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-md overflow-hidden border-2 transition-all ${
+                className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${
                   selectedImage === index
                     ? 'border-primary ring-2 ring-primary/20'
                     : 'border-gray-200 hover:border-gray-300'
