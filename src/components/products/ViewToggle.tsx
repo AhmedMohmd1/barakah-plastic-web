@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { LayoutGrid, List } from 'lucide-react';
@@ -9,10 +8,13 @@ interface ViewToggleProps {
   onViewChange: (mode: 'grid' | 'list') => void;
 }
 
+/**
+ * Toggle component for switching between grid and list views
+ * Hidden on mobile devices where only list view is available
+ */
 const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onViewChange }) => {
   const isMobile = useIsMobile();
 
-  // Hide the toggle completely on mobile devices
   if (isMobile) {
     return null;
   }
@@ -25,6 +27,7 @@ const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onViewChange }) => {
           size="icon" 
           onClick={() => onViewChange('grid')}
           className="rounded-md"
+          aria-label="Grid view"
         >
           <LayoutGrid size={18} />
         </Button>
@@ -33,6 +36,7 @@ const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onViewChange }) => {
           size="icon" 
           onClick={() => onViewChange('list')}
           className="rounded-md"
+          aria-label="List view"
         >
           <List size={18} />
         </Button>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ProductCard from './ProductCard';
 import { Product } from '@/types/product';
@@ -12,6 +11,10 @@ interface ProductGridProps {
   onQuoteRequest: (productName: string, productImage: string) => void;
 }
 
+/**
+ * Grid layout component for displaying products
+ * Supports both grid and list view modes
+ */
 const ProductGrid: React.FC<ProductGridProps> = ({
   products,
   viewMode,
