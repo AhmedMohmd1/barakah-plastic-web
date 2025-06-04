@@ -5,9 +5,9 @@ export const PRODUCTS = [
     name: "شُنط مطبوعة بشعارك",
     description:
       "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة وصديقة للبيئة، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
-    image: "images/plasticbag.jpeg",
+    image: "/images/plasticbag.jpeg",
     images: [
-      "images/plasticbag.jpeg",
+      "/images/plasticbag.jpeg",
       "/images/softBags.jpg",
       "/images/canvas.jpeg"
     ],
@@ -28,7 +28,7 @@ export const PRODUCTS = [
     image: "/images/softBags.jpg",
     images: [
       "/images/softBags.jpg",
-      "images/plasticbag.jpeg",
+      "/images/plasticbag.jpeg",
       "/images/canvas.jpeg"
     ],
     specifications: [
@@ -49,7 +49,7 @@ export const PRODUCTS = [
     images: [
       "/images/canvas.jpeg",
       "/images/canvas2.png",
-      "images/plasticbag.jpeg"
+      "/images/plasticbag.jpeg"
     ],
     specifications: [
       { name: "المادة", value: "قماش قطني 100%" },
@@ -69,7 +69,7 @@ export const PRODUCTS = [
     images: [
       "/images/كيس سلوفان.jpeg",
       "/images/solfan2.jpeg",
-      "images/plasticbag.jpeg"
+      "/images/plasticbag.jpeg"
     ],
     specifications: [
       { name: "المادة", value: "سلوفان شفاف" },
@@ -89,7 +89,7 @@ export const PRODUCTS = [
     images: [
       "/images/اكياس-بقفل.png",
       "/images/كيس سلوفان.jpeg",
-      "images/plasticbag.jpeg"
+      "/images/plasticbag.jpeg"
     ],
     specifications: [
       { name: "النوع", value: "أكياس بسحاب" },
