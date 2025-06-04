@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -43,8 +42,8 @@ const GridProductCard: React.FC<GridProductCardProps> = ({
           src={product.image} 
           alt={product.name} 
           className={cn(
-            "w-full h-full object-cover transition-transform duration-500",
-            "group-hover:scale-110 group-hover:brightness-105"
+            "w-full h-full object-cover object-center transition-transform duration-500",
+            "group-hover:scale-105 group-hover:brightness-105"
           )}
         />
         {product.badge && (
