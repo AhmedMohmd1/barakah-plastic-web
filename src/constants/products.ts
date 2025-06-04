@@ -8,8 +8,8 @@ export const PRODUCTS = [
     image: "/images/plasticbag.jpeg",
     images: [
       "/images/plasticbag.jpeg",
-      "/images/softBags.jpg",
-      "/images/canvas.jpeg"
+      "/images/plasticbag.jpeg",
+      "/images/plasticbag.jpeg",
     ],
     specifications: [
       { name: "المادة", value: "بلاستيك عالي الجودة" },
@@ -28,8 +28,7 @@ export const PRODUCTS = [
     image: "/images/softBags.jpg",
     images: [
       "/images/softBags.jpg",
-      "/images/plasticbag.jpeg",
-      "/images/canvas.jpeg"
+      "/images/softBags.jpg",
     ],
     specifications: [
       { name: "المادة", value: "قماش ناعم" },
@@ -49,7 +48,7 @@ export const PRODUCTS = [
     images: [
       "/images/canvas.jpeg",
       "/images/canvas2.png",
-      "/images/plasticbag.jpeg"
+
     ],
     specifications: [
       { name: "المادة", value: "قماش قطني 100%" },
@@ -69,7 +68,7 @@ export const PRODUCTS = [
     images: [
       "/images/كيس سلوفان.jpeg",
       "/images/solfan2.jpeg",
-      "/images/plasticbag.jpeg"
+      
     ],
     specifications: [
       { name: "المادة", value: "سلوفان شفاف" },
@@ -88,8 +87,7 @@ export const PRODUCTS = [
     image: "/images/اكياس-بقفل.png",
     images: [
       "/images/اكياس-بقفل.png",
-      "/images/كيس سلوفان.jpeg",
-      "/images/plasticbag.jpeg"
+    
     ],
     specifications: [
       { name: "النوع", value: "أكياس بسحاب" },
