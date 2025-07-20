@@ -1,10 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import ImageGallery from './detail/ImageGallery';
 import ProductInfo from './detail/ProductInfo';
 import ProductSpecifications from './detail/ProductSpecifications';
 import QuoteRequestModal from './QuoteRequestModal';
+import { ProductDetailSkeleton } from '@/components/ui/skeleton-card';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { useProductQuote } from '@/hooks/useProductQuote';
 import { getProductById, getProductImages, getProductSpecs, getProductRating } from '@/utils/productUtils';
 import { PRODUCTS } from '@/constants/products';
@@ -16,6 +18,7 @@ interface ProductDetailContentProps {
 const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   
   const {
     isModalOpen,
@@ -23,6 +26,14 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
     openQuoteModal,
     closeQuoteModal,
   } = useProductQuote();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [productId]);
 
   const product = getProductById(PRODUCTS, productId);
 
@@ -33,6 +44,10 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
         <p className="text-muted-foreground">عذراً، لم نتمكن من العثور على المنتج المطلوب.</p>
       </div>
     );
+  }
+
+  if (isLoading) {
+    return <ProductDetailSkeleton />;
   }
 
   const images = getProductImages(product);
@@ -48,9 +63,8 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
   };
 
   return (
-    <>
+    <ErrorBoundary>
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-        {/* Image Gallery */}
         <div className="space-y-4">
           <ImageGallery
             images={images}
@@ -60,7 +74,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
           />
         </div>
 
-        {/* Product Information */}
         <div className="space-y-6">
           <ProductInfo
             title={product.name}
@@ -71,7 +84,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
 
           {specs.length > 0 && <ProductSpecifications specs={specs} />}
 
-          {/* Action Buttons */}
           <div className="space-y-3">
             <Button 
               size="lg" 
@@ -84,7 +96,6 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
         </div>
       </div>
 
-      {/* Zoom Modal */}
       {zoomedImage && (
         <div 
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
@@ -98,14 +109,13 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
         </div>
       )}
 
-      {/* Quote Request Modal */}
       <QuoteRequestModal
         isOpen={isModalOpen}
         onClose={closeQuoteModal}
         productName={selectedProduct.name}
         productImage={selectedProduct.image}
       />
-    </>
+    </ErrorBoundary>
   );
 };
 

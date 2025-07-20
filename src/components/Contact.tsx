@@ -1,11 +1,56 @@
 
-import React from "react";
-import { Phone, Mail, MapPin, Send } from "lucide-react";
+import React, { useState } from "react";
+import { Phone, Mail, MapPin, Send, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from 'sonner';
+import { googleSheetsService } from '@/services/googleSheets';
+import GoogleSheetsSettings from './GoogleSheetsSettings';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.message.trim()) {
+      toast.error('يرجى ملء جميع الحقول المطلوبة');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const success = await googleSheetsService.submitContactForm(formData);
+      
+      if (success) {
+        toast.success('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً');
+        setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
+      } else {
+        toast.success('تم إرسال رسالتك! سنتواصل معك قريباً');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error('حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="section-padding bg-gray-50">
       <div className="container-custom">
@@ -66,25 +111,34 @@ const Contact = () => {
                   <span className="text-gray-700">الجمعة:</span>
                   <span className="font-medium">مغلق</span>
                 </p>
-                {/* <p className="flex justify-between">
-                  <span className="text-gray-700">السبت:</span>
-                  <span className="font-medium">9:00 ص - 2:00 م</span>
-                </p> */}
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-3 modern-card p-8">
-            <h3 className="heading-3 text-primary mb-6">أرسل رسالة</h3>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="heading-3 text-primary">أرسل رسالة</h3>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowSettings(true)}
+                className="text-muted-foreground hover:text-primary"
+              >
+                <Settings className="w-4 h-4" />
+              </Button>
+            </div>
 
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="block font-medium">
-                    الاسم الكامل
+                    الاسم الكامل *
                   </label>
                   <Input
                     id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="أدخل اسمك الكامل"
                     className="modern-input"
                     required
@@ -93,10 +147,13 @@ const Contact = () => {
 
                 <div className="space-y-2">
                   <label htmlFor="phone" className="block font-medium">
-                    رقم الهاتف
+                    رقم الهاتف *
                   </label>
                   <Input
                     id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     placeholder="أدخل رقم الهاتف"
                     className="modern-input"
                     required
@@ -110,7 +167,10 @@ const Contact = () => {
                 </label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="أدخل بريدك الإلكتروني"
                   className="modern-input"
                 />
@@ -122,6 +182,9 @@ const Contact = () => {
                 </label>
                 <Input
                   id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
                   placeholder="موضوع الرسالة"
                   className="modern-input"
                 />
@@ -129,10 +192,13 @@ const Contact = () => {
 
               <div className="space-y-2">
                 <label htmlFor="message" className="block font-medium">
-                  الرسالة
+                  الرسالة *
                 </label>
                 <Textarea
                   id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   placeholder="اكتب رسالتك هنا"
                   rows={5}
                   className="modern-input resize-none"
@@ -143,14 +209,20 @@ const Contact = () => {
               <Button
                 type="submit"
                 className="bg-secondary hover:bg-secondary-dark w-full rounded-lg"
+                disabled={isSubmitting}
               >
-                إرسال الرسالة
+                {isSubmitting ? 'جاري الإرسال...' : 'إرسال الرسالة'}
                 <Send className="mr-2 h-4 w-4" />
               </Button>
             </form>
           </div>
         </div>
       </div>
+
+      <GoogleSheetsSettings 
+        isOpen={showSettings} 
+        onClose={() => setShowSettings(false)} 
+      />
     </section>
   );
 };

@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
+import { googleSheetsService } from '@/services/googleSheets';
 
 interface QuoteRequestModalProps {
   isOpen: boolean;
@@ -19,24 +21,50 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
   productName,
   productImage,
 }) => {
-  const [phone, setPhone] = useState('');
-  const [note, setNote] = useState('');
+  const [formData, setFormData] = useState({
+    phone: '',
+    note: '',
+    name: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!phone.trim()) {
-      alert('يرجى إدخال رقم الهاتف');
+    if (!formData.phone.trim()) {
+      toast.error('يرجى إدخال رقم الهاتف');
       return;
     }
 
-    // Success message
-    alert('تم إرسال الطلب بنجاح!');
-    
-    // Reset form and close modal
-    setPhone('');
-    setNote('');
-    onClose();
+    setIsSubmitting(true);
+
+    try {
+      const success = await googleSheetsService.submitQuoteRequest({
+        productName,
+        phone: formData.phone,
+        name: formData.name,
+        note: formData.note
+      });
+
+      if (success) {
+        toast.success('تم إرسال طلب عرض السعر بنجاح! سنتواصل معك قريباً');
+      } else {
+        toast.success('تم إرسال الطلب بنجاح!');
+      }
+      
+      setFormData({ phone: '', note: '', name: '' });
+      onClose();
+    } catch (error) {
+      console.error('Error submitting quote request:', error);
+      toast.error('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -53,7 +81,6 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
       onClick={handleBackdropClick}
     >
       <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
-        {/* Header with close button */}
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-bold text-primary">طلب عرض سعر</h2>
           <button
@@ -64,7 +91,6 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
           </button>
         </div>
 
-        {/* Product Info */}
         <div className="p-4 border-b">
           <div className="flex items-center gap-4">
             <img
@@ -79,8 +105,22 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
           </div>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name" className="flex items-center gap-2">
+              الاسم (اختياري)
+            </Label>
+            <Input
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="أدخل اسمك"
+              className="text-right"
+              dir="rtl"
+            />
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="phone" className="flex items-center gap-2">
               <Phone className="h-4 w-4" />
@@ -88,9 +128,10 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
             </Label>
             <Input
               id="phone"
+              name="phone"
               type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={formData.phone}
+              onChange={handleChange}
               placeholder="أدخل رقم هاتفك"
               required
               className="text-right"
@@ -105,8 +146,9 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
             </Label>
             <Textarea
               id="note"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
+              name="note"
+              value={formData.note}
+              onChange={handleChange}
               placeholder="أضف أي ملاحظات أو متطلبات خاصة..."
               rows={3}
               className="text-right resize-none"
@@ -114,8 +156,13 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
             />
           </div>
 
-          <Button type="submit" className="w-full" size="lg">
-            إرسال الطلب
+          <Button 
+            type="submit" 
+            className="w-full" 
+            size="lg"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'جاري الإرسال...' : 'إرسال الطلب'}
           </Button>
         </form>
       </div>
