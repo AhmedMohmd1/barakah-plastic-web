@@ -16,7 +16,7 @@ const Hero = () => {
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent z-10"></div>
         <img 
-          src="https://images.unsplash.com/photo-1618477462146-050d2767eac4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2100&q=80" 
+          src="/images/hero.jpeg" 
           alt="البركة بلاست" 
           className="w-full h-full object-cover opacity-90"
         />
