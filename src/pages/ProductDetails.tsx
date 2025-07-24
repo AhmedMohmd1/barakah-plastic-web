@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ProductDetailContent from '@/components/products/ProductDetailContent';
@@ -11,14 +10,14 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getProductById } from '@/utils/productUtils';
 import { PRODUCTS } from '@/constants/products';
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -51,25 +50,39 @@ const ProductDetails = () => {
 
   return (
     <div className="container-custom py-8">
-      <div className="mb-6">
+      <div className="mb-6" dir="rtl">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => navigate('/')}
-                className="mr-2"
-              >
-                <ArrowLeft className="h-4 w-4" />
-              </Button>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <BreadcrumbLink onClick={() => navigate('/')}>الرئيسية</BreadcrumbLink>
+              <BreadcrumbLink
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/');
+                }}
+                className="cursor-pointer hover:underline hover:text-primary transition-colors"
+              >
+                الرئيسية
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink onClick={() => navigate('/#products')}>المنتجات</BreadcrumbLink>
+              <BreadcrumbLink
+                href="/#products"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/', { replace: false });
+                  setTimeout(() => {
+                    const el = document.getElementById('products');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
+                className="cursor-pointer hover:underline hover:text-primary transition-colors"
+              >
+                المنتجات
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
