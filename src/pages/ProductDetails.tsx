@@ -11,7 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { getProductById } from '@/utils/productUtils';
 import { PRODUCTS } from '@/constants/products';
 
@@ -50,18 +50,18 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="container-custom py-8">
+    <div className="container-custom py-8 dir-rtl">
       <div className="mb-6">
         <Breadcrumb>
-          <BreadcrumbList>
+          <BreadcrumbList className="flex-row-reverse">
             <BreadcrumbItem>
               <Button 
                 variant="ghost" 
                 size="icon"
                 onClick={() => navigate('/')}
-                className="mr-2"
+                className="ml-2"
               >
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" />
               </Button>
             </BreadcrumbItem>
             <BreadcrumbItem>
