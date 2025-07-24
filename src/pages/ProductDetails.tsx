@@ -66,8 +66,16 @@ const ProductDetails = () => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink
-                onClick={() => navigate('/#products')}
-                className="cursor-pointer px-2 py-1 rounded hover:bg-muted hover:text-primary transition-colors"
+                href="/#products"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/', { replace: false });
+                  setTimeout(() => {
+                    const el = document.getElementById('products');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
+                className="cursor-pointer hover:underline hover:text-primary transition-colors"
               >
                 المنتجات
               </BreadcrumbLink>
