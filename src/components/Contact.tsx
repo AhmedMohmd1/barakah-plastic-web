@@ -30,12 +30,16 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Simulate successful submission
-    setTimeout(() => {
+    // TODO: Replace with real API call for form submission
+    try {
+      // Example: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) });
       toast.success('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً');
       setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      toast.error('حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى.');
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (

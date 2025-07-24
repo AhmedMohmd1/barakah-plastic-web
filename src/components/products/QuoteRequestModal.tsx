@@ -42,18 +42,6 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
     setIsSubmitting(true);
 
     try {
-      // const success = await googleSheetsService.submitQuoteRequest({ // Removed
-      //   productName,
-      //   phone: formData.phone,
-      //   name: formData.name,
-      //   note: formData.note
-      // });
-
-      // if (success) {
-      //   toast.success('تم إرسال طلب عرض السعر بنجاح! سنتواصل معك قريباً');
-      // } else {
-      //   toast.success('تم إرسال الطلب بنجاح!');
-      // }
 
       setFormData({ phone: '', note: '', name: '' });
       onClose();

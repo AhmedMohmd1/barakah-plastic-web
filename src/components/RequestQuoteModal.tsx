@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { PRODUCTS } from "@/constants/products"; // استخدم نفس المنتجات
+// استخدم نفس المنتجات
+import { PRODUCTS } from "@/constants/products";
 
 interface RequestQuoteModalProps {
   isOpen: boolean;
