@@ -10,7 +10,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getProductById } from '@/utils/productUtils';
 import { PRODUCTS } from '@/constants/products';
 
@@ -50,27 +50,15 @@ const ProductDetails = () => {
 
   return (
     <div className="container-custom py-8 dir-rtl">
-      <div className="mb-6">
+      <div className="mb-6" dir="rtl">
         <Breadcrumb>
-          <BreadcrumbList className="flex-row-reverse">
+          <BreadcrumbList>
             <BreadcrumbItem>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => navigate('/')}
-                className="ml-2"
-              >
-                <ArrowRight className="h-4 w-4" />
-              </Button>
             </BreadcrumbItem>
             <BreadcrumbItem>
               <BreadcrumbLink
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate('/');
-                }}
-                className="cursor-pointer hover:underline hover:text-primary transition-colors"
+                onClick={() => navigate('/')}
+                className="cursor-pointer px-2 py-1 rounded hover:bg-muted hover:text-primary transition-colors"
               >
                 الرئيسية
               </BreadcrumbLink>
@@ -78,16 +66,8 @@ const ProductDetails = () => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink
-                href="/#products"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate('/', { replace: false });
-                  setTimeout(() => {
-                    const el = document.getElementById('products');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                }}
-                className="cursor-pointer hover:underline hover:text-primary transition-colors"
+                onClick={() => navigate('/#products')}
+                className="cursor-pointer px-2 py-1 rounded hover:bg-muted hover:text-primary transition-colors"
               >
                 المنتجات
               </BreadcrumbLink>
