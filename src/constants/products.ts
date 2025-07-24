@@ -8,8 +8,7 @@ export const PRODUCTS = [
     image: "/images/plasticbag.jpeg",
     images: [
       "/images/plasticbag.jpeg",
-      "/images/plasticbag.jpeg",
-      "/images/plasticbag.jpeg",
+      "/images/plasticbag2.png",
     ],
     specifications: [
       { name: "المادة", value: "بلاستيك عالي الجودة" },
@@ -25,10 +24,12 @@ export const PRODUCTS = [
     name: "شنط سوفت للمحلات الملابس",
     description:
       "شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية، مثالية لتعزيز تجربة التسوق",
-    image: "/images/softBags.jpg",
+    image: "/images/softbagsCover.png",
     images: [
+      "/images/softbagsCover.png",
       "/images/softBags.jpg",
-      "/images/softBags.jpg",
+      "/images/softbag2.png",
+      "/images/softBag1.png",
     ],
     specifications: [
       { name: "المادة", value: "قماش ناعم" },
@@ -68,7 +69,7 @@ export const PRODUCTS = [
     images: [
       "/images/كيس سلوفان.jpeg",
       "/images/solfan2.jpeg",
-      
+
     ],
     specifications: [
       { name: "المادة", value: "سلوفان شفاف" },
@@ -87,7 +88,7 @@ export const PRODUCTS = [
     image: "/images/اكياس-بقفل.png",
     images: [
       "/images/اكياس-بقفل.png",
-    
+
     ],
     specifications: [
       { name: "النوع", value: "أكياس بسحاب" },
