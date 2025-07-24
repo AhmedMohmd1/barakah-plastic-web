@@ -65,29 +65,11 @@ const ProductDetails = () => {
               </Button>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <BreadcrumbLink 
-                href="/" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate('/');
-                }}
-                className="cursor-pointer"
-              >
-                الرئيسية
-              </BreadcrumbLink>
+              <BreadcrumbLink onClick={() => navigate('/')}>الرئيسية</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink 
-                href="/#products" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate('/#products');
-                }}
-                className="cursor-pointer"
-              >
-                المنتجات
-              </BreadcrumbLink>
+              <BreadcrumbLink onClick={() => navigate('/#products')}>المنتجات</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
