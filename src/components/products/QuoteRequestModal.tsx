@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { X, Phone, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { googleSheetsService } from '@/services/googleSheets';
 
 interface QuoteRequestModalProps {
   isOpen: boolean;
@@ -35,7 +33,7 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.phone.trim()) {
       toast.error('يرجى إدخال رقم الهاتف');
       return;
@@ -44,19 +42,19 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
     setIsSubmitting(true);
 
     try {
-      const success = await googleSheetsService.submitQuoteRequest({
-        productName,
-        phone: formData.phone,
-        name: formData.name,
-        note: formData.note
-      });
+      // const success = await googleSheetsService.submitQuoteRequest({ // Removed
+      //   productName,
+      //   phone: formData.phone,
+      //   name: formData.name,
+      //   note: formData.note
+      // });
 
-      if (success) {
-        toast.success('تم إرسال طلب عرض السعر بنجاح! سنتواصل معك قريباً');
-      } else {
-        toast.success('تم إرسال الطلب بنجاح!');
-      }
-      
+      // if (success) {
+      //   toast.success('تم إرسال طلب عرض السعر بنجاح! سنتواصل معك قريباً');
+      // } else {
+      //   toast.success('تم إرسال الطلب بنجاح!');
+      // }
+
       setFormData({ phone: '', note: '', name: '' });
       onClose();
     } catch (error) {
@@ -76,7 +74,7 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
       onClick={handleBackdropClick}
     >
@@ -156,9 +154,9 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
             />
           </div>
 
-          <Button 
-            type="submit" 
-            className="w-full" 
+          <Button
+            type="submit"
+            className="w-full"
             size="lg"
             disabled={isSubmitting}
           >

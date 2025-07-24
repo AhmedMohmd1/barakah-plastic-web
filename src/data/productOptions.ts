@@ -7,11 +7,6 @@ export interface ProductOption {
 
 export const productOptions: ProductOption[] = [
   {
-    value: "shopping-bags",
-    label: "أكياس تسوق",
-    description: "أكياس تسوق متينة بمقاسات مختلفة"
-  },
-  {
     value: "packaging-bags",
     label: "أكياس تغليف",
     description: "أكياس تغليف شفافة وملونة"

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { productOptions } from '@/data/productOptions';
+import { PRODUCTS } from "@/constants/products"; // استخدم نفس المنتجات
 
 interface RequestQuoteModalProps {
   isOpen: boolean;
@@ -32,13 +32,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your server
-    console.log('Form data submitted:', formData);
-    
-    // Show success message
     toast.success('تم إرسال طلبك بنجاح، سنتواصل معك قريباً');
-    
-    // Reset form and close modal
     setFormData({ product: '', name: '', phone: '', note: '' });
     onClose();
   };
@@ -53,30 +47,30 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
               <X className="h-4 w-4" />
             </Button>
           </div>
-          <DialogDescription>
+          <DialogDescription className="text-right" dir="rtl">
             يرجى ملء البيانات التالية للحصول على عرض سعر مخصص
           </DialogDescription>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="product" className="text-sm font-medium">
               المنتج
             </label>
             <Select value={formData.product} onValueChange={handleProductChange} required>
-              <SelectTrigger className="modern-input">
+              <SelectTrigger className="modern-input text-right" dir="rtl">
                 <SelectValue placeholder="اختر المنتج" />
               </SelectTrigger>
-              <SelectContent>
-                {productOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
+              <SelectContent dir="rtl" className="text-right">
+                {PRODUCTS.map((product) => (
+                  <SelectItem key={product.id} value={product.name} className="text-right">
+                    {product.name}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          
+
           <div className="space-y-2">
             <label htmlFor="name" className="text-sm font-medium">
               الاسم
@@ -90,7 +84,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
               required
             />
           </div>
-          
+
           <div className="space-y-2">
             <label htmlFor="phone" className="text-sm font-medium">
               رقم الهاتف
@@ -98,7 +92,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
             <Input
               id="phone"
               name="phone"
-              type="tel" 
+              type="tel"
               value={formData.phone}
               onChange={handleChange}
               className="modern-input ltr"
@@ -106,7 +100,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
               required
             />
           </div>
-          
+
           <div className="space-y-2">
             <label htmlFor="note" className="text-sm font-medium">
               ملاحظات
@@ -119,10 +113,10 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
               className="modern-input min-h-[80px]"
             />
           </div>
-          
+
           <DialogFooter className="mt-6">
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full bg-secondary hover:bg-secondary-dark rounded-xl"
             >
               طلب

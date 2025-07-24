@@ -1,12 +1,9 @@
-
 import React, { useState } from "react";
-import { Phone, Mail, MapPin, Send, Settings } from "lucide-react";
+import { Phone, Mail, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from 'sonner';
-import { googleSheetsService } from '@/services/googleSheets';
-import GoogleSheetsSettings from './GoogleSheetsSettings';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +14,6 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -34,21 +30,12 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    try {
-      const success = await googleSheetsService.submitContactForm(formData);
-      
-      if (success) {
-        toast.success('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً');
-        setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
-      } else {
-        toast.success('تم إرسال رسالتك! سنتواصل معك قريباً');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      toast.error('حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى');
-    } finally {
+    // Simulate successful submission
+    setTimeout(() => {
+      toast.success('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً');
+      setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
       setIsSubmitting(false);
-    }
+    }, 1000);
   };
 
   return (
@@ -118,14 +105,6 @@ const Contact = () => {
           <div className="lg:col-span-3 modern-card p-8">
             <div className="flex items-center justify-between mb-6">
               <h3 className="heading-3 text-primary">أرسل رسالة</h3>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setShowSettings(true)}
-                className="text-muted-foreground hover:text-primary"
-              >
-                <Settings className="w-4 h-4" />
-              </Button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -218,11 +197,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-
-      <GoogleSheetsSettings 
-        isOpen={showSettings} 
-        onClose={() => setShowSettings(false)} 
-      />
     </section>
   );
 };

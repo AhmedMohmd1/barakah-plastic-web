@@ -9,9 +9,11 @@ import {
   Mail,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -19,6 +21,14 @@ const Footer = () => {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const products = [
+    { name: "شُنط سوفت للمحلات الملابس", id: "2" },
+    { name: "أكياس سلوفان بشريط لاصق", id: "4" },
+    { name: "شنط قماش", id: "3" },
+    { name: "أكياس مطبوعة", id: "1" },
+    { name: "أكياس ذات غالق - Ziplock Bags", id: "5" },
+  ];
 
   return (
     <footer className="bg-primary text-white">
@@ -77,21 +87,16 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-lg mb-4">منتجاتنا</h4>
             <ul className="space-y-2">
-              <li>
-                <button onClick={() => scrollToSection('products')} className="text-white/80 hover:text-secondary transition-colors">أكياس تسوق</button>
-              </li>
-              <li>
-                <button onClick={() => scrollToSection('products')} className="text-white/80 hover:text-secondary transition-colors">أكياس تغليف</button>
-              </li>
-              <li>
-                <button onClick={() => scrollToSection('products')} className="text-white/80 hover:text-secondary transition-colors">أكياس قمامة</button>
-              </li>
-              <li>
-                <button onClick={() => scrollToSection('products')} className="text-white/80 hover:text-secondary transition-colors">أكياس مطبوعة</button>
-              </li>
-              <li>
-                <button onClick={() => scrollToSection('products')} className="text-white/80 hover:text-secondary transition-colors">أكياس بمقاسات خاصة</button>
-              </li>
+              {products.map((product) => (
+                <li key={product.id}>
+                  <button
+                    onClick={() => navigate(`/products/${product.id}`)}
+                    className="text-white/80 hover:text-secondary transition-colors"
+                  >
+                    {product.name}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
