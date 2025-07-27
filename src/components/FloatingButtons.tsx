@@ -1,23 +1,26 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useThrottle } from '@/hooks/useDebounce';
 
 const FloatingButtons = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
+  const toggleVisibility = useCallback(() => {
+    if (window.pageYOffset > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
   }, []);
+
+  const throttledToggleVisibility = useThrottle(toggleVisibility, 16);
+
+  useEffect(() => {
+    window.addEventListener('scroll', throttledToggleVisibility);
+    return () => window.removeEventListener('scroll', throttledToggleVisibility);
+  }, [throttledToggleVisibility]);
 
   const scrollToTop = () => {
     window.scrollTo({

@@ -8,6 +8,9 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProductDetails from "./pages/ProductDetails";
+import { useEffect } from "react";
+import { usePerformance } from "@/hooks/usePerformance";
+import { preloadCriticalResources } from "@/utils/preloader";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +23,26 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
+  // Monitor performance metrics
+  usePerformance();
+
+  useEffect(() => {
+    // Preload critical resources
+    preloadCriticalResources();
+
+    // Register service worker for caching
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then((registration) => {
+          console.log('SW registered: ', registration);
+        })
+        .catch((registrationError) => {
+          console.log('SW registration failed: ', registrationError);
+        });
+    }
+  }, []);
+
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
