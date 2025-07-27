@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { X, Loader2 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { toast } from 'sonner';
-// استخدم نفس المنتجات
+import { FormField } from '@/components/ui/form-field';
+import { useForm } from '@/hooks/useForm';
 import { PRODUCTS } from "@/constants/products";
 
 interface RequestQuoteModalProps {
@@ -15,99 +13,39 @@ interface RequestQuoteModalProps {
 }
 
 const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({
-    product: '',
-    name: '',
-    phone: '',
-    note: '',
+  const {
+    formData,
+    errors,
+    isSubmitting,
+    handleChange,
+    handleSelectChange,
+    handleSubmit
+  } = useForm({
+    initialData: {
+      product: '',
+      name: '',
+      phone: '',
+      note: '',
+    },
+    validationSchema: {
+      product: 'required',
+      name: 'required',
+      phone: 'phone',
+      note: 'optional'
+    },
+    endpoint: 'https://sheetdb.io/api/v1/8rd4nognbuv4g',
+    successMessage: 'تم إرسال طلبك بنجاح، سنتواصل معك قريباً',
+    errorMessage: 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى',
+    onSuccess: onClose
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleProductChange = (value: string) => {
-    setFormData(prev => ({ ...prev, product: value }));
-  };
-
-  const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
-
-    if (!formData.product.trim()) {
-      newErrors.product = 'يرجى اختيار المنتج';
-    }
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'يرجى إدخال الاسم';
-    }
-
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'يرجى إدخال رقم الهاتف';
-    } else {
-      // Remove any spaces, dashes, or other characters to get only digits
-      const cleanPhone = formData.phone.replace(/\D/g, '');
-      
-      // Check if it's exactly 11 digits and starts with valid Egyptian prefixes
-      const validPrefixes = ['011', '012', '015', '010'];
-      const phonePrefix = cleanPhone.substring(0, 3);
-      
-      if (cleanPhone.length !== 11) {
-        newErrors.phone = 'يجب أن يكون رقم الهاتف 11 رقم';
-      } else if (!validPrefixes.includes(phonePrefix)) {
-        newErrors.phone = 'يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010';
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      toast.error('يرجى تصحيح الأخطاء في النموذج');
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      // SheetDB expects the data to match the column headers in your Google Sheet
-      const response = await fetch('https://sheetdb.io/api/v1/8rd4nognbuv4g', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          // Field names must match exactly with your Google Sheet column headers
-          "product name": formData.product,
-          "client name": formData.name,
-          "phone number": formData.phone,
-          "notes": formData.note || ''
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log('Form submitted successfully:', result);
-      
-      toast.success('تم إرسال طلبك بنجاح، سنتواصل معك قريباً');
-      setFormData({ product: '', name: '', phone: '', note: '' });
-      setErrors({});
-      onClose();
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      toast.error('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى');
-    } finally {
-      setIsSubmitting(false);
-    }
+  const onSubmit = (e: React.FormEvent) => {
+    handleSubmit(e, {
+      "product name": formData.product,
+      "client name": formData.name,
+      "phone number": formData.phone,
+      "notes": formData.note || ''
+    });
   };
 
   return (
@@ -125,12 +63,12 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={onSubmit} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="product" className="text-sm font-medium">
               المنتج
             </label>
-            <Select value={formData.product} onValueChange={handleProductChange} required>
+            <Select value={formData.product} onValueChange={(value) => handleSelectChange(value, 'product')} required>
               <SelectTrigger className={`modern-input text-right ${errors.product ? 'border-red-500' : ''}`} dir="rtl">
                 <SelectValue placeholder="اختر المنتج" />
               </SelectTrigger>
@@ -147,54 +85,37 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
             )}
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium">
-              الاسم
-            </label>
-            <Input
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className={`modern-input ${errors.name ? 'border-red-500' : ''}`}
-              required
-            />
-            {errors.name && (
-              <p className="text-sm text-red-500">{errors.name}</p>
-            )}
-          </div>
+          <FormField
+            type="text"
+            name="name"
+            label="الاسم"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            errors={errors}
+          />
 
-          <div className="space-y-2">
-            <label htmlFor="phone" className="text-sm font-medium">
-              رقم الهاتف
-            </label>
-            <Input
-              id="phone"
-              name="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={handleChange}
-              className={`modern-input ltr ${errors.phone ? 'border-red-500' : ''}`}
-              dir="ltr"
-              required
-            />
-            {errors.phone && (
-              <p className="text-sm text-red-500">{errors.phone}</p>
-            )}
-          </div>
+          <FormField
+            type="tel"
+            name="phone"
+            label="رقم الهاتف"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            errors={errors}
+            className="ltr"
+            dir="ltr"
+          />
 
-          <div className="space-y-2">
-            <label htmlFor="note" className="text-sm font-medium">
-              ملاحظات
-            </label>
-            <Textarea
-              id="note"
-              name="note"
-              value={formData.note}
-              onChange={handleChange}
-              className="modern-input min-h-[80px]"
-            />
-          </div>
+          <FormField
+            type="textarea"
+            name="note"
+            label="ملاحظات"
+            value={formData.note}
+            onChange={handleChange}
+            errors={errors}
+            rows={3}
+          />
 
           <DialogFooter className="mt-6">
             <Button

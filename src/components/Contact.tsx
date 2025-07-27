@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,28 +14,97 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+    
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'يرجى إدخال الاسم الكامل';
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'يرجى إدخال رقم الهاتف';
+    } else {
+      // Remove any spaces, dashes, or other characters to get only digits
+      const cleanPhone = formData.phone.replace(/\D/g, '');
+      
+      // Check if it's exactly 11 digits and starts with valid Egyptian prefixes
+      const validPrefixes = ['011', '012', '015', '010'];
+      const phonePrefix = cleanPhone.substring(0, 3);
+      
+      if (cleanPhone.length !== 11) {
+        newErrors.phone = 'يجب أن يكون رقم الهاتف 11 رقم';
+      } else if (!validPrefixes.includes(phonePrefix)) {
+        newErrors.phone = 'يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010';
+      }
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'يرجى إدخال الرسالة';
+    }
+
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'يرجى إدخال بريد إلكتروني صحيح';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.name.trim() || !formData.phone.trim() || !formData.message.trim()) {
-      toast.error('يرجى ملء جميع الحقول المطلوبة');
+
+    if (!validateForm()) {
+      toast.error('يرجى تصحيح الأخطاء في النموذج');
       return;
     }
 
     setIsSubmitting(true);
 
-    // TODO: Replace with real API call for form submission
     try {
-      // Example: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) });
+      const response = await fetch('https://sheetdb.io/api/v1/az68rhltg636u', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          // Field names must match exactly with your Google Sheet column headers
+          "الأسم": formData.name,
+          "رقم التليفون": formData.phone,
+          "البريد الالكتروني": formData.email || '',
+          "الموضوع": formData.subject || '',
+          "الرسالة": formData.message
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Contact form submitted successfully:', result);
+      
       toast.success('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً');
       setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
+      setErrors({});
     } catch (error) {
+      console.error('Error submitting contact form:', error);
       toast.error('حدث خطأ أثناء إرسال الرسالة. حاول مرة أخرى.');
     } finally {
       setIsSubmitting(false);
@@ -123,9 +192,12 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="أدخل اسمك الكامل"
-                    className="modern-input"
+                    className={`modern-input ${errors.name ? 'border-red-500' : ''}`}
                     required
                   />
+                  {errors.name && (
+                    <p className="text-sm text-red-500">{errors.name}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -138,9 +210,12 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="أدخل رقم الهاتف"
-                    className="modern-input"
+                    className={`modern-input ${errors.phone ? 'border-red-500' : ''}`}
                     required
                   />
+                  {errors.phone && (
+                    <p className="text-sm text-red-500">{errors.phone}</p>
+                  )}
                 </div>
               </div>
 
@@ -155,8 +230,11 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="أدخل بريدك الإلكتروني"
-                  className="modern-input"
+                  className={`modern-input ${errors.email ? 'border-red-500' : ''}`}
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-500">{errors.email}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -184,9 +262,12 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder="اكتب رسالتك هنا"
                   rows={5}
-                  className="modern-input resize-none"
+                  className={`modern-input resize-none ${errors.message ? 'border-red-500' : ''}`}
                   required
                 />
+                {errors.message && (
+                  <p className="text-sm text-red-500">{errors.message}</p>
+                )}
               </div>
 
               <Button
@@ -194,8 +275,17 @@ const Contact = () => {
                 className="bg-secondary hover:bg-secondary-dark w-full rounded-lg"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'جاري الإرسال...' : 'إرسال الرسالة'}
-                <Send className="mr-2 h-4 w-4" />
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    جاري الإرسال...
+                  </>
+                ) : (
+                  <>
+                    إرسال الرسالة
+                    <Send className="mr-2 h-4 w-4" />
+                  </>
+                )}
               </Button>
             </form>
           </div>

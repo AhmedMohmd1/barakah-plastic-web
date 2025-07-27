@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Phone, MessageSquare } from 'lucide-react';
+import { X, Phone, MessageSquare, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,25 +25,82 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
     name: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+    
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'يرجى إدخال رقم الهاتف';
+    } else {
+      // Remove any spaces, dashes, or other characters to get only digits
+      const cleanPhone = formData.phone.replace(/\D/g, '');
+      
+      // Check if it's exactly 11 digits and starts with valid Egyptian prefixes
+      const validPrefixes = ['011', '012', '015', '010'];
+      const phonePrefix = cleanPhone.substring(0, 3);
+      
+      if (cleanPhone.length !== 11) {
+        newErrors.phone = 'يجب أن يكون رقم الهاتف 11 رقم';
+      } else if (!validPrefixes.includes(phonePrefix)) {
+        newErrors.phone = 'يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.phone.trim()) {
-      toast.error('يرجى إدخال رقم الهاتف');
+    if (!validateForm()) {
+      toast.error('يرجى تصحيح الأخطاء في النموذج');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
+      const response = await fetch('https://sheetdb.io/api/v1/8rd4nognbuv4g', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          // Field names must match exactly with your Google Sheet column headers
+          "product name": productName,
+          "client name": formData.name || '',
+          "phone number": formData.phone,
+          "notes": formData.note || ''
+        }),
+      });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Product quote request submitted successfully:', result);
+      
+      toast.success('تم إرسال طلبك بنجاح، سنتواصل معك قريباً');
       setFormData({ phone: '', note: '', name: '' });
+      setErrors({});
       onClose();
     } catch (error) {
       console.error('Error submitting quote request:', error);
@@ -102,9 +159,12 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
               value={formData.name}
               onChange={handleChange}
               placeholder="أدخل اسمك"
-              className="text-right"
+              className={`text-right ${errors.name ? 'border-red-500' : ''}`}
               dir="rtl"
             />
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -120,9 +180,12 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
               onChange={handleChange}
               placeholder="أدخل رقم هاتفك"
               required
-              className="text-right"
+              className={`text-right ${errors.phone ? 'border-red-500' : ''}`}
               dir="rtl"
             />
+            {errors.phone && (
+              <p className="text-sm text-red-500">{errors.phone}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -137,9 +200,12 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
               onChange={handleChange}
               placeholder="أضف أي ملاحظات أو متطلبات خاصة..."
               rows={3}
-              className="text-right resize-none"
+              className={`text-right resize-none ${errors.note ? 'border-red-500' : ''}`}
               dir="rtl"
             />
+            {errors.note && (
+              <p className="text-sm text-red-500">{errors.note}</p>
+            )}
           </div>
 
           <Button
@@ -148,7 +214,14 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
             size="lg"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'جاري الإرسال...' : 'إرسال الطلب'}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                جاري الإرسال...
+              </>
+            ) : (
+              'إرسال الطلب'
+            )}
           </Button>
         </form>
       </div>
