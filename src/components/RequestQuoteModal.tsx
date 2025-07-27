@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
+import { X, Loader2 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
 // استخدم نفس المنتجات
@@ -21,6 +21,8 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
     phone: '',
     note: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -31,11 +33,81 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
     setFormData(prev => ({ ...prev, product: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!formData.product.trim()) {
+      newErrors.product = 'يرجى اختيار المنتج';
+    }
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'يرجى إدخال الاسم';
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'يرجى إدخال رقم الهاتف';
+    } else {
+      // Remove any spaces, dashes, or other characters to get only digits
+      const cleanPhone = formData.phone.replace(/\D/g, '');
+      
+      // Check if it's exactly 11 digits and starts with valid Egyptian prefixes
+      const validPrefixes = ['011', '012', '015', '010'];
+      const phonePrefix = cleanPhone.substring(0, 3);
+      
+      if (cleanPhone.length !== 11) {
+        newErrors.phone = 'يجب أن يكون رقم الهاتف 11 رقم';
+      } else if (!validPrefixes.includes(phonePrefix)) {
+        newErrors.phone = 'يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('تم إرسال طلبك بنجاح، سنتواصل معك قريباً');
-    setFormData({ product: '', name: '', phone: '', note: '' });
-    onClose();
+
+    if (!validateForm()) {
+      toast.error('يرجى تصحيح الأخطاء في النموذج');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // SheetDB expects the data to match the column headers in your Google Sheet
+      const response = await fetch('https://sheetdb.io/api/v1/8rd4nognbuv4g', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          // Field names must match exactly with your Google Sheet column headers
+          "product name": formData.product,
+          "client name": formData.name,
+          "phone number": formData.phone,
+          "notes": formData.note || ''
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Form submitted successfully:', result);
+      
+      toast.success('تم إرسال طلبك بنجاح، سنتواصل معك قريباً');
+      setFormData({ product: '', name: '', phone: '', note: '' });
+      setErrors({});
+      onClose();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -59,7 +131,7 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
               المنتج
             </label>
             <Select value={formData.product} onValueChange={handleProductChange} required>
-              <SelectTrigger className="modern-input text-right" dir="rtl">
+              <SelectTrigger className={`modern-input text-right ${errors.product ? 'border-red-500' : ''}`} dir="rtl">
                 <SelectValue placeholder="اختر المنتج" />
               </SelectTrigger>
               <SelectContent dir="rtl" className="text-right">
@@ -70,6 +142,9 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
                 ))}
               </SelectContent>
             </Select>
+            {errors.product && (
+              <p className="text-sm text-red-500">{errors.product}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -81,9 +156,12 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="modern-input"
+              className={`modern-input ${errors.name ? 'border-red-500' : ''}`}
               required
             />
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -96,10 +174,13 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
               type="tel"
               value={formData.phone}
               onChange={handleChange}
-              className="modern-input ltr"
+              className={`modern-input ltr ${errors.phone ? 'border-red-500' : ''}`}
               dir="ltr"
               required
             />
+            {errors.phone && (
+              <p className="text-sm text-red-500">{errors.phone}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -119,8 +200,16 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose }
             <Button
               type="submit"
               className="w-full bg-secondary hover:bg-secondary-dark rounded-xl"
+              disabled={isSubmitting}
             >
-              طلب
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  جاري الإرسال...
+                </>
+              ) : (
+                'طلب'
+              )}
             </Button>
           </DialogFooter>
         </form>
