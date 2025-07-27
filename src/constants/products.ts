@@ -4,7 +4,7 @@ export const PRODUCTS = [
     id: 1,
     name: "شُنط مطبوعة بشعارك",
     description:
-      "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة وصديقة للبيئة، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
+      "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة ، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
     image: "/images/plasticbag.jpeg",
     images: [
       "/images/plasticbag.jpeg",
@@ -12,12 +12,12 @@ export const PRODUCTS = [
     ],
     specifications: [
       { name: "المادة", value: "بلاستيك عالي الجودة" },
-      { name: "السُمك", value: "قابل للتخصيص" },
-      { name: "الحجم", value: "أحجام متعددة" },
-      { name: "الطباعة", value: "طباعة رقمية عالية الدقة" }
+      { name: "السُمك", value: "حسب الطلب – متوفر بسماكات مختلفة حسب الاستخدام" },
+      { name: "الحجم", value: "أحجام متعددة - حسب الطلب" },
+      { name: "الطباعة", value: "طباعة ديجيتال أو فلكسو بدقة عالية (وجه واحد أو وجهين)" }
     ],
-    rating: 4.8,
-    reviewCount: "24 تقييم"
+    // rating: 4.8,
+    // reviewCount: "24 تقييم"
   },
   {
     id: 2,
@@ -32,13 +32,13 @@ export const PRODUCTS = [
       "/images/softBag1.png",
     ],
     specifications: [
-      { name: "المادة", value: "قماش ناعم" },
+      // { name: "المادة", value: "قماش ناعم" },
       { name: "المقاسات", value: "صغير، متوسط، كبير" },
       { name: "الألوان", value: "ألوان متنوعة" },
       { name: "التصميم", value: "أنيق وعملي" }
     ],
-    rating: 4.6,
-    reviewCount: "18 تقييم"
+    // rating: 4.6,
+    //    reviewCount: "18 تقييم"
   },
   {
     id: 3,
@@ -52,13 +52,13 @@ export const PRODUCTS = [
 
     ],
     specifications: [
-      { name: "المادة", value: "قماش قطني 100%" },
+      //  { name: "المادة", value: "قماش قطني 100%" },
       { name: "السعة", value: "10-15 كيلو" },
       { name: "صديق للبيئة", value: "قابل للغسيل والإعادة الاستخدام" },
       { name: "المقاسات", value: "متوسط وكبير" }
     ],
-    rating: 4.9,
-    reviewCount: "32 تقييم"
+    // rating: 4.9,
+    // reviewCount: "32 تقييم"
   },
   {
     id: 4,
@@ -74,11 +74,11 @@ export const PRODUCTS = [
     specifications: [
       { name: "المادة", value: "سلوفان شفاف" },
       { name: "الإغلاق", value: "شريط لاصق قوي" },
-      { name: "الاستخدام", value: "تغليف المنتجات والهدايا" },
+      { name: "الاستخدام", value: "تغليف وحفظ المنتجات " },
       { name: "الشفافية", value: "عالية الوضوح" }
     ],
-    rating: 4.7,
-    reviewCount: "15 تقييم"
+    // rating: 4.7,
+    // reviewCount: "15 تقييم"
   },
   {
     id: 5,
@@ -88,6 +88,8 @@ export const PRODUCTS = [
     image: "/images/اكياس-بقفل.png",
     images: [
       "/images/اكياس-بقفل.png",
+      "/images/ziplockBag.jpg",
+      "/images/ziplockBag1.jpg",
 
     ],
     specifications: [
@@ -96,8 +98,8 @@ export const PRODUCTS = [
       { name: "الأحجام", value: "صغير، متوسط، كبير" },
       { name: "القابلية", value: "قابل للإغلاق المحكم" }
     ],
-    rating: 4.5,
-    reviewCount: "21 تقييم"
+    // rating: 4.5,
+    // reviewCount: "21 تقييم"
   },
 ];
 

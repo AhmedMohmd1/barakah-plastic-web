@@ -19,7 +19,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
     <>
       <div>
         <h1 className="text-3xl font-bold mb-4">{title}</h1>
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <div className="flex items-center">
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
@@ -31,7 +31,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           </div>
           <span className="font-semibold">{rating}</span>
           <span className="text-sm text-muted-foreground">{reviewCount}</span>
-        </div>
+        </div> */}
       </div>
 
       <div className="p-6 rounded-xl bg-gray-50">

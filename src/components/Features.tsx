@@ -22,7 +22,7 @@ const Features = () => {
     {
       icon: <Recycle className="h-10 w-10 text-secondary" />,
       title: 'مواد قابلة للتحلل',
-      description: 'نقدم خيارات صديقة للبيئة من الأكياس القابلة للتحلل'
+      description: 'نقدم خيارات  من الأكياس القابلة للتحلل'
     },
     {
       icon: <ThumbsUp className="h-10 w-10 text-secondary" />,

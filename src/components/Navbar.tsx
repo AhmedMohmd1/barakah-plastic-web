@@ -34,8 +34,8 @@ const Navbar = () => {
   return (
     <>
       <header className={cn(
-        "sticky top-0 z-50 transition-all duration-300",
-        scrolled ? "bg-white/95 backdrop-blur-md shadow-md" : "bg-transparent"
+        "sticky top-0 z-50 transition-all duration-300 bg-white shadow-md",
+        scrolled ? "shadow-lg" : "shadow-md"
       )}>
         <div className="container-custom py-3">
           <div className="flex items-center justify-between">
@@ -50,7 +50,7 @@ const Navbar = () => {
             </div>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-reverse space-x-6">
+            <nav className="hidden md:flex items-center space-x-reverse space-x-6 ">
               <a href="#" className="font-medium hover:text-primary relative group py-2 px-1">
                 الرئيسية
                 <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-secondary group-hover:w-full transition-all duration-300"></span>
