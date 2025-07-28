@@ -17,7 +17,7 @@ const Features = () => {
     {
       icon: <Truck className="h-10 w-10 text-secondary" />,
       title: 'توصيل سريع',
-      description: 'نوفر خدمة توصيل سريعة لكافة مناطق المملكة دون تأخير'
+      description: 'نوفر خدمة توصيل سريعة لكافة المحافظات'
     },
     {
       icon: <Recycle className="h-10 w-10 text-secondary" />,
