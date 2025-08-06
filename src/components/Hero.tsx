@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 const Hero = () => {
+  const [api, setApi] = useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const heroImages = [
+    "/images/hero.jpeg",
+    "/images/canvas.jpeg", 
+    "/images/plasticbag.jpeg",
+    "/images/solfan2.jpeg"
+  ];
+
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -10,10 +22,51 @@ const Hero = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (!api) return;
+
+    api.on("select", () => {
+      setCurrentSlide(api.selectedScrollSnap());
+    });
+  }, [api]);
   return <section className="relative bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/30 dark:to-secondary/30 min-h-[90vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
+        <Carousel 
+          className="w-full h-full" 
+          opts={{ loop: true }}
+          plugins={[Autoplay({ delay: 4000 })]}
+          setApi={setApi}
+        >
+          <CarouselContent className="h-full">
+            {heroImages.map((image, index) => (
+              <CarouselItem key={index} className="h-full">
+                <img 
+                  src={image} 
+                  alt={`البركة بلاست ${index + 1}`} 
+                  className="w-full h-full object-cover opacity-90" 
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-4" />
+          <CarouselNext className="right-4" />
+        </Carousel>
         
-        <img src="/images/hero.jpeg" alt="البركة بلاست" className="w-full h-full object-cover opacity-90" />
+        {/* Slide indicators */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => api?.scrollTo(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide 
+                  ? 'bg-white scale-110' 
+                  : 'bg-white/50 hover:bg-white/75'
+              }`}
+            />
+          ))}
+        </div>
       </div>
       <div className="container-custom relative z-20">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
