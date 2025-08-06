@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
 const Hero = () => {
-  const [api, setApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
   
   const heroImages = [
@@ -24,41 +21,56 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    if (!api) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 4000);
 
-    api.on("select", () => {
-      setCurrentSlide(api.selectedScrollSnap());
-    });
-  }, [api]);
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  };
   return <section className="relative bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/30 dark:to-secondary/30 min-h-[90vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
-        <Carousel 
-          className="w-full h-full" 
-          opts={{ loop: true }}
-          plugins={[Autoplay({ delay: 4000 })]}
-          setApi={setApi}
-        >
-          <CarouselContent className="h-full">
-            {heroImages.map((image, index) => (
-              <CarouselItem key={index} className="h-full">
-                <img 
-                  src={image} 
-                  alt={`البركة بلاست ${index + 1}`} 
-                  className="w-full h-full object-cover opacity-90" 
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-4" />
-          <CarouselNext className="right-4" />
-        </Carousel>
+        <div className="relative w-full h-full overflow-hidden">
+          {heroImages.map((image, index) => (
+            <img 
+              key={index}
+              src={image} 
+              alt={`البركة بلاست ${index + 1}`} 
+              className={`absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-500 ${
+                index === currentSlide ? 'opacity-90' : 'opacity-0'
+              }`}
+            />
+          ))}
+          
+          {/* Navigation arrows */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white rounded-full p-2 transition-all"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+          
+          <button
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white rounded-full p-2 transition-all"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+        </div>
         
         {/* Slide indicators */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
           {heroImages.map((_, index) => (
             <button
               key={index}
-              onClick={() => api?.scrollTo(index)}
+              onClick={() => setCurrentSlide(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentSlide 
                   ? 'bg-white scale-110' 
