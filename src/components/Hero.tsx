@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+
+import React, { useEffect, useState, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
@@ -8,34 +10,31 @@ const Hero = () => {
     "/images/hero.jpeg",
     "/images/canvas.jpeg", 
     "/images/plasticbag.jpeg",
-    "/images/solfan2.jpeg"
+    "/images/softBag1.png",
+    "/images/ziplockBag.jpg"
   ];
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
+  const scrollToQuote = () => {
+    document.getElementById('contact')?.scrollIntoView({ 
+      behavior: 'smooth' 
+    });
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
   }, [heroImages.length]);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-  };
-
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
-  };
-  return <section className="relative bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/30 dark:to-secondary/30 min-h-[90vh] flex items-center overflow-hidden">
+  }, [heroImages.length]);
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 4000);
+    return () => clearInterval(interval);
+  }, [nextSlide]);
+
+  return (
+    <section className="relative bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/30 dark:to-secondary/30 min-h-[90vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
         <div className="relative w-full h-full overflow-hidden">
           {heroImages.map((image, index) => (
@@ -43,7 +42,7 @@ const Hero = () => {
               key={index}
               src={image} 
               alt={`البركة بلاست ${index + 1}`} 
-              className={`absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-500 ${
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
                 index === currentSlide ? 'opacity-90' : 'opacity-0'
               }`}
             />
@@ -53,6 +52,7 @@ const Hero = () => {
           <button
             onClick={prevSlide}
             className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white rounded-full p-2 transition-all"
+            aria-label="الصورة السابقة"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
@@ -60,6 +60,7 @@ const Hero = () => {
           <button
             onClick={nextSlide}
             className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white rounded-full p-2 transition-all"
+            aria-label="الصورة التالية"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -76,39 +77,31 @@ const Hero = () => {
                   ? 'bg-white scale-110' 
                   : 'bg-white/50 hover:bg-white/75'
               }`}
+              aria-label={`اذهب إلى الصورة ${index + 1}`}
             />
           ))}
         </div>
       </div>
-      <div className="container-custom relative z-20">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="order-2 md:order-1">
-            <div className="space-y-6 animate-fade-in">
-              <h1 className="heading-1 text-white drop-shadow-md">
-                البركة بلاست
-              </h1>
-              <p className="text-xl font-bold text-secondary drop-shadow-md mb-2">
-                صناعة أكياس البلاستيك بجودة عالية
-              </p>
-              <p className="text-white text-lg">
-                نقدم لكم أجود أنواع الأكياس البلاستيكية بتقنيات حديثة وجودة فائقة منذ عام 2011
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button size="lg" onClick={() => scrollToSection('contact')} className="bg-primary hover:bg-primary-dark font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-                  تواصل معنا
-                  <ChevronLeft className="mr-2 h-4 w-4" />
-                </Button>
-                <Button size="lg" variant="outline" onClick={() => scrollToSection('products')} className="border-secondary bg-white/80 text-secondary hover:bg-secondary/10 font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-                  استعرض منتجاتنا
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div className="order-1 md:order-2 md:flex justify-center md:justify-end hidden">
-            {/* Hidden on mobile for better UX */}
-          </div>
+      
+      <div className="relative z-10 container mx-auto px-6 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 animate-fade-in">
+            البركة بلاست
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in-up">
+            رائدة في صناعة الأكياس البلاستيكية والحلول التعبئة والتغليف المبتكرة
+          </p>
+          <Button 
+            size="lg" 
+            onClick={scrollToQuote}
+            className="animate-fade-in-up delay-300 text-lg px-8 py-3"
+          >
+            طلب عرض سعر
+          </Button>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Hero;
