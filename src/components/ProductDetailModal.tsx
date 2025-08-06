@@ -69,7 +69,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           { name: "المقبض", value: "حبل قطني متين" },
           { name: "التخصيص", value: "طباعة شعار بجودة عالية" },
         ],
-        images: ["/images/softBags.jpg",
+        images: [
           "images/softBags"],
       },
     },
@@ -181,8 +181,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                         key={index}
                         onClick={() => handleImageSelect(index)}
                         className={`w-10 h-10 rounded-md overflow-hidden border-2 transition-all ${selectedImage === index
-                            ? "border-white scale-110 shadow-lg"
-                            : "border-transparent opacity-70"
+                          ? "border-white scale-110 shadow-lg"
+                          : "border-transparent opacity-70"
                           }`}
                       >
                         <img
@@ -219,8 +219,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                           star <= Math.floor(rating) ? "currentColor" : "none"
                         }
                         className={`h-5 w-5 ${star <= Math.floor(rating)
-                            ? "text-amber-500"
-                            : "text-gray-300"
+                          ? "text-amber-500"
+                          : "text-gray-300"
                           }`}
                       />
                     ))}

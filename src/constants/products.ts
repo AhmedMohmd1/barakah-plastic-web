@@ -27,7 +27,6 @@ export const PRODUCTS = [
     image: "/images/softbagsCover.png",
     images: [
       "/images/softbagsCover.png",
-      "/images/softBags.jpg",
       "/images/softbag2.png",
       "/images/softBag1.png",
     ],
