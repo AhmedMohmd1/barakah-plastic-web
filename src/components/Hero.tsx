@@ -2,16 +2,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 
+const HERO_IMAGES = [
+  "/images/hero.jpeg",
+  "/images/canvas.jpeg", 
+  "/images/plasticbag.jpeg",
+  "/images/softBag1.png",
+  "/images/ziplockBag.jpg",
+] as const;
+
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
-  const heroImages = [
-    "/images/hero.jpeg",
-    "/images/canvas.jpeg", 
-    "/images/plasticbag.jpeg",
-    "/images/softBag1.png",
-    "/images/ziplockBag.jpg"
-  ];
 
   const scrollToQuote = () => {
     document.getElementById('contact')?.scrollIntoView({ 
@@ -20,8 +20,8 @@ const Hero = () => {
   };
 
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-  }, [heroImages.length]);
+    setCurrentSlide((prev) => (prev + 1) % HERO_IMAGES.length);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 4000);
@@ -32,7 +32,7 @@ const Hero = () => {
     <section className="relative bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/30 dark:to-secondary/30 min-h-[90vh] flex items-center overflow-hidden">
       {/* Background Image Slider */}
       <div className="absolute inset-0">
-        {heroImages.map((image, index) => (
+        {HERO_IMAGES.map((image, index) => (
           <img 
             key={index}
             src={image} 

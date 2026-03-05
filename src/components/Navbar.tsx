@@ -4,6 +4,17 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import RequestQuoteModal from './RequestQuoteModal';
 import { useThrottle } from '@/hooks/useDebounce';
+
+const NAV_ITEMS = [
+  { label: 'الرئيسية', href: '#' },
+  { label: 'من نحن', href: '#about' },
+  { label: 'منتجاتنا', href: '#products' },
+  { label: 'مميزاتنا', href: '#features' },
+  { label: 'آراء العملاء', href: '#testimonials' },
+  { label: 'الأسئلة المتكررة', href: '#faq' },
+  { label: 'تواصل معنا', href: '#contact' },
+] as const;
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -39,34 +50,12 @@ const Navbar = () => {
             
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-reverse space-x-6 ">
-              <a href="#" className="font-medium hover:text-primary relative group py-2 px-1">
-                الرئيسية
-                <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-secondary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#about" className="font-medium hover:text-primary relative group py-2 px-1">
-                من نحن
-                <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-secondary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#products" className="font-medium hover:text-primary relative group py-2 px-1">
-                منتجاتنا
-                <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-secondary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#features" className="font-medium hover:text-primary relative group py-2 px-1">
-                مميزاتنا
-                <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-secondary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#testimonials" className="font-medium hover:text-primary relative group py-2 px-1">
-                آراء العملاء
-                <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-secondary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#faq" className="font-medium hover:text-primary relative group py-2 px-1">
-                الأسئلة المتكررة
-                <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-secondary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#contact" className="font-medium hover:text-primary relative group py-2 px-1">
-                تواصل معنا
-                <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-secondary group-hover:w-full transition-all duration-300"></span>
-              </a>
+              {NAV_ITEMS.map((item) => (
+                <a key={item.href} href={item.href} className="font-medium hover:text-primary relative group py-2 px-1">
+                  {item.label}
+                  <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-secondary group-hover:w-full transition-all duration-300"></span>
+                </a>
+              ))}
             </nav>
             
             <div className="hidden md:block">
@@ -86,13 +75,11 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         <div className={cn("md:hidden absolute w-full bg-white shadow-md transition-all duration-300 ease-in-out z-50", isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden")}>
           <div className="py-4 px-6 flex flex-col space-y-4">
-            <a href="#" className="font-medium hover:text-primary" onClick={toggleMenu}>الرئيسية</a>
-            <a href="#about" className="font-medium hover:text-primary" onClick={toggleMenu}>من نحن</a>
-            <a href="#products" className="font-medium hover:text-primary" onClick={toggleMenu}>منتجاتنا</a>
-            <a href="#features" className="font-medium hover:text-primary" onClick={toggleMenu}>مميزاتنا</a>
-            <a href="#testimonials" className="font-medium hover:text-primary" onClick={toggleMenu}>آراء العملاء</a>
-            <a href="#faq" className="font-medium hover:text-primary" onClick={toggleMenu}>الأسئلة المتكررة</a>
-            <a href="#contact" className="font-medium hover:text-primary" onClick={toggleMenu}>تواصل معنا</a>
+            {NAV_ITEMS.map((item) => (
+              <a key={item.href} href={item.href} className="font-medium hover:text-primary" onClick={toggleMenu}>
+                {item.label}
+              </a>
+            ))}
             <Button onClick={() => {
             openQuoteModal();
             toggleMenu();
