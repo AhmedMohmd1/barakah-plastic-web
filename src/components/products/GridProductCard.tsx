@@ -33,22 +33,22 @@ const GridProductCard: React.FC<GridProductCardProps> = ({
   return (
     <Card 
       className={cn(
-        "group overflow-hidden border-0 shadow-md transition-all duration-300",
-        "hover:shadow-lg hover:translate-y-[-5px]",
-        "bg-white hover:bg-white/95"
+        "group overflow-hidden border border-border/50 shadow-sm transition-all duration-300",
+        "hover:shadow-xl hover:-translate-y-1",
+        "bg-card rounded-2xl"
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       data-name={product.name}
       data-img={product.image}
     >
-      <div className="relative h-52 overflow-hidden">
+      <div className="relative h-56 overflow-hidden">
         <img 
           src={product.image} 
           alt={product.name} 
           className={cn(
             "w-full h-full object-cover object-center transition-transform duration-500",
-            "group-hover:scale-105 group-hover:brightness-105"
+            "group-hover:scale-105"
           )}
         />
         <ProductBadge badge={product.badge} />
@@ -57,23 +57,20 @@ const GridProductCard: React.FC<GridProductCardProps> = ({
           onViewDetails={onViewDetails}
         />
       </div>
-      <CardHeader className="p-4 pb-0">
-        <CardTitle className="font-bold text-xl text-primary">{product.name}</CardTitle>
+      <CardHeader className="p-5 pb-0">
+        <CardTitle className="font-bold text-lg text-foreground">{product.name}</CardTitle>
       </CardHeader>
-      <CardContent className="p-4 pt-2">
-        <CardDescription className="text-gray-600 h-16 overflow-hidden">
+      <CardContent className="p-5 pt-2">
+        <CardDescription className="text-muted-foreground h-14 overflow-hidden leading-relaxed text-sm">
           {product.description}
         </CardDescription>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
+      <CardFooter className="p-5 pt-0">
         <ProductActionButtons
           onViewDetails={onViewDetails}
           onQuoteRequest={onQuoteRequest}
           containerClassName="flex flex-col gap-2 w-full"
-          detailsClassName={cn(
-            "w-full",
-            "group-hover:bg-secondary/10"
-          )}
+          detailsClassName="w-full"
         />
       </CardFooter>
     </Card>
