@@ -73,18 +73,18 @@ const Hero = () => {
             <Button 
               size="lg" 
               onClick={() => scrollToSection('products')}
-              className="bg-secondary hover:bg-secondary-dark text-white text-lg px-8 py-6 rounded-xl shadow-lg shadow-secondary/30 hover:shadow-xl hover:shadow-secondary/40 transition-all duration-300"
+              className="group bg-gradient-to-r from-secondary to-secondary-dark text-white font-semibold text-lg px-10 py-6 rounded-xl shadow-lg shadow-secondary/30 hover:shadow-xl hover:shadow-secondary/50 hover:scale-105 active:scale-95 transition-all duration-300 ease-out"
             >
               تصفح المنتجات
-              <ArrowLeft className="mr-2 h-5 w-5" />
+              <ArrowLeft className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1" />
             </Button>
             <Button 
               size="lg" 
               variant="outline"
               onClick={() => scrollToSection('contact')}
-              className="border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 text-lg px-8 py-6 rounded-xl backdrop-blur-sm transition-all duration-300"
+              className="group border-2 border-white/30 text-white font-semibold hover:bg-white/15 hover:border-white/50 text-lg px-10 py-6 rounded-xl backdrop-blur-md hover:scale-105 active:scale-95 transition-all duration-300 ease-out"
             >
-              <Phone className="ml-2 h-5 w-5" />
+              <Phone className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:animate-bounce" />
               تواصل معنا
             </Button>
           </div>
