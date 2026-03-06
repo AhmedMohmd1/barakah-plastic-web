@@ -9,7 +9,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProductDetails from "./pages/ProductDetails";
 import { useEffect } from "react";
-import { usePerformance } from "@/hooks/usePerformance";
 import { preloadCriticalResources } from "@/utils/preloader";
 
 const queryClient = new QueryClient({
@@ -17,20 +16,15 @@ const queryClient = new QueryClient({
     queries: {
       retry: 3,
       retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000,
     },
   },
 });
 
 const App = () => {
-  // Monitor performance metrics
-  usePerformance();
-
   useEffect(() => {
-    // Preload critical resources
     preloadCriticalResources();
 
-    // Register service worker for caching
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
