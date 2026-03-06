@@ -1,19 +1,19 @@
-
 import React from 'react';
-import { Eye } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { 
   Card,
   CardDescription,
   CardTitle 
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { ArrowLeft } from 'lucide-react';
-import { ProductCardProps } from './types';
+import ProductBadge from './shared/ProductBadge';
+import ProductImageOverlay from './shared/ProductImageOverlay';
+import ProductActionButtons from './shared/ProductActionButtons';
+import { Product } from '@/types/product';
 
-interface ListProductCardProps extends Omit<ProductCardProps, 'viewMode'> {
-  onQuoteRequest: (productName: string, productImage: string) => void;
+interface ListProductCardProps {
+  product: Product;
+  onViewDetails: () => void;
+  onQuoteRequest: () => void;
 }
 
 const ListProductCard: React.FC<ListProductCardProps> = ({
@@ -38,57 +38,33 @@ const ListProductCard: React.FC<ListProductCardProps> = ({
             alt={product.name} 
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
           />
-          {product.badge && (
-            <Badge 
-              className="absolute top-3 right-3 bg-secondary text-white border-0 px-3 py-1 shadow-md"
-            >
-              {product.badge}
-            </Badge>
-          )}
-          <div className="absolute inset-0 bg-black/30 md:bg-black/0 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100">
-            <Button
-              variant="secondary"
-              size="icon"
-              className="rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 hover:scale-110 transition-all"
-              onClick={() => onViewDetails(product.id)}
-            >
-              <Eye className="h-5 w-5" />
-            </Button>
-          </div>
+          <ProductBadge badge={product.badge} />
+          <ProductImageOverlay
+            isVisible={false}
+            onViewDetails={onViewDetails}
+            className="hover:opacity-100"
+          />
         </div>
         <div className="md:w-2/3 flex flex-col p-6">
           <CardTitle className="font-bold text-xl mb-3 text-primary relative">
             {product.name}
             {product.badge && (
-              <Badge 
-                className="mr-2 bg-secondary text-white border-0 px-2 py-[2px] hidden md:inline-flex"
-              >
-                {product.badge}
-              </Badge>
+              <ProductBadge 
+                badge={product.badge} 
+                className="mr-2 hidden md:inline-flex" 
+              />
             )}
           </CardTitle>
           <CardDescription className="text-gray-600 mb-4 flex-grow">
             {product.description}
           </CardDescription>
-          <div className="flex gap-2 flex-col sm:flex-row">
-            <Button 
-              variant="outline" 
-              className={cn(
-                "flex-1 border-secondary text-secondary transition-all duration-300",
-                "hover:bg-secondary hover:text-white group"
-              )}
-              onClick={() => onViewDetails(product.id)}
-            >
-              المزيد من التفاصيل
-              <ArrowLeft className="mr-2 h-4 w-4 group-hover:transform group-hover:translate-x-[-3px] transition-transform" />
-            </Button>
-            <Button 
-              className="flex-1"
-              onClick={() => onQuoteRequest(product.name, product.image)}
-            >
-              طلب عرض سعر
-            </Button>
-          </div>
+          <ProductActionButtons
+            onViewDetails={onViewDetails}
+            onQuoteRequest={onQuoteRequest}
+            containerClassName="flex gap-2 flex-col sm:flex-row"
+            detailsClassName="flex-1"
+            quoteClassName="flex-1"
+          />
         </div>
       </div>
     </Card>

@@ -1,49 +1,127 @@
-import React from 'react';
-import { ChevronLeft } from 'lucide-react';
+
+import React, { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
+import { ArrowLeft, Phone } from 'lucide-react';
+
+const HERO_IMAGES = [
+  "/images/hero.jpeg",
+  "/images/canvas.jpeg", 
+  "/images/plasticbag.jpeg",
+  "/images/softBag1.png",
+  "/images/ziplockBag.jpg",
+] as const;
+
 const Hero = () => {
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
-  return <section className="relative bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/30 dark:to-secondary/30 min-h-[90vh] flex items-center overflow-hidden">
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % HERO_IMAGES.length);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 4000);
+    return () => clearInterval(interval);
+  }, [nextSlide]);
+
+  return (
+    <section id="hero" className="relative min-h-[92vh] flex items-center overflow-hidden">
+      {/* Background Image Slider */}
       <div className="absolute inset-0">
-        
-        <img src="/images/hero.jpeg" alt="البركة بلاست" className="w-full h-full object-cover opacity-90" />
+        {HERO_IMAGES.map((image, index) => (
+          <img 
+            key={index}
+            src={image} 
+            alt={`البركة بلاست ${index + 1}`} 
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        ))}
+        {/* Dark overlay for contrast */}
+        <div className="absolute inset-0 bg-gradient-to-l from-primary/90 via-primary/75 to-primary/60"></div>
+        {/* Subtle pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+          backgroundSize: '30px 30px'
+        }}></div>
       </div>
-      <div className="container-custom relative z-20">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="order-2 md:order-1">
-            <div className="space-y-6 animate-fade-in">
-              <h1 className="heading-1 text-white drop-shadow-md">
-                البركة بلاست
-              </h1>
-              <p className="text-xl font-bold text-secondary drop-shadow-md mb-2">
-                صناعة أكياس البلاستيك بجودة عالية
-              </p>
-              <p className="text-white text-lg">
-                نقدم لكم أجود أنواع الأكياس البلاستيكية بتقنيات حديثة وجودة فائقة منذ عام 2011
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button size="lg" onClick={() => scrollToSection('contact')} className="bg-primary hover:bg-primary-dark font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-                  تواصل معنا
-                  <ChevronLeft className="mr-2 h-4 w-4" />
-                </Button>
-                <Button size="lg" variant="outline" onClick={() => scrollToSection('products')} className="border-secondary bg-white/80 text-secondary hover:bg-secondary/10 font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-                  استعرض منتجاتنا
-                </Button>
-              </div>
-            </div>
+      
+      <div className="relative z-10 container mx-auto px-6">
+        <div className="max-w-3xl">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6 animate-fade-in">
+            <span className="w-2 h-2 bg-secondary rounded-full animate-pulse"></span>
+            <span className="text-white/90 text-sm font-medium">منذ 2011 — جودة لا تُضاهى</span>
           </div>
-          <div className="order-1 md:order-2 md:flex justify-center md:justify-end hidden">
-            {/* Hidden on mobile for better UX */}
+
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-cairo text-white mb-6 leading-tight animate-fade-in-up">
+            صناعة أكياس بلاستيكية
+            <br />
+            <span className="text-secondary">عالية الجودة</span>
+          </h1>
+          
+          <p className="text-lg md:text-xl text-white/85 mb-10 leading-relaxed max-w-2xl animate-fade-in-up animate-delay-200">
+            نقدم حلول تعبئة وتغليف مبتكرة تلبي احتياجات الأعمال بأعلى معايير الجودة. 
+            أحجام مخصصة، متانة عالية، وتسليم سريع.
+          </p>
+          
+          <div className="flex flex-wrap gap-4 animate-fade-in-up animate-delay-300">
+            <Button 
+              size="lg" 
+              onClick={() => scrollToSection('products')}
+              className="bg-secondary hover:bg-secondary-dark text-white text-lg px-8 py-6 rounded-xl shadow-lg shadow-secondary/30 hover:shadow-xl hover:shadow-secondary/40 transition-all duration-300"
+            >
+              تصفح المنتجات
+              <ArrowLeft className="mr-2 h-5 w-5" />
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={() => scrollToSection('contact')}
+              className="border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 text-lg px-8 py-6 rounded-xl backdrop-blur-sm transition-all duration-300"
+            >
+              <Phone className="ml-2 h-5 w-5" />
+              تواصل معنا
+            </Button>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex flex-wrap gap-8 mt-14 pt-8 border-t border-white/15 animate-fade-in-up animate-delay-500">
+            <div>
+              <div className="text-3xl font-bold font-cairo text-white">+12</div>
+              <div className="text-white/60 text-sm mt-1">سنة خبرة</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold font-cairo text-white">+500</div>
+              <div className="text-white/60 text-sm mt-1">عميل سعيد</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold font-cairo text-white">+5</div>
+              <div className="text-white/60 text-sm mt-1">خطوط إنتاج</div>
+            </div>
           </div>
         </div>
       </div>
-    </section>;
+
+      {/* Slide indicators */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {HERO_IMAGES.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              index === currentSlide ? 'w-8 bg-secondary' : 'w-4 bg-white/40'
+            }`}
+            aria-label={`صورة ${index + 1}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
 };
+
 export default Hero;

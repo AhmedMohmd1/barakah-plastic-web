@@ -1,4 +1,3 @@
-
 import React, { memo, useCallback } from 'react';
 import GridProductCard from './GridProductCard';
 import ListProductCard from './ListProductCard';
@@ -16,11 +15,11 @@ const ProductCard: React.FC<ExtendedProductCardProps> = memo(({
   onViewDetails,
   onQuoteRequest,
 }) => {
-  const handleHover = useCallback(() => {
+  const handleMouseEnter = useCallback(() => {
     onHover(product.id);
   }, [onHover, product.id]);
 
-  const handleLeave = useCallback(() => {
+  const handleMouseLeave = useCallback(() => {
     onHover(null);
   }, [onHover]);
 
@@ -36,8 +35,6 @@ const ProductCard: React.FC<ExtendedProductCardProps> = memo(({
     return (
       <ListProductCard
         product={product}
-        hoveredProduct={hoveredProduct}
-        onHover={handleHover}
         onViewDetails={handleViewDetails}
         onQuoteRequest={handleQuoteRequest}
       />
@@ -48,7 +45,8 @@ const ProductCard: React.FC<ExtendedProductCardProps> = memo(({
     <GridProductCard
       product={product}
       hoveredProduct={hoveredProduct}
-      onHover={handleHover}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onViewDetails={handleViewDetails}
       onQuoteRequest={handleQuoteRequest}
     />

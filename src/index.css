@@ -13,35 +13,35 @@
   }
 
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --background: 210 20% 98%;
+    --foreground: 210 40% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 210 40% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 210 40% 10%;
 
-    --primary: 209 100% 14%;
+    --primary: 203 100% 14%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 29 100% 48%;
+    --secondary: 30 100% 48%;
     --secondary-foreground: 0 0% 100%;
 
     --accent: 45 93% 47%;
     --accent-foreground: 0 0% 0%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 210 20% 95%;
+    --muted-foreground: 210 10% 45%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 209 100% 14%;
+    --border: 210 15% 90%;
+    --input: 210 15% 90%;
+    --ring: 203 100% 14%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -58,13 +58,13 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
 }
 
 @layer components {
   .section-padding {
-    @apply py-16 px-4 md:py-20 md:px-10;
+    @apply py-20 px-4 md:py-24 md:px-10;
   }
   
   .container-custom {
@@ -84,28 +84,39 @@
   }
   
   .card-shadow {
-    @apply shadow-md hover:shadow-lg transition-shadow duration-300;
+    @apply shadow-md hover:shadow-xl transition-shadow duration-300;
   }
 
   .modern-card {
-    @apply bg-white rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300;
+    @apply bg-white rounded-2xl overflow-hidden border border-border/50 shadow-sm hover:shadow-lg transition-all duration-300;
   }
   
   .modern-input {
-    @apply bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/30 focus:border-primary/50 outline-none transition-all duration-200 w-full;
+    @apply bg-white border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-secondary/30 focus:border-secondary/50 outline-none transition-all duration-200 w-full;
   }
   
   .btn-primary {
-    @apply bg-primary text-white hover:bg-primary-dark transition-colors duration-300 rounded-lg font-medium;
+    @apply bg-primary text-white hover:bg-primary-dark transition-colors duration-300 rounded-xl font-medium;
   }
   
   .btn-secondary {
-    @apply bg-secondary text-white hover:bg-secondary-dark transition-colors duration-300 rounded-lg font-medium;
+    @apply bg-secondary text-white hover:bg-secondary-dark transition-colors duration-300 rounded-xl font-medium;
   }
   
   .ltr {
     direction: ltr;
     text-align: left;
+  }
+
+  /* Scroll-triggered animation base */
+  .scroll-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .scroll-animate.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -120,10 +131,25 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
+@keyframes fadeInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
+  animation: fadeIn 0.6s ease-out forwards;
 }
 
 .animate-slide-up {
-  animation: slideUp 0.5s ease-out forwards;
+  animation: slideUp 0.6s ease-out forwards;
 }
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import ValueProposition from '@/components/ValueProposition';
 import About from '@/components/About';
 import Products from '@/components/Products';
 import Features from '@/components/Features';
@@ -15,7 +16,6 @@ const Index = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    // Check for user preference in localStorage
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
       setIsDarkMode(true);
@@ -26,7 +26,6 @@ const Index = () => {
     }
   }, []);
 
-  // This effect runs when isDarkMode changes
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -41,6 +40,7 @@ const Index = () => {
     <div className={`min-h-screen font-tajawal ${isDarkMode ? 'dark' : ''}`}>
       <Navbar />
       <Hero />
+      <ValueProposition />
       <About />
       <Products />
       <Features />
