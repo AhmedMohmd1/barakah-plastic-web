@@ -22,21 +22,21 @@ const ListProductCard: React.FC<ListProductCardProps> = ({
   onQuoteRequest,
 }) => {
   return (
-    <Card 
+    <Card
       className={cn(
-        "overflow-hidden border-0 shadow-md transition-all duration-300",
-        "hover:shadow-lg hover:translate-y-[-2px]",
-        "bg-white hover:bg-white/95"
+        "group overflow-hidden border border-border/50 shadow-sm transition-all duration-300",
+        "hover:shadow-xl hover:-translate-y-1",
+        "bg-card rounded-2xl"
       )}
       data-name={product.name}
       data-img={product.image}
     >
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/3 h-52 md:h-auto overflow-hidden relative">
-          <img 
-            src={product.image} 
-            alt={product.name} 
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <ProductBadge badge={product.badge} />
           <ProductImageOverlay
@@ -46,7 +46,7 @@ const ListProductCard: React.FC<ListProductCardProps> = ({
           />
         </div>
         <div className="md:w-2/3 flex flex-col p-6">
-          <CardTitle className="font-bold text-xl mb-3 text-primary relative">
+          <CardTitle className="font-bold text-xl mb-3 text-foreground relative">
             {product.name}
             {product.badge && (
               <ProductBadge 
@@ -55,7 +55,7 @@ const ListProductCard: React.FC<ListProductCardProps> = ({
               />
             )}
           </CardTitle>
-          <CardDescription className="text-gray-600 mb-4 flex-grow">
+          <CardDescription className="text-muted-foreground leading-relaxed mb-4 flex-grow">
             {product.description}
           </CardDescription>
           <ProductActionButtons

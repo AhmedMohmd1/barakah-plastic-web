@@ -20,10 +20,10 @@ const ProductActionButtons: React.FC<ProductActionButtonsProps> = ({
 }) => {
   return (
     <div className={containerClassName}>
-      <Button 
-        variant="outline" 
+      <Button
+        variant="outline"
         className={cn(
-          "border-secondary text-secondary transition-all duration-300",
+          "border-secondary text-secondary rounded-xl transition-all duration-300",
           "hover:bg-secondary hover:text-white group",
           detailsClassName,
         )}
@@ -32,8 +32,12 @@ const ProductActionButtons: React.FC<ProductActionButtonsProps> = ({
         المزيد من التفاصيل
         <ArrowLeft className="mr-2 h-4 w-4 group-hover:transform group-hover:translate-x-[-3px] transition-transform" />
       </Button>
-      <Button 
-        className={quoteClassName}
+      <Button
+        className={cn(
+          "bg-secondary hover:bg-secondary-dark rounded-xl font-semibold",
+          "shadow-sm shadow-secondary/20 hover:shadow-md hover:shadow-secondary/30 transition-all duration-300",
+          quoteClassName,
+        )}
         onClick={onQuoteRequest}
       >
         طلب عرض سعر

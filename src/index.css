@@ -10,6 +10,12 @@
     direction: rtl;
     font-family: 'Tajawal', sans-serif;
     scroll-behavior: smooth;
+    /* keep anchored sections clear of the sticky navbar */
+    scroll-padding-top: 5.5rem;
+  }
+
+  ::selection {
+    background: hsl(var(--secondary) / 0.25);
   }
 
   :root {

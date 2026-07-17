@@ -94,7 +94,7 @@ const Footer = () => {
 
             <div className="mt-5 rounded-xl overflow-hidden shadow-md h-40">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.4401111516273!2d46.75606387584941!3d24.719785978978414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f0336b3cd4021%3A0x819fcf3c87518671!2sIndustrial%20City%202%2C%20Riyadh!5e0!3m2!1sen!2ssa!4v1712685247097!5m2!1sen!2ssa"
+                src="https://maps.google.com/maps?q=%D9%82%D9%84%D9%8A%D9%88%D8%A8%20%D8%A7%D9%84%D9%85%D9%86%D8%B7%D9%82%D8%A9%20%D8%A7%D9%84%D8%B5%D9%86%D8%A7%D8%B9%D9%8A%D8%A9%20%D8%A7%D9%84%D8%A3%D9%88%D9%84%D9%89&hl=ar&z=13&output=embed"
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen={false}
                 loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="موقع البركة بلاست"
               />
