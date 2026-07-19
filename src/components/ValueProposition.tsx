@@ -1,24 +1,25 @@
-
 import React from 'react';
-import { Ruler, Shield, Truck } from 'lucide-react';
-import { Card } from '@/components/ui/card';
+import { Ruler, Shield, Truck, ChevronLeft } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const VALUE_ITEMS = [
   {
     icon: Ruler,
     title: 'أحجام مخصصة',
-    description: 'نوفر أكياس بأحجام وسماكات حسب متطلباتك مع إمكانية الطباعة بشعارك',
+    description: 'تخصيص كامل للأبعاد والسماكة بما يتناسب مع مواصفات منتجاتكم التقنية الدقيقة.',
+    hint: 'المواصفات الفنية',
   },
   {
     icon: Shield,
     title: 'متانة عالية',
-    description: 'مصنوعة من أجود الخامات لضمان التحمل والاستخدام الأمثل في مختلف الظروف',
+    description: 'استخدام بوليمرات عالية الكثافة تضمن مقاومة فائقة للتمزق والظروف البيئية القاسية.',
+    hint: 'تقارير الاختبار',
   },
   {
     icon: Truck,
     title: 'تسليم سريع',
-    description: 'نلتزم بمواعيد التسليم المحددة مع توصيل لجميع المحافظات',
+    description: 'نظام لوجستي متطور يضمن معالجة الطلبات الكبيرة وشحنها في جداول زمنية قياسية.',
+    hint: 'خريطة التوصيل',
   },
 ] as const;
 
@@ -26,22 +27,28 @@ const ValueProposition = () => {
   const ref = useScrollAnimation();
 
   return (
-    <section className="relative -mt-16 z-20 pb-8" ref={ref}>
+    <section className="bg-background pb-10" ref={ref}>
       <div className="container-custom">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {VALUE_ITEMS.map((item, index) => (
-            <Card
-              key={index}
-              variant="interactive"
-              className="scroll-animate p-6 md:p-8 shadow-lg shadow-primary/5"
+            <div
+              key={item.title}
+              className="scroll-animate group relative overflow-hidden bg-card p-8 rounded-[1.5rem] border border-primary/5 shadow-sm hover:border-secondary transition-all"
               style={{ transitionDelay: `${index * 75}ms` }}
             >
-              <div className="bg-secondary/10 p-4 rounded-xl inline-flex mb-5">
-                <item.icon className="h-7 w-7 text-secondary" />
+              <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-bl-[4rem] -mr-12 -mt-12 group-hover:bg-secondary/10 transition-colors" />
+              <div className="text-secondary mb-6 relative">
+                <item.icon className="h-10 w-10" strokeWidth={1.5} />
               </div>
-              <h3 className="font-bold font-cairo text-xl text-foreground mb-2">{item.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-            </Card>
+              <h3 className="font-cairo font-bold text-xl text-primary mb-3">{item.title}</h3>
+              <p className="text-sm text-primary-light/70 leading-relaxed font-tajawal">
+                {item.description}
+              </p>
+              <div className="mt-6 flex items-center gap-2 text-xs font-bold text-secondary opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>{item.hint}</span>
+                <ChevronLeft className="w-3 h-3" />
+              </div>
+            </div>
           ))}
         </div>
       </div>
