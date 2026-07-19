@@ -22,6 +22,8 @@ export default {
 			fontFamily: {
 				cairo: ['Cairo', 'sans-serif'],
 				tajawal: ['Tajawal', 'sans-serif'],
+				sora: ['Sora', 'Cairo', 'sans-serif'],
+				manrope: ['Manrope', 'Tajawal', 'sans-serif'],
 			},
 			fontSize: {
 				xs: ['0.75rem', { lineHeight: '1rem' }],
