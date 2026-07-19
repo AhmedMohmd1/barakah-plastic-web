@@ -77,7 +77,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-reverse space-x-2">
             <a href="#" className={cn("flex items-center rounded-lg", focusRing)}>
-              <img src="/lovable-uploads/2e4ebc83-a888-418c-ad4a-41201a5949bb.png" alt="البركة بلاست" className="h-12 md:h-14" />
+              <img src="/logo.png" alt="البركة بلاست" className="h-12 md:h-14" />
             </a>
           </div>
 
@@ -87,7 +87,7 @@ const Navbar = () => {
               <a
                 key={item.href}
                 href={item.href}
-                className={cn("font-medium text-foreground/80 hover:text-primary px-3 py-2 rounded-lg hover:bg-primary/5 transition-all duration-200 text-sm", focusRing)}
+                className={cn("nav-link-underline font-medium text-foreground/80 hover:text-primary px-3 py-2 rounded-lg hover:bg-primary/5 transition-all duration-200 text-sm", focusRing)}
               >
                 {item.label}
               </a>

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Shield, Zap, Truck, Recycle, ThumbsUp, Factory } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Features = () => {
@@ -28,26 +29,23 @@ const Features = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <div 
-              key={index} 
-              className="scroll-animate modern-card p-8 hover:-translate-y-1 group"
-              style={{ transitionDelay: `${index * 80}ms` }}
+            <Card
+              key={index}
+              variant="interactive"
+              className="scroll-animate overflow-hidden p-6 md:p-8 group"
+              style={{ transitionDelay: `${index * 75}ms` }}
             >
               <div className="bg-secondary/10 group-hover:bg-secondary/15 p-4 rounded-xl inline-flex mb-5 transition-colors duration-300">
                 <feature.icon className="h-8 w-8 text-secondary" />
               </div>
               <h3 className="font-bold text-xl mb-3 text-foreground">{feature.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-            </div>
+            </Card>
           ))}
         </div>
 
         <div className="scroll-animate mt-16 bg-gradient-to-l from-primary to-primary-dark p-10 md:p-14 rounded-2xl text-white text-center relative overflow-hidden">
-          {/* Subtle pattern */}
-          <div className="absolute inset-0 opacity-[0.04]" style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-            backgroundSize: '24px 24px'
-          }}></div>
+          <div className="dot-pattern-overlay opacity-[0.04]"></div>
           <div className="relative z-10">
             <h3 className="heading-3 mb-4">هل تبحث عن أكياس بلاستيكية بجودة عالية؟</h3>
             <p className="text-white/80 mb-8 max-w-3xl mx-auto text-lg leading-relaxed">

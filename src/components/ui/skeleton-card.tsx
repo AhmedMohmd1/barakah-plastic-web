@@ -1,9 +1,10 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
+import { Card } from "@/components/ui/card";
 
 export const ProductCardSkeleton = () => {
   return (
-    <div className="modern-card p-4 space-y-4">
+    <Card variant="elevated" className="overflow-hidden p-4 space-y-4">
       <Skeleton className="h-48 w-full rounded-lg" />
       <div className="space-y-2">
         <Skeleton className="h-6 w-3/4" />
@@ -14,7 +15,7 @@ export const ProductCardSkeleton = () => {
         <Skeleton className="h-10 flex-1" />
         <Skeleton className="h-10 w-10" />
       </div>
-    </div>
+    </Card>
   );
 };
 

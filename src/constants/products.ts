@@ -1,6 +1,6 @@
 
 /** Neutral image shown if a product photo fails to load — never leave a broken tile. */
-export const PRODUCT_IMAGE_FALLBACK = "/images/hero.jpeg";
+export const PRODUCT_IMAGE_FALLBACK = "/images/hero.webp";
 
 export const PRODUCTS = [
   {
@@ -8,10 +8,10 @@ export const PRODUCTS = [
     name: "شُنط مطبوعة بشعارك",
     description:
       "أكياس شراء مخصصة عالية الجودة مع طباعة احترافية لشعار شركتك. مصنوعة من مواد متينة ، مثالية لتعزيز هوية علامتك التجارية وتقديم تجربة تسوق مميزة لعملائك.",
-    image: "/images/plasticbag.jpeg",
+    image: "/images/plasticbag.webp",
     images: [
-      "/images/plasticbag.jpeg",
-      "/images/plasticbag2.png",
+      "/images/plasticbag.webp",
+      "/images/plasticbag2.webp",
     ],
     specifications: [
       { name: "المادة", value: "بلاستيك عالي الجودة" },
@@ -27,11 +27,11 @@ export const PRODUCTS = [
     name: "شنط سوفت للمحلات الملابس",
     description:
       "شنط ناعمة خاصة لمحلات الملابس بتصاميم أنيقة وراقية، مثالية لتعزيز تجربة التسوق",
-    image: "/images/softbagsCover.png",
+    image: "/images/softbagsCover.webp",
     images: [
-      "/images/softbagsCover.png",
-      "/images/softbag2.png",
-      "/images/softBag1.png",
+      "/images/softbagsCover.webp",
+      "/images/softbag2.webp",
+      "/images/softBag1.webp",
     ],
     specifications: [
       // { name: "المادة", value: "قماش ناعم" },
@@ -47,10 +47,10 @@ export const PRODUCTS = [
     name: "شنط قماش",
     description:
       "شنط قماش صديقة للبيئة متعددة الاستخدامات بتصاميم عصرية، مثالية للتسوق وحمل المشتريات اليومية",
-    image: "/images/canvas.jpeg",
+    image: "/images/canvas.webp",
     images: [
-      "/images/canvas.jpeg",
-      "/images/canvas2.png",
+      "/images/canvas.webp",
+      "/images/canvas2.webp",
 
     ],
     specifications: [
@@ -67,10 +67,10 @@ export const PRODUCTS = [
     name: "اكياس سلوفان بشريطه",
     description:
       "أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم، مثالية لتغليف المنتجات الصغيرة والهدايا بشكل أنيق",
-    image: "/images/solfan1.jpeg",
+    image: "/images/solfan1.webp",
     images: [
-      "/images/solfan1.jpeg",
-      "/images/solfan2.jpeg",
+      "/images/solfan1.webp",
+      "/images/solfan2.webp",
 
     ],
     specifications: [
@@ -87,11 +87,11 @@ export const PRODUCTS = [
     name: "اكياس ذات غالق - ziplock bags",
     description:
       "أكياس بسحاب قابلة للإغلاق والفتح، مناسبة لحفظ الطعام والمنتجات، متوفرة بأحجام مختلفة",
-    image: "/images/اكياس-بقفل.png",
+    image: "/images/ziplock-bag-2.webp",
     images: [
-      "/images/اكياس-بقفل.png",
-      "/images/ziplockBag.jpg",
-      "/images/ziplockBag1.jpg",
+      "/images/ziplock-bag-2.webp",
+      "/images/ziplockBag.webp",
+      "/images/ziplockBag1.webp",
 
     ],
     specifications: [

@@ -3,6 +3,7 @@ import React from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import { Card } from '@/components/ui/card';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Faq = () => {
@@ -52,7 +53,7 @@ const Faq = () => {
 
         <div className="max-w-3xl mx-auto space-y-3">
           {faqs.map((faq, index) => (
-            <div key={index} className="scroll-animate" style={{ transitionDelay: `${index * 80}ms` }}>
+            <div key={index} className="scroll-animate" style={{ transitionDelay: `${index * 75}ms` }}>
               <FaqItem question={faq.question} answer={faq.answer} />
             </div>
           ))}
@@ -71,9 +72,9 @@ const FaqItem = ({ question, answer }: FaqItemProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className={cn(
-      "bg-white rounded-2xl border transition-all duration-300",
-      isOpen ? "border-secondary/40 shadow-md" : "border-border/50 shadow-sm hover:border-border hover:shadow-md"
+    <Card variant="elevated" className={cn(
+      "transition-all duration-300",
+      isOpen ? "border-secondary/40 shadow-md" : "hover:border-border hover:shadow-md"
     )}>
       <Collapsible
         open={isOpen}
@@ -93,7 +94,7 @@ const FaqItem = ({ question, answer }: FaqItemProps) => {
           {answer}
         </CollapsibleContent>
       </Collapsible>
-    </div>
+    </Card>
   );
 };
 

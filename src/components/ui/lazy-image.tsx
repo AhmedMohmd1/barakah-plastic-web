@@ -5,7 +5,8 @@ interface LazyImageProps {
   src: string;
   alt: string;
   className?: string;
-  placeholder?: string;
+  imgClassName?: string;
+  fallbackSrc?: string;
   onLoad?: () => void;
   onError?: () => void;
 }
@@ -14,16 +15,23 @@ const LazyImage: React.FC<LazyImageProps> = ({
   src,
   alt,
   className,
-  placeholder = '/images/placeholder.svg',
+  imgClassName,
+  fallbackSrc,
   onLoad,
   onError,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const [currentSrc, setCurrentSrc] = useState(src);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!('IntersectionObserver' in window)) {
+      setIsInView(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -37,8 +45,8 @@ const LazyImage: React.FC<LazyImageProps> = ({
       }
     );
 
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
     }
 
     return () => observer.disconnect();
@@ -50,33 +58,34 @@ const LazyImage: React.FC<LazyImageProps> = ({
   };
 
   const handleError = () => {
+    if (fallbackSrc && currentSrc !== fallbackSrc) {
+      setCurrentSrc(fallbackSrc);
+      return;
+    }
     setHasError(true);
     onError?.();
   };
 
   return (
-    <div className={cn('relative overflow-hidden', className)}>
-      {/* Placeholder */}
+    <div ref={containerRef} className={cn('relative overflow-hidden', className)}>
       {!isLoaded && !hasError && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+        <div className="absolute inset-0 bg-muted animate-pulse" />
       )}
-      
-      {/* Error fallback */}
+
       {hasError && (
-        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
-          <span className="text-gray-400 text-sm">Image not available</span>
+        <div className="absolute inset-0 bg-muted flex items-center justify-center">
+          <span className="text-muted-foreground text-sm">الصورة غير متوفرة</span>
         </div>
       )}
-      
-      {/* Actual image */}
+
       {isInView && !hasError && (
         <img
-          ref={imgRef}
-          src={src}
+          src={currentSrc}
           alt={alt}
           className={cn(
             'transition-opacity duration-300',
-            isLoaded ? 'opacity-100' : 'opacity-0'
+            isLoaded ? 'opacity-100' : 'opacity-0',
+            imgClassName
           )}
           onLoad={handleLoad}
           onError={handleError}
@@ -87,4 +96,4 @@ const LazyImage: React.FC<LazyImageProps> = ({
   );
 };
 
-export default LazyImage; 
+export default LazyImage;

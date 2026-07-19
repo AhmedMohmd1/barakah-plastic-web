@@ -23,7 +23,7 @@ const ProductActionButtons: React.FC<ProductActionButtonsProps> = ({
       <Button
         variant="outline"
         className={cn(
-          "border-secondary text-secondary rounded-xl transition-all duration-300",
+          "border-secondary text-secondary-ink rounded-xl transition-all duration-300",
           "hover:bg-secondary hover:text-white group",
           detailsClassName,
         )}

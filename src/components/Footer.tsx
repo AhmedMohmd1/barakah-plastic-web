@@ -35,7 +35,7 @@ const Footer = () => {
       <div className="container-custom py-14">
         <div className="grid md:grid-cols-4 gap-10">
           <div className="md:col-span-1">
-            <img src="/lovable-uploads/2e4ebc83-a888-418c-ad4a-41201a5949bb.png" alt="البركة بلاست" className="h-14 mb-4 brightness-200" />
+            <img src="/logo.png" alt="البركة بلاست" className="h-14 mb-4 brightness-200" />
             <p className="text-white/60 mb-6 leading-relaxed text-sm">
               نحن متخصصون في صناعة الأكياس البلاستيكية بجودة عالية منذ عام 2011.
             </p>

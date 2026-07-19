@@ -96,8 +96,8 @@ const Testimonials = () => {
             <CarouselContent className="-ml-4">
               {testimonials.map((testimonial) => (
                 <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <Card className="modern-card h-full">
-                    <CardContent className="p-7 flex flex-col h-full">
+                  <Card variant="interactive" className="overflow-hidden h-full">
+                    <CardContent className="p-6 md:p-8 flex flex-col h-full">
                       <QuoteIcon className="h-8 w-8 text-secondary/40 mb-4" />
                       <p className="text-foreground/80 mb-6 flex-grow leading-relaxed">{testimonial.content}</p>
                       <div className="flex items-center gap-3 mt-auto pt-4 border-t border-border/50">

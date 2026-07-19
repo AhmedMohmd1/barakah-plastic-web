@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import ValueProposition from '@/components/ValueProposition';
@@ -13,31 +13,8 @@ import Footer from '@/components/Footer';
 import FloatingButtons from '@/components/FloatingButtons';
 
 const Index = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDarkMode]);
-
   return (
-    <div className={`min-h-screen font-tajawal ${isDarkMode ? 'dark' : ''}`}>
+    <div className="min-h-screen font-tajawal">
       <Navbar />
       <Hero />
       <ValueProposition />

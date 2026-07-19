@@ -23,25 +23,48 @@ export default {
 				cairo: ['Cairo', 'sans-serif'],
 				tajawal: ['Tajawal', 'sans-serif'],
 			},
+			fontSize: {
+				xs: ['0.75rem', { lineHeight: '1rem' }],
+				sm: ['0.875rem', { lineHeight: '1.25rem' }],
+				base: ['1rem', { lineHeight: '1.625rem' }],
+				lg: ['1.125rem', { lineHeight: '1.75rem' }],
+				xl: ['1.25rem', { lineHeight: '1.875rem' }],
+				'2xl': ['1.5rem', { lineHeight: '2rem' }],
+				'3xl': ['1.875rem', { lineHeight: '2.375rem' }],
+				'4xl': ['2.25rem', { lineHeight: '2.75rem' }],
+				'5xl': ['3rem', { lineHeight: '3.5rem' }],
+				'6xl': ['3.75rem', { lineHeight: '4.25rem' }]
+			},
+			transitionTimingFunction: {
+				premium: 'cubic-bezier(0.16, 1, 0.3, 1)'
+			},
 			colors: {
 				primary: {
-					DEFAULT: '#003049', // deep blue
-					light: '#1A4D68',
-					dark: '#001F2F',
-					foreground: '#ffffff'
+					DEFAULT: 'hsl(var(--primary))',
+					light: 'hsl(var(--primary-light))',
+					dark: 'hsl(var(--primary-dark))',
+					foreground: 'hsl(var(--primary-foreground))'
 				},
 				secondary: {
-					DEFAULT: '#F77F00', // vibrant orange — surfaces/fills only
-					light: '#FF9827',
-					dark: '#D96C00',
+					DEFAULT: 'hsl(var(--secondary))',
+					light: 'hsl(var(--secondary-light))',
+					dark: 'hsl(var(--secondary-dark))',
 					ink: 'hsl(var(--secondary-ink))', // AA-safe orange for TEXT on light
-					foreground: '#ffffff'
+					foreground: 'hsl(var(--secondary-foreground))'
 				},
 				accent: {
-					DEFAULT: '#EAB308', // gold/yellow
-					light: '#FCD34D',
-					dark: '#D97706',
-					foreground: '#000000'
+					DEFAULT: 'hsl(var(--accent))',
+					light: 'hsl(var(--accent-light))',
+					dark: 'hsl(var(--accent-dark))',
+					foreground: 'hsl(var(--accent-foreground))'
+				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
+				},
+				warning: {
+					DEFAULT: 'hsl(var(--warning))',
+					foreground: 'hsl(var(--warning-foreground))'
 				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

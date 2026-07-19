@@ -55,7 +55,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           { name: "نوع الطباعة", value: "طباعة أوفست عالية الجودة" },
           { name: "الحد الأدنى للطلب", value: "1000 قطعة" },
         ],
-        images: ["/images/plasticbag.jpeg"],
+        images: ["/images/plasticbag.webp"],
       },
     },
     2: {
@@ -84,7 +84,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           { name: "قابلية التخصيص", value: "يمكن طباعة الشعار" },
           { name: "قابلية الغسل", value: "قابلة للغسل والإعادة" },
         ],
-        images: ["/images/canvas.jpeg"],
+        images: ["/images/canvas.webp"],
       },
     },
     4: {
@@ -98,7 +98,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           { name: "ميزات خاصة", value: "شريط لاصق ذاتي" },
           { name: "الحد الأدنى للطلب", value: "2000 قطعة" },
         ],
-        images: ["/images/solfan1.jpeg", "/images/solfan2.jpeg"],
+        images: ["/images/solfan1.webp", "/images/solfan2.webp"],
       },
     },
     5: {
@@ -112,7 +112,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           { name: "ميزات خاصة", value: "سحاب قابل للإغلاق" },
           { name: "استخدامات", value: "تخزين الطعام، تعبئة المنتجات" },
         ],
-        images: ["/images/اكياس-بقفل.png"],
+        images: ["/images/ziplock-bag-2.webp"],
       },
     },
   };

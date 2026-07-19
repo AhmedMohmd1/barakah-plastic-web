@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Ruler, Shield, Truck } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const VALUE_ITEMS = [
@@ -27,19 +28,20 @@ const ValueProposition = () => {
   return (
     <section className="relative -mt-16 z-20 pb-8" ref={ref}>
       <div className="container-custom">
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {VALUE_ITEMS.map((item, index) => (
-            <div
+            <Card
               key={index}
-              className={`scroll-animate bg-white rounded-2xl p-8 shadow-lg shadow-primary/5 border border-border/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              variant="interactive"
+              className="scroll-animate p-6 md:p-8 shadow-lg shadow-primary/5"
+              style={{ transitionDelay: `${index * 75}ms` }}
             >
               <div className="bg-secondary/10 p-4 rounded-xl inline-flex mb-5">
                 <item.icon className="h-7 w-7 text-secondary" />
               </div>
               <h3 className="font-bold font-cairo text-xl text-foreground mb-2">{item.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-            </div>
+            </Card>
           ))}
         </div>
       </div>

@@ -8,6 +8,8 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import LazyImage from "@/components/ui/lazy-image";
 import ProductBadge from './shared/ProductBadge';
 import ProductImageOverlay from './shared/ProductImageOverlay';
 import ProductActionButtons from './shared/ProductActionButtons';
@@ -32,31 +34,27 @@ const GridProductCard: React.FC<GridProductCardProps> = ({
   onQuoteRequest,
 }) => {
   return (
-    <Card 
-      className={cn(
-        "group overflow-hidden border border-border/50 shadow-sm transition-all duration-300",
-        "hover:shadow-xl hover:-translate-y-1 motion-reduce:hover:translate-y-0",
-        "bg-card rounded-2xl"
-      )}
+    <Card
+      variant="interactive"
+      className="group overflow-hidden motion-reduce:hover:translate-y-0"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       data-name={product.name}
       data-img={product.image}
     >
-      <div className="relative h-56 overflow-hidden bg-muted">
-        <img
-          src={product.image}
-          alt={product.name}
-          loading="lazy"
-          onError={(e) => {
-            const img = e.currentTarget;
-            if (img.src.indexOf(PRODUCT_IMAGE_FALLBACK) === -1) img.src = PRODUCT_IMAGE_FALLBACK;
-          }}
-          className={cn(
-            "w-full h-full object-cover object-center transition-transform duration-500",
-            "group-hover:scale-105 motion-reduce:group-hover:scale-100"
-          )}
-        />
+      <div className="relative overflow-hidden bg-muted">
+        <AspectRatio ratio={4 / 3}>
+          <LazyImage
+            src={product.image}
+            alt={product.name}
+            fallbackSrc={PRODUCT_IMAGE_FALLBACK}
+            className="h-full w-full"
+            imgClassName={cn(
+              "w-full h-full object-cover object-center transition-transform duration-500",
+              "group-hover:scale-105 motion-reduce:group-hover:scale-100"
+            )}
+          />
+        </AspectRatio>
         <ProductBadge badge={product.badge} />
         <ProductImageOverlay
           isVisible={hoveredProduct === product.id}
