@@ -32,7 +32,7 @@ const Products = () => {
       <section id="products" className="section-padding bg-muted/30" ref={ref}>
         <div className="container-custom">
           <div className="text-center mb-14 scroll-animate">
-            <span className="text-secondary font-semibold text-sm tracking-wide mb-2 block">ما نقدمه</span>
+            <span className="eyebrow">ما نقدمه</span>
             <h2 className="heading-2 text-foreground mb-4">منتجاتنا</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               نقدم مجموعة متنوعة من الأكياس البلاستيكية عالية الجودة التي تناسب مختلف الاحتياجات

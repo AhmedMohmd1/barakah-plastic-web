@@ -87,10 +87,11 @@ const Contact = () => {
     <section id="contact" className="section-padding bg-muted/50" ref={ref}>
       <div className="container-custom">
         <div className="text-center mb-14 scroll-animate">
-          <span className="text-secondary font-semibold text-sm tracking-wide mb-2 block">نحن هنا لمساعدتك</span>
+          <span className="eyebrow">نحن هنا لمساعدتك</span>
           <h2 className="heading-2 text-foreground mb-4">اوصل لينا بسهولة</h2>
           <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            نحن سعداء بالرد على استفساراتكم وتلبية طلباتكم. يمكنكم التواصل معنا من خلال النموذج أدناه
+            للطلبات التفصيلية واستفسارات التسعير، املأ النموذج أدناه وسنعود إليك بعرض متكامل.
+            وإذا كنت تريد رداً سريعاً خلال دقائق، راسلنا مباشرة على واتساب.
           </p>
         </div>
 
@@ -127,8 +128,9 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-3 scroll-animate bg-white p-8 rounded-2xl shadow-lg shadow-primary/5 border border-border/50" style={{ transitionDelay: '150ms' }}>
-            <h3 className="heading-3 text-foreground mb-6">أرسل استفسارك</h3>
+          <div className="lg:col-span-3 scroll-animate bg-card p-8 rounded-2xl shadow-lg shadow-primary/5 border border-border/50" style={{ transitionDelay: '150ms' }}>
+            <h3 className="heading-3 text-foreground mb-2">أرسل استفسارك</h3>
+            <p className="text-muted-foreground text-sm mb-6">لطلبات التسعير التفصيلية — سنرد عليك في أقرب وقت</p>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid md:grid-cols-2 gap-5">

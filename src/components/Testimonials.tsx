@@ -1,13 +1,15 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { QuoteIcon } from "lucide-react";
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
@@ -48,12 +50,30 @@ const testimonials: Testimonial[] = [
 
 const Testimonials = () => {
   const ref = useScrollAnimation();
+  const [api, setApi] = useState<CarouselApi>();
+  const [selected, setSelected] = useState(0);
+  const [snapCount, setSnapCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+    const update = () => {
+      setSnapCount(api.scrollSnapList().length);
+      setSelected(api.selectedScrollSnap());
+    };
+    update();
+    api.on('select', update);
+    api.on('reInit', update);
+    return () => {
+      api.off('select', update);
+      api.off('reInit', update);
+    };
+  }, [api]);
 
   return (
     <section id="testimonials" className="section-padding bg-muted/30" ref={ref}>
       <div className="container-custom">
         <div className="text-center mb-14 scroll-animate">
-          <span className="text-secondary font-semibold text-sm tracking-wide mb-2 block">ماذا يقول عملاؤنا</span>
+          <span className="eyebrow">ماذا يقول عملاؤنا</span>
           <h2 className="heading-2 text-foreground mb-4">آراء العملاء</h2>
           <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             نفخر بثقة عملائنا الكرام ونسعى دائماً لتحقيق رضاهم من خلال خدماتنا ومنتجاتنا
@@ -62,6 +82,7 @@ const Testimonials = () => {
 
         <div className="scroll-animate" style={{ transitionDelay: '150ms' }}>
           <Carousel
+            setApi={setApi}
             opts={{
               align: "start",
               loop: true,
@@ -93,9 +114,28 @@ const Testimonials = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="hidden md:flex justify-end gap-2 mt-6">
-              <CarouselPrevious className="relative left-0 right-auto h-9 w-9 rounded-full border-border hover:bg-secondary hover:text-white hover:border-secondary transition-colors" />
-              <CarouselNext className="relative right-0 h-9 w-9 rounded-full border-border hover:bg-secondary hover:text-white hover:border-secondary transition-colors" />
+            <div className="flex items-center justify-center md:justify-between gap-4 mt-6">
+              {/* Position dots — primary affordance on mobile (arrows are desktop-only) */}
+              <div className="flex items-center gap-2" role="tablist" aria-label="شرائح آراء العملاء">
+                {Array.from({ length: snapCount }).map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    role="tab"
+                    aria-label={`الانتقال إلى الشريحة ${i + 1}`}
+                    aria-selected={i === selected}
+                    onClick={() => api?.scrollTo(i)}
+                    className={cn(
+                      "h-2.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2",
+                      i === selected ? "w-6 bg-secondary" : "w-2.5 bg-border hover:bg-secondary/50"
+                    )}
+                  />
+                ))}
+              </div>
+              <div className="hidden md:flex gap-2">
+                <CarouselPrevious className="relative left-0 right-auto h-9 w-9 rounded-full border-border hover:bg-secondary hover:text-white hover:border-secondary transition-colors" />
+                <CarouselNext className="relative right-0 h-9 w-9 rounded-full border-border hover:bg-secondary hover:text-white hover:border-secondary transition-colors" />
+              </div>
             </div>
           </Carousel>
         </div>

@@ -31,9 +31,10 @@ export default {
 					foreground: '#ffffff'
 				},
 				secondary: {
-					DEFAULT: '#F77F00', // vibrant orange
+					DEFAULT: '#F77F00', // vibrant orange — surfaces/fills only
 					light: '#FF9827',
 					dark: '#D96C00',
+					ink: 'hsl(var(--secondary-ink))', // AA-safe orange for TEXT on light
 					foreground: '#ffffff'
 				},
 				accent: {

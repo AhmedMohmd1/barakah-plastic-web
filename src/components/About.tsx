@@ -9,7 +9,7 @@ const About = () => {
     <section id="about" className="section-padding bg-background" ref={ref}>
       <div className="container-custom">
         <div className="text-center mb-14 scroll-animate">
-          <span className="text-secondary font-semibold text-sm tracking-wide mb-2 block">تعرّف علينا</span>
+          <span className="eyebrow">تعرّف علينا</span>
           <h2 className="heading-2 text-foreground mb-4">من نحن</h2>
           <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             البركة بلاست مصنع متخصص في صناعة الأكياس البلاستيكية بمختلف أنواعها، تأسس عام 2011 وقدم أجود المنتجات على مدار السنين
