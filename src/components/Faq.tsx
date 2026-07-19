@@ -43,7 +43,7 @@ const Faq = () => {
     <section id="faq" className="section-padding bg-background" ref={ref}>
       <div className="container-custom">
         <div className="text-center mb-14 scroll-animate">
-          <span className="text-secondary font-semibold text-sm tracking-wide mb-2 block">هل لديك سؤال؟</span>
+          <span className="eyebrow">هل لديك سؤال؟</span>
           <h2 className="heading-2 text-foreground mb-4">الأسئلة المتكررة</h2>
           <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             نجيب على أكثر الأسئلة شيوعاً لمساعدتك في الحصول على المعلومات التي تحتاجها

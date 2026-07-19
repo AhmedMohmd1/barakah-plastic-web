@@ -19,7 +19,7 @@ const Features = () => {
     <section id="features" className="section-padding bg-background" ref={ref}>
       <div className="container-custom">
         <div className="text-center mb-14 scroll-animate">
-          <span className="text-secondary font-semibold text-sm tracking-wide mb-2 block">لماذا نحن</span>
+          <span className="eyebrow">لماذا نحن</span>
           <h2 className="heading-2 text-foreground mb-4">مميزاتنا</h2>
           <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             ما يميزنا عن غيرنا هو التزامنا بالجودة والتطوير المستمر لمنتجاتنا لتلبية احتياجات عملائنا
@@ -54,9 +54,9 @@ const Features = () => {
               نحن في البركة بلاست نسعى دائمًا لتقديم أفضل المنتجات التي تلبي احتياجاتكم.
               تواصل معنا الآن للحصول على عرض سعر خاص!
             </p>
-            <a 
-              href="#contact" 
-              className="inline-block bg-secondary text-white font-bold py-3.5 px-10 rounded-xl hover:bg-secondary-dark transition-all duration-300 shadow-lg shadow-secondary/30 hover:shadow-xl"
+            <a
+              href="#contact"
+              className="inline-block bg-secondary text-white font-bold py-3.5 px-10 rounded-xl hover:bg-secondary-dark active:bg-secondary-dark transition-all duration-300 shadow-lg shadow-secondary/30 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
             >
               تواصل معنا الآن
             </a>

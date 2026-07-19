@@ -12,6 +12,7 @@ import ProductBadge from './shared/ProductBadge';
 import ProductImageOverlay from './shared/ProductImageOverlay';
 import ProductActionButtons from './shared/ProductActionButtons';
 import { Product } from '@/types/product';
+import { PRODUCT_IMAGE_FALLBACK } from '@/constants/products';
 
 interface GridProductCardProps {
   product: Product;
@@ -34,7 +35,7 @@ const GridProductCard: React.FC<GridProductCardProps> = ({
     <Card 
       className={cn(
         "group overflow-hidden border border-border/50 shadow-sm transition-all duration-300",
-        "hover:shadow-xl hover:-translate-y-1",
+        "hover:shadow-xl hover:-translate-y-1 motion-reduce:hover:translate-y-0",
         "bg-card rounded-2xl"
       )}
       onMouseEnter={onMouseEnter}
@@ -42,13 +43,18 @@ const GridProductCard: React.FC<GridProductCardProps> = ({
       data-name={product.name}
       data-img={product.image}
     >
-      <div className="relative h-56 overflow-hidden">
-        <img 
-          src={product.image} 
-          alt={product.name} 
+      <div className="relative h-56 overflow-hidden bg-muted">
+        <img
+          src={product.image}
+          alt={product.name}
+          loading="lazy"
+          onError={(e) => {
+            const img = e.currentTarget;
+            if (img.src.indexOf(PRODUCT_IMAGE_FALLBACK) === -1) img.src = PRODUCT_IMAGE_FALLBACK;
+          }}
           className={cn(
             "w-full h-full object-cover object-center transition-transform duration-500",
-            "group-hover:scale-105"
+            "group-hover:scale-105 motion-reduce:group-hover:scale-100"
           )}
         />
         <ProductBadge badge={product.badge} />

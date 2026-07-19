@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { PRODUCT_IMAGE_FALLBACK } from '@/constants/products';
 import { toast } from 'sonner';
 
 interface QuoteRequestModalProps {
@@ -139,7 +140,11 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
             <img
               src={productImage}
               alt={productName}
-              className="w-16 h-16 object-cover rounded-lg"
+              className="w-16 h-16 object-cover rounded-lg bg-muted"
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (img.src.indexOf(PRODUCT_IMAGE_FALLBACK) === -1) img.src = PRODUCT_IMAGE_FALLBACK;
+              }}
             />
             <div>
               <h3 className="font-semibold text-primary">{productName}</h3>
@@ -159,11 +164,11 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
               value={formData.name}
               onChange={handleChange}
               placeholder="أدخل اسمك"
-              className={`text-right ${errors.name ? 'border-red-500' : ''}`}
+              className={`text-right ${errors.name ? 'border-destructive' : ''}`}
               dir="rtl"
             />
             {errors.name && (
-              <p className="text-sm text-red-500">{errors.name}</p>
+              <p className="text-sm text-destructive">{errors.name}</p>
             )}
           </div>
 
@@ -180,11 +185,11 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
               onChange={handleChange}
               placeholder="أدخل رقم هاتفك"
               required
-              className={`text-right ${errors.phone ? 'border-red-500' : ''}`}
+              className={`text-right ${errors.phone ? 'border-destructive' : ''}`}
               dir="rtl"
             />
             {errors.phone && (
-              <p className="text-sm text-red-500">{errors.phone}</p>
+              <p className="text-sm text-destructive">{errors.phone}</p>
             )}
           </div>
 
@@ -200,17 +205,18 @@ const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({
               onChange={handleChange}
               placeholder="أضف أي ملاحظات أو متطلبات خاصة..."
               rows={3}
-              className={`text-right resize-none ${errors.note ? 'border-red-500' : ''}`}
+              className={`text-right resize-none ${errors.note ? 'border-destructive' : ''}`}
               dir="rtl"
             />
             {errors.note && (
-              <p className="text-sm text-red-500">{errors.note}</p>
+              <p className="text-sm text-destructive">{errors.note}</p>
             )}
           </div>
 
           <Button
             type="submit"
-            className="w-full"
+            variant="secondary"
+            className="w-full rounded-xl font-semibold"
             size="lg"
             disabled={isSubmitting}
           >

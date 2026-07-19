@@ -30,7 +30,7 @@ const FloatingButtons = () => {
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/+201009923040', '_blank');
+    window.open('https://wa.me/+201009923040', '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -38,8 +38,9 @@ const FloatingButtons = () => {
       {/* WhatsApp Button - Always visible */}
       <button
         onClick={openWhatsApp}
-        className="bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
-        aria-label="تواصل عبر الواتساب"
+        className="bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+        aria-label="تواصل عبر الواتساب — رد سريع خلال دقائق"
+        title="رد سريع خلال دقائق"
       >
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
@@ -57,7 +58,7 @@ const FloatingButtons = () => {
       <button
         onClick={scrollToTop}
         className={cn(
-          "bg-primary text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center",
+          "bg-primary text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
         )}
         aria-label="العودة للأعلى"

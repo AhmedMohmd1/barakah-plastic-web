@@ -5,7 +5,7 @@ export const preloadCriticalResources = () => {
     '/images/plasticbag.jpeg',
     '/images/softbagsCover.png',
     '/images/canvas.jpeg',
-    '/images/كيس سلوفان.jpeg',
+    '/images/solfan1.jpeg',
     '/images/اكياس-بقفل.png',
   ];
 

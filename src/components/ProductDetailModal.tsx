@@ -98,7 +98,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           { name: "ميزات خاصة", value: "شريط لاصق ذاتي" },
           { name: "الحد الأدنى للطلب", value: "2000 قطعة" },
         ],
-        images: ["/images/كيس سلوفان.jpeg", "/images/solfan2.jpeg"],
+        images: ["/images/solfan1.jpeg", "/images/solfan2.jpeg"],
       },
     },
     5: {

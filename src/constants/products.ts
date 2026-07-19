@@ -1,4 +1,7 @@
 
+/** Neutral image shown if a product photo fails to load — never leave a broken tile. */
+export const PRODUCT_IMAGE_FALLBACK = "/images/hero.jpeg";
+
 export const PRODUCTS = [
   {
     id: 1,
@@ -64,9 +67,9 @@ export const PRODUCTS = [
     name: "اكياس سلوفان بشريطه",
     description:
       "أكياس سلوفان شفافة مع شريط لاصق للإغلاق المحكم، مثالية لتغليف المنتجات الصغيرة والهدايا بشكل أنيق",
-    image: "/images/كيس سلوفان.jpeg",
+    image: "/images/solfan1.jpeg",
     images: [
-      "/images/كيس سلوفان.jpeg",
+      "/images/solfan1.jpeg",
       "/images/solfan2.jpeg",
 
     ],
