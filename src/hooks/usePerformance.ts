@@ -63,7 +63,7 @@ export const usePerformance = () => {
       });
 
       // Send to analytics if needed
-      if (process.env.NODE_ENV === 'production') {
+      if (import.meta.env.PROD) {
         // Analytics.send('performance', metrics);
       }
     };
