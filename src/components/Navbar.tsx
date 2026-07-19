@@ -68,37 +68,37 @@ const Navbar = () => {
 
   return <>
     <header className={cn(
-      "sticky top-0 z-50 transition-all duration-300 backdrop-blur-md",
-      scrolled
-        ? "bg-white/95 shadow-lg shadow-primary/5"
-        : "bg-white shadow-sm"
+      "sticky top-0 z-50 transition-all duration-300 bg-background/80 backdrop-blur-md",
+      scrolled ? "py-2" : "py-3 md:py-4"
     )}>
-      <div className="container-custom py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-reverse space-x-2">
-            <a href="#" className={cn("flex items-center rounded-lg", focusRing)}>
-              <img src="/logo.png" alt="البركة بلاست" className="h-12 md:h-14" />
+      <div className="container-custom">
+        <div className={cn(
+          "flex items-center justify-between rounded-2xl bg-white/95 backdrop-blur-md border border-primary/10 shadow-sm px-4 md:px-6 py-3 transition-all",
+          scrolled && "shadow-md"
+        )}>
+          <div className="flex items-center gap-6 md:gap-10">
+            <a href="#" className={cn("flex items-center rounded-lg shrink-0", focusRing)}>
+              <img src="/logo.png" alt="البركة بلاست" className="h-10 md:h-12" />
             </a>
-          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-reverse space-x-1">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={cn("nav-link-underline font-medium text-foreground/80 hover:text-primary px-3 py-2 rounded-lg hover:bg-primary/5 transition-all duration-200 text-sm", focusRing)}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-5">
+              {NAV_ITEMS.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={cn("font-semibold text-sm text-primary-light hover:text-secondary transition-colors", focusRing)}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
 
           <div className="hidden lg:block">
             <Button
               onClick={openQuoteModal}
-              variant="secondary"
-              className="rounded-xl shadow-md shadow-secondary/20 hover:shadow-lg hover:shadow-secondary/30 transition-all duration-300 px-6 text-base font-semibold"
+              className="rounded-xl bg-secondary hover:bg-primary text-secondary-foreground shadow-lg shadow-secondary/20 transition-all duration-300 px-6 text-sm font-bold"
             >
               اطلب تسعيرة
             </Button>
@@ -108,7 +108,7 @@ const Navbar = () => {
           <button
             ref={menuButtonRef}
             type="button"
-            className={cn("lg:hidden text-foreground/70 p-2 rounded-lg hover:bg-muted transition-colors", focusRing)}
+            className={cn("lg:hidden text-primary p-2 rounded-lg hover:bg-primary/5 transition-colors", focusRing)}
             onClick={toggleMenu}
             aria-label={isOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
             aria-expanded={isOpen}
