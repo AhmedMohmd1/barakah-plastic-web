@@ -18,52 +18,54 @@
 
   :root {
     /* ---- Neutral ramp (single source of truth) ----
-       paper  → --background (page)   surface → --card/--popover (raised)
-       muted  → tinted fills          line    → --border/--input
-       ink    → --foreground (text)   slate   → --muted-foreground (secondary text) */
-    --background: 210 20% 98%;   /* paper  — cool near-white page */
-    --foreground: 210 40% 10%;   /* ink    — primary text */
+       Redesigned to "Industrial Precision Grid" — Navy Trust palette.
+       navy  #0f1b3d  →  --primary
+       mid   #1e3a5f  →  --primary-light
+       blue  #3b6fa0  →  --secondary (accent, was orange)
+       paper #e8edf3  →  --background */
+    --background: 213 27% 93%;   /* #e8edf3 near-white paper */
+    --foreground: 224 61% 15%;   /* #0f1b3d navy ink */
 
-    --card: 0 0% 100%;           /* surface — cards */
-    --card-foreground: 210 40% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 61% 15%;
 
-    --popover: 0 0% 100%;        /* surface — popovers */
-    --popover-foreground: 210 40% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 61% 15%;
 
-    --primary: 203 100% 14%;     /* brand navy  ≈ #003049 */
-    --primary-light: 201 60% 26%;   /* ≈ #1A4D68 */
-    --primary-dark: 202 100% 9%;    /* ≈ #001F2F */
+    --primary: 224 61% 15%;      /* #0f1b3d */
+    --primary-light: 213 52% 25%; /* #1e3a5f */
+    --primary-dark: 224 68% 10%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 30 100% 48%;    /* brand orange ≈ #F77F00 (surfaces only) */
-    --secondary-light: 31 100% 58%; /* ≈ #FF9827 */
-    --secondary-dark: 30 100% 43%;  /* ≈ #D96C00 */
+    /* Accent blue replaces orange — used everywhere legacy code says --secondary */
+    --secondary: 210 46% 43%;    /* #3b6fa0 */
+    --secondary-light: 210 46% 55%;
+    --secondary-dark: 213 52% 32%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-ink: 27 90% 25%; /* AA-safe orange for TEXT on light ≈ #7A3A06 */
+    --secondary-ink: 213 52% 25%; /* #1e3a5f — AA-safe blue text on light */
 
-    /* Gold is reserved for premium/trust signals (badges, achievements) —
-       never a CTA color competing with secondary orange. */
-    --accent: 45 93% 47%;
-    --accent-light: 46 97% 65%;     /* ≈ #FCD34D */
-    --accent-dark: 26 90% 37%;      /* ≈ #D97706 */
-    --accent-foreground: 0 0% 0%;
+    /* Gold kept but muted — reserved for premium/trust signals only */
+    --accent: 210 46% 43%;
+    --accent-light: 210 46% 55%;
+    --accent-dark: 213 52% 25%;
+    --accent-foreground: 0 0% 100%;
 
     --success: 142 72% 36%;
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
-    --warning-foreground: 210 40% 10%;
+    --warning-foreground: 224 61% 15%;
 
-    --muted: 210 20% 95%;        /* muted  — tinted fill */
-    --muted-foreground: 210 10% 45%;  /* slate — secondary text */
+    --muted: 213 27% 95%;
+    --muted-foreground: 213 18% 40%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 210 15% 90%;
-    --input: 210 15% 90%;
-    --ring: 203 100% 14%;
+    --border: 213 20% 88%;
+    --input: 213 20% 88%;
+    --ring: 210 46% 43%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
