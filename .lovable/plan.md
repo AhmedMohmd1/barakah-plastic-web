@@ -1,92 +1,98 @@
-# Redesign: Industrial Precision Grid (Bento)
+# Mobile UX Enhancement Strategy + Bottom Dock
 
-Locked from your picks — used as hard constraints across every change:
-- **Palette:** navy `#0f1b3d`, mid-navy `#1e3a5f`, accent blue `#3b6fa0`, near-white `#e8edf3`. Orange is fully removed as a CTA/accent color.
-- **Fonts:** Sora (headings) + Manrope (body English). Cairo/Tajawal remain the Arabic faces so Arabic script keeps its correct rhythm.
-- **Layout:** Bento hero (8/4 grid: navy content card + image/stats sidecard), 3 white feature cards with corner accents, client-proof strip.
+## Goals
+Deliver a measurably better mobile experience for Al Baraka Plast: faster taps, easier navigation, quicker load, cleaner accessibility — and add a persistent **bottom dock** (mobile-only) for one-thumb access to the most-used actions.
 
-## What changes
+---
 
-### 1. Design tokens (`src/index.css`)
-Remap the CSS variables verbatim to the prototype hex values (converted to HSL). `--secondary` is repurposed from orange to the accent blue `#3b6fa0` so every existing `bg-secondary` / `text-secondary` reference across the codebase instantly picks up the new accent — no component-by-component color churn.
+## Part 1 — Mobile UX Strategy (recommendations)
 
-- `--background` → `#e8edf3`
-- `--primary` → `#0f1b3d`, `--primary-light` → `#1e3a5f`
-- `--secondary` → `#3b6fa0` (was orange `#F77F00`)
-- `--secondary-ink` → mid-navy `#1e3a5f` (eyebrow text on light)
-- `--ring`, focus colors realigned to the new blue
+### 1. Touch target optimization
+- Enforce minimum **44×44px** tap targets on all interactive elements (buttons, nav links, icon buttons, FloatingButtons, breadcrumb links).
+- Add ≥8px spacing between adjacent tap targets in `Navbar`, `Footer`, `ProductCard` action rows.
+- Replace shadcn `size="icon"` (36×36) buttons on mobile with `min-h-11 min-w-11`.
+- Give every icon-only button an `aria-label` in Arabic.
 
-Add `.font-sora` + `.font-manrope` utilities for Latin-script accents (stats numbers, badges). Arabic text keeps `font-cairo` / `font-tajawal`.
+### 2. Navigation patterns
+- Add a **fixed bottom dock** on mobile (`md:hidden`) with 5 primary destinations:
+  الرئيسية · المنتجات · عرض سعر · واتساب · اتصل
+- Convert current mobile hamburger drawer into a full-height sheet with large row targets (56px) and section grouping.
+- Sticky "Request Quote" CTA hides when the dock is visible to avoid overlap.
+- Add `scroll-margin-top` on section anchors so in-page nav doesn't hide under the navbar.
+- Swipe-friendly product gallery (already present) — add pagination dots and swipe hints on first visit.
 
-### 2. Fonts (`index.html`, `tailwind.config.ts`)
-- Add Sora + Manrope to the Google Fonts stylesheet link.
-- Update `<meta name="theme-color">` to `#0f1b3d`.
-- Add `sora` + `manrope` to `theme.extend.fontFamily`.
+### 3. Loading performance (mobile-first)
+- Preload the LCP hero image with `<link rel="preload" as="image" fetchpriority="high">` and mark it `loading="eager"`; lazy-load everything else (`loading="lazy" decoding="async"`).
+- Convert product images to WebP/AVIF via `vite-imagetools` (or pre-compress in `public/images/`); serve responsive `srcset`.
+- Route-split heavy pages (`ProductDetails`, `Clients`) with `React.lazy` + Suspense skeletons.
+- Defer non-critical sections (Testimonials, FAQ) with IntersectionObserver mount.
+- Keep the current SW as network-first for HTML; precache only fonts + logo.
 
-### 3. Navbar (`src/components/Navbar.tsx`)
-Switch from full-width white bar to a floating **white pill navbar** matching the prototype:
-- `rounded-2xl` card, `bg-white/90 backdrop-blur-md`, `shadow-sm`, sitting on top with side padding.
-- Logo block: existing `/logo.png` on the right, keep as is.
-- Nav links: `text-primary-light` semibold, hover → accent blue.
-- "اطلب تسعيرة" button: `bg-secondary` (now blue), `rounded-xl`, keeps existing `RequestQuoteModal` flow. No behavior change.
-- Mobile drawer keeps its current logic; only surface color/radius updated.
+### 4. Accessibility (mobile)
+- Use `h-dvh` instead of `h-screen` for full-height layouts (fixes iOS URL bar jump).
+- Ensure text uses `text-secondary-ink` (not raw `text-secondary`) for AA contrast on small text — audit `ValueProposition`, `Footer`, product meta.
+- Add visible `focus-visible` ring on all interactive elements; never remove outlines without a replacement.
+- Single `<main>` per route; verify heading order (one `h1` per page, no skipped levels).
+- Respect `prefers-reduced-motion` — disable hero slider auto-advance and scroll animations when set.
+- Form inputs: use `inputMode="numeric"` and `autoComplete="tel"` on phone; `inputMode="numeric"` on quantity; labels always associated.
 
-### 4. Hero (`src/components/Hero.tsx`)
-Rebuild the composition to the chosen bento (RTL grid, 8/4 split on desktop, stacks on mobile):
+### 5. Responsive design principles
+- Mobile-first Tailwind breakpoints; audit and remove desktop-only assumptions in `Hero` bento (stack to 1 column cleanly on `<md`).
+- Fluid typography with `clamp()` for headings; body ≥16px to prevent iOS zoom-on-focus.
+- Container padding `px-4` on mobile, `px-6` tablet, `px-8` desktop.
+- Safe-area insets: `pb-[env(safe-area-inset-bottom)]` on the dock; `pt-[env(safe-area-inset-top)]` on sticky navbar.
+- Test at 360×640, 390×844, 414×896, 768×1024.
 
-```text
-+---------------------------+---------------+
-|                           |               |
-|  Navy content card        |  Factory     |
-|  (col-span-8)             |  image card  |
-|                           |  (with       |
-|  - eyebrow badge          |   caption)   |
-|  - h1 (Sora)              |               |
-|    highlight last line    +-------+-------+
-|  - subtext (Manrope-      | 12+   | 5+    |
-|    weighted Tajawal)      | خبرة  | خطوط  |
-|  - CTAs (blue + ghost)    +-------+-------+
-+---------------------------+
-```
+### 6. UX metrics to track
+| Metric | Target | Tool |
+|---|---|---|
+| LCP (mobile) | < 2.5s | Lighthouse / web-vitals |
+| INP | < 200ms | web-vitals |
+| CLS | < 0.1 | web-vitals |
+| TTI (mobile 4G) | < 3.8s | Lighthouse |
+| Quote-form completion rate | +20% | SheetDB submissions / sessions |
+| Product → Quote conversion | Track baseline | Custom event |
+| Dock CTA tap-through rate | ≥ 15% of mobile sessions | Custom event |
+| Mobile bounce rate | -15% | Analytics |
+| Accessibility score | ≥ 95 | Lighthouse a11y |
+| Tap-target failures | 0 | Lighthouse |
 
-- Preserve the existing headline "صناعة أكياس بلاستيكية عالية الجودة" and subhead.
-- Preserve the two CTAs and their existing scroll-to-section behavior (`#products`, `#contact`).
-- Keep the image slider — but scope it **inside** the sidecard, not full-bleed. Same `HERO_IMAGES` array, same 4s auto-advance interval, same crossfade.
-- Add the blueprint grid overlay (`linear-gradient` 40px squares at 10% opacity) to the navy card.
-- Stats become the 2-card mini-grid inside the sidecard: "12+ سنة خبرة" (blue number) and "5+ خطوط إنتاج" (navy number). The "500+ عميل" moves to the client-proof strip below the value cards.
-- Section wrapper becomes light (`bg-background`) with padded max-w-7xl inner grid.
+---
 
-### 5. Value proposition (`src/components/ValueProposition.tsx`)
-Replace overlapping-cards look with the flat white bento row from the prototype:
-- Drop `-mt-16` overlap. Section sits below the hero with normal `gap-6`.
-- Each card: `bg-card` white, `rounded-3xl` (`1.5rem`), `border-primary/5`, corner quarter-circle wash in `bg-secondary/5` that intensifies on hover, `hover:border-secondary` transition.
-- Keep the three existing items (`أحجام مخصصة`, `متانة عالية`, `تسليم سريع`) and their icons (`Ruler`, `Shield`, `Truck`).
-- Add the hidden "learn more" chevron affordance that fades in on hover (matches prototype).
+## Part 2 — Build the mobile bottom dock
 
-### 6. Client-proof strip (new, in `src/pages/Index.tsx`)
-Small inline section between `ValueProposition` and `About`:
-- Grayscale wordmarks (`INDUSTRIAL_CO`, `GLOBAL_LOGISTICS`, `PRIME_PACK`, `ECO_STORE`) in Sora black.
-- One stat cluster: `500+` عملاء حول العالم.
-- No new file needed; small enough to inline. If it grows, extract to `src/components/ClientProof.tsx`.
+### Scope
+A new `MobileDock` component visible only on mobile (`md:hidden`), fixed to the bottom, with 5 items and safe-area padding.
 
-## What deliberately does NOT change
+### Items (RTL order)
+1. **الرئيسية** — Home icon → scroll to top / `/`
+2. **المنتجات** — Package icon → scroll to `#products`
+3. **عرض سعر** — FileText icon (primary highlighted pill) → opens `QuoteRequestModal` via `useProductQuote`
+4. **واتساب** — MessageCircle icon → `wa.me/+201009923040`
+5. **اتصل** — Phone icon → `tel:+201009923040`
 
-- **Product data / catalog:** `src/constants/products.ts`, product IDs, images, product cards, list/grid toggle, quote modal — all untouched.
-- **Routing:** `App.tsx`, `ProductDetails.tsx`, breadcrumbs — untouched.
-- **Form endpoints:** SheetDB URLs in `Contact.tsx` and `products/QuoteRequestModal.tsx` — untouched.
-- **Products / Features / Testimonials / FAQ / Contact / Footer sections:** no structural changes. Because they use the semantic tokens (`bg-primary`, `text-secondary`, etc.), they automatically inherit the new palette. No component rewrites there.
-- **Business logic, hooks, utils, service worker, preloader** — untouched.
+### Design
+- Height 64px + safe-area padding.
+- Frosted white background (`bg-white/95 backdrop-blur border-t border-border`), navy icons, active item in `text-primary` with a top 2px accent bar.
+- Middle "عرض سعر" item elevated as a filled navy circle (56px) floating slightly above the bar for prominence.
+- `min-h-11 min-w-11` targets, `aria-label` on each, `role="navigation" aria-label="التنقل السفلي"`.
 
-## Verification
+### Files
+- **Create** `src/components/MobileDock.tsx` — the component (uses `useIsMobile`, `useLocation`, `useProductQuote` global trigger or a URL-based open).
+- **Edit** `src/pages/Index.tsx` — mount `<MobileDock />` at the end.
+- **Edit** `src/pages/ProductDetails.tsx` — mount `<MobileDock />` so it persists across routes.
+- **Edit** `src/components/FloatingButtons.tsx` — hide on mobile (`hidden md:flex`) to avoid overlap with dock; keep desktop behavior.
+- **Edit** `src/index.css` — add utility `.pb-safe { padding-bottom: env(safe-area-inset-bottom); }` and a body class `has-mobile-dock` adding `padding-bottom: 80px` on mobile so content isn't hidden behind the dock.
 
-1. Build passes (auto-run by harness).
-2. Playwright screenshot of `/` at 1440×900 to confirm the bento hero matches the chosen direction and RTL flow is intact.
-3. Element screenshot of Navbar (pill radius + white background) and the value-card corner accent.
-4. Spot-check `Products.tsx` and `Contact.tsx` still render — the new `--secondary` (blue) should read as accent, not orange.
+### Technical notes
+- No new dependencies. Icons from `lucide-react` (already installed).
+- The "عرض سعر" dock button opens the existing `QuoteRequestModal` — cleanest path: expose a lightweight zustand-free event (`window.dispatchEvent(new CustomEvent('open-quote-modal'))`) that `Products.tsx`/`useProductQuote` listens for. Or lift the modal into `App.tsx` behind a context. Will use the CustomEvent approach — smallest diff, no context refactor.
+- RTL: dock is `flex-row` (naturally RTL-flipped by `dir="rtl"` on `<html>`); verify visually.
+- Respect `prefers-reduced-motion` — no bounce animation on the elevated CTA.
 
-## Technical notes
+### Out of scope (for this build)
+- Image format conversion pipeline (recommended, but larger change — separate task).
+- Route code-splitting refactor — separate task.
+- Full web-vitals telemetry wiring — separate task.
 
-- Palette conversion (verified with HSL):
-  `#0f1b3d` → `hsl(224 61% 15%)`, `#1e3a5f` → `hsl(213 52% 25%)`, `#3b6fa0` → `hsl(210 46% 43%)`, `#e8edf3` → `hsl(213 27% 93%)`.
-- The existing `dot-pattern-overlay` utility gets a companion `blueprint-grid-overlay` in `index.css` (linear-gradient lines, 40px, `--secondary` at low alpha) — reused by hero + any future dark panel.
-- `HERO_IMAGES` scope-reduction (only mounted slides) is preserved; only the container/positioning around it changes.
+Ship the dock now; the strategy sections above become follow-up tasks the user can approve one by one.
