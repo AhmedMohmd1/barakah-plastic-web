@@ -1,5 +1,6 @@
-const STATIC_CACHE = 'static-v2';
-const DYNAMIC_CACHE = 'dynamic-v1';
+const STATIC_CACHE = 'barakah-static-v4';
+const DYNAMIC_CACHE = 'barakah-dynamic-v4';
+const LEGACY_CACHES = ['static-v1', 'static-v2', 'dynamic-v1'];
 
 const STATIC_ASSETS = [
   '/',
@@ -10,10 +11,12 @@ const STATIC_ASSETS = [
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
+
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
       return cache.addAll(STATIC_ASSETS);
-    })
+    }).catch(() => undefined)
   );
 });
 
@@ -24,22 +27,49 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames
           .filter((cacheName) => {
-            return cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE;
+            return (
+              LEGACY_CACHES.includes(cacheName) ||
+              (cacheName.startsWith('barakah-') &&
+                cacheName !== STATIC_CACHE &&
+                cacheName !== DYNAMIC_CACHE)
+            );
           })
           .map((cacheName) => {
             return caches.delete(cacheName);
           })
       );
-    })
+    }).then(() => self.clients.claim())
   );
 });
+
+const shouldBypassCache = (request) => {
+  const url = new URL(request.url);
+
+  return (
+    request.method !== 'GET' ||
+    url.origin !== self.location.origin ||
+    url.pathname.startsWith('/src/') ||
+    url.pathname.startsWith('/node_modules/') ||
+    url.pathname.startsWith('/@vite') ||
+    url.pathname === '/@react-refresh' ||
+    request.destination === 'script'
+  );
+};
+
+const shouldStoreResponse = (request, response) => {
+  return (
+    response &&
+    response.status === 200 &&
+    response.type === 'basic' &&
+    ['document', 'image', 'font', 'style'].includes(request.destination)
+  );
+};
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', (event) => {
   const { request } = event;
 
-  // Skip non-GET requests
-  if (request.method !== 'GET') {
+  if (shouldBypassCache(request)) {
     return;
   }
 
@@ -68,29 +98,25 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Handle static assets
+  // Handle same-origin assets with network-first caching to avoid stale app code
   event.respondWith(
-    caches.match(request).then((response) => {
-      if (response) {
-        return response;
-      }
+    fetch(request)
+      .then((response) => {
+        if (shouldStoreResponse(request, response)) {
+          const responseClone = response.clone();
 
-      return fetch(request).then((response) => {
-        // Don't cache if not a valid response
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
+          caches.open(DYNAMIC_CACHE).then((cache) => {
+            cache.put(request, responseClone);
+          });
         }
 
-        // Clone the response before using it
-        const responseClone = response.clone();
-
-        caches.open(DYNAMIC_CACHE).then((cache) => {
-          cache.put(request, responseClone);
-        });
-
         return response;
-      });
-    })
+      })
+      .catch(() => {
+        return caches.match(request).then((response) => {
+          return response || caches.match('/index.html');
+        });
+      })
   );
 });
 

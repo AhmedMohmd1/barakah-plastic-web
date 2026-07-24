@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Phone, Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,7 +31,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     if (errors[name]) {
       setErrors(prev => { const n = { ...prev }; delete n[name]; return n; });
@@ -57,7 +57,7 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validateForm()) { toast.error('يرجى تصحيح الأخطاء في النموذج'); return; }
     setIsSubmitting(true);
@@ -116,10 +116,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-bold mb-1 text-foreground">{item.label}</h4>
-                  <p className={`text-muted-foreground ${item.extra || ''}`}>
-                    {item.value.split('\n').map((line, j) => (
-                      <React.Fragment key={j}>{line}{j < item.value.split('\n').length - 1 && <br />}</React.Fragment>
-                    ))}
+                  <p className={`text-muted-foreground whitespace-pre-line ${item.extra || ''}`}>
+                    {item.value}
                   </p>
                 </div>
               </div>
@@ -199,9 +197,15 @@ const Contact = () => {
 
               <Button type="submit" className="bg-secondary hover:bg-secondary-dark w-full rounded-xl text-base font-semibold py-5 shadow-md shadow-secondary/20" disabled={isSubmitting}>
                 {isSubmitting ? (
-                  <><Loader2 className="mr-2 h-4 w-4 animate-spin" />جاري الإرسال...</>
+                  <span className="inline-flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    جاري الإرسال...
+                  </span>
                 ) : (
-                  <>إرسال الرسالة<Send className="mr-2 h-4 w-4" /></>
+                  <span className="inline-flex items-center gap-2">
+                    إرسال الرسالة
+                    <Send className="h-4 w-4" />
+                  </span>
                 )}
               </Button>
             </form>
