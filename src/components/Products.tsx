@@ -24,6 +24,13 @@ const Products = () => {
   useEffect(() => { if (isMobile) setViewMode("list"); }, [isMobile]);
   useEffect(() => { const t = setTimeout(() => setIsLoading(false), 500); return () => clearTimeout(t); }, []);
 
+  // Allow global triggers (e.g. mobile dock) to open a generic quote modal
+  useEffect(() => {
+    const handler = () => openQuoteModal('طلب عرض سعر عام', '');
+    window.addEventListener('open-quote-modal', handler as EventListener);
+    return () => window.removeEventListener('open-quote-modal', handler as EventListener);
+  }, [openQuoteModal]);
+
   const handleViewChange = (mode: "grid" | "list") => { if (!isMobile) setViewMode(mode); };
   const openProductDetail = (productId: number) => navigate(`/products/${productId}`);
 

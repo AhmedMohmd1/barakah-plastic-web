@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getProductById } from '@/utils/productUtils';
 import { PRODUCTS } from '@/constants/products';
+import MobileDock from '@/components/MobileDock';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -49,7 +50,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="container-custom py-8 dir-rtl">
+    <div className="container-custom py-8 pb-24 md:pb-8 dir-rtl">
       <div className="mb-6" dir="rtl">
         <Breadcrumb>
           <BreadcrumbList>
@@ -88,6 +89,7 @@ const ProductDetails = () => {
         </Breadcrumb>
       </div>
       <ProductDetailContent productId={parseInt(productId)} />
+      <MobileDock />
     </div>
   );
 };
