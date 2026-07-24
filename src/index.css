@@ -44,7 +44,8 @@
     --secondary-foreground: 0 0% 100%;
     --secondary-ink: 213 52% 25%; /* #1e3a5f — AA-safe blue text on light */
 
-    /* Gold kept but muted — reserved for premium/trust signals only */
+    /* --accent aliases the navy/blue accent (legacy "gold" retired in the
+       Industrial Precision Grid redesign — kept as an alias for older code) */
     --accent: 210 46% 43%;
     --accent-light: 210 46% 55%;
     --accent-dark: 213 52% 25%;

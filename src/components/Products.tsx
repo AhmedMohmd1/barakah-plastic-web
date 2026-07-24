@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ViewToggle from "./products/ViewToggle";
 import ProductGrid from "./products/ProductGrid";
-import QuoteRequestModal from "./products/QuoteRequestModal";
+import RequestQuoteModal from "./RequestQuoteModal";
 import { ProductGridSkeleton } from "./ui/skeleton-card";
 import ErrorBoundary from "./ErrorBoundary";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -39,9 +39,12 @@ const Products = () => {
             </p>
           </div>
 
-          <div className="scroll-animate">
-            <ViewToggle viewMode={viewMode} onViewChange={handleViewChange} />
-          </div>
+          {/* The toggle is disabled on mobile (list is forced), so only show it on larger screens. */}
+          {!isMobile && (
+            <div className="scroll-animate">
+              <ViewToggle viewMode={viewMode} onViewChange={handleViewChange} />
+            </div>
+          )}
 
           <div className="scroll-animate" style={{ transitionDelay: '150ms' }}>
             {isLoading ? (
@@ -59,7 +62,7 @@ const Products = () => {
           </div>
         </div>
 
-        <QuoteRequestModal isOpen={isModalOpen} onClose={closeQuoteModal} productName={selectedProduct.name} productImage={selectedProduct.image} />
+        <RequestQuoteModal isOpen={isModalOpen} onClose={closeQuoteModal} productName={selectedProduct.name} productImage={selectedProduct.image} />
       </section>
     </ErrorBoundary>
   );

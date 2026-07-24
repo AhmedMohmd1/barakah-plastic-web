@@ -12,40 +12,36 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import FloatingButtons from '@/components/FloatingButtons';
 
-const CLIENT_MARKS = ['INDUSTRIAL_CO', 'GLOBAL_LOGISTICS', 'PRIME_PACK', 'ECO_STORE'];
-
 const Index = () => {
   return (
     <div className="min-h-screen font-tajawal bg-background">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:right-3 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-secondary"
+      >
+        تخطَّ إلى المحتوى
+      </a>
       <Navbar />
-      <Hero />
-      <ValueProposition />
+      <main id="main-content">
+        <Hero />
+        <ValueProposition />
 
-      <section aria-label="عملاؤنا" className="bg-card/50 border-y border-primary/5 py-6">
-        <div className="container-custom flex flex-wrap justify-center items-center gap-8 md:gap-12">
-          {CLIENT_MARKS.map((mark) => (
-            <span
-              key={mark}
-              className="font-sora font-black text-lg md:text-2xl tracking-tighter text-primary/40 grayscale"
-            >
-              {mark}
-            </span>
-          ))}
-          <div className="flex flex-col items-center">
-            <div className="font-sora font-extrabold text-xl text-secondary leading-none">500+</div>
-            <div className="text-[10px] font-bold text-primary-light uppercase tracking-widest mt-1">
-              عملاء حول العالم
-            </div>
+        {/* عملاؤنا — TODO: أضِف شعارات العملاء الحقيقية هنا عند توفرها */}
+        <section aria-label="عملاؤنا" className="bg-card/50 border-y border-primary/5 py-6">
+          <div className="container-custom text-center">
+            <p className="text-sm md:text-base font-semibold text-primary-light font-tajawal">
+              نفخر بخدمة عملائنا في مختلف المحافظات منذ عام 2011
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <About />
-      <Products />
-      <Features />
-      <Testimonials />
-      <Faq />
-      <Contact />
+        <About />
+        <Products />
+        <Features />
+        <Testimonials />
+        <Faq />
+        <Contact />
+      </main>
       <Footer />
       <FloatingButtons />
     </div>

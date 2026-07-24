@@ -35,7 +35,7 @@ const About = () => {
             {[
               { icon: CheckCircle, title: 'خبرة أكثر من 12 عام', desc: 'نمتلك خبرة طويلة في صناعة الأكياس البلاستيكية بمختلف أنواعها وأحجامها منذ عام 2011.' },
               { icon: Award, title: 'جودة لا مثيل لها', desc: 'نستخدم أجود أنواع المواد الخام في صناعة منتجاتنا، ونتبع أعلى معايير الجودة.' },
-              { icon: Clock, title: 'تسليم سريع', desc: 'نلتزم بمواعيد التسليم المحددة، ونحرص على توفير المنتجات في الوقت المناسب لعملائنا.' },
+              { icon: Clock, title: 'شراكة طويلة الأمد', desc: 'نبني علاقات ثقة مع عملائنا عبر الالتزام والمصداقية ومتابعة ما بعد التسليم.' },
             ].map((item, i) => (
               <Card key={i} variant="interactive" className="scroll-animate overflow-hidden p-6 md:p-8 flex items-start gap-4" style={{ transitionDelay: `${(i + 3) * 75}ms` }}>
                 <div className="bg-secondary/10 p-3 rounded-xl shrink-0">

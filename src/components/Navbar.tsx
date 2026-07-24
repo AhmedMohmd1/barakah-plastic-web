@@ -87,7 +87,7 @@ const Navbar = () => {
                 <a
                   key={item.href}
                   href={item.href}
-                  className={cn("font-semibold text-sm text-primary-light hover:text-secondary transition-colors", focusRing)}
+                  className={cn("font-semibold text-sm text-primary-light hover:text-secondary-ink transition-colors", focusRing)}
                 >
                   {item.label}
                 </a>

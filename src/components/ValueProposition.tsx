@@ -44,7 +44,7 @@ const ValueProposition = () => {
               <p className="text-sm text-primary-light/70 leading-relaxed font-tajawal">
                 {item.description}
               </p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-bold text-secondary opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="mt-6 flex items-center gap-2 text-xs font-bold text-secondary-ink opacity-0 group-hover:opacity-100 transition-opacity">
                 <span>{item.hint}</span>
                 <ChevronLeft className="w-3 h-3" />
               </div>

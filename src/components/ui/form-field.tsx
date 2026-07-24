@@ -35,6 +35,7 @@ export const FormField: React.FC<FormFieldProps> = ({
 }) => {
   const hasError = errors && errors[name];
   const errorMessage = hasError ? errors[name] : '';
+  const errorId = `${name}-error`;
 
   const baseClassName = `modern-input ${hasError ? 'border-red-500' : ''} ${className}`;
 
@@ -43,7 +44,7 @@ export const FormField: React.FC<FormFieldProps> = ({
       <Label htmlFor={name} className="block font-medium">
         {label} {required && '*'}
       </Label>
-      
+
       {type === 'textarea' ? (
         <Textarea
           id={name}
@@ -55,6 +56,8 @@ export const FormField: React.FC<FormFieldProps> = ({
           className={`${baseClassName} resize-none`}
           dir={dir}
           disabled={disabled}
+          aria-invalid={hasError ? true : undefined}
+          aria-describedby={hasError ? errorId : undefined}
         />
       ) : (
         <Input
@@ -68,12 +71,14 @@ export const FormField: React.FC<FormFieldProps> = ({
           dir={dir}
           disabled={disabled}
           required={required}
+          aria-invalid={hasError ? true : undefined}
+          aria-describedby={hasError ? errorId : undefined}
         />
       )}
-      
+
       {errorMessage && (
-        <p className="text-sm text-red-500">{errorMessage}</p>
+        <p id={errorId} className="text-sm text-red-500">{errorMessage}</p>
       )}
     </div>
   );
-}; 
+};

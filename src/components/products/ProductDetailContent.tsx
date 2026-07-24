@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import ImageGallery from './detail/ImageGallery';
 import ProductInfo from './detail/ProductInfo';
 import ProductSpecifications from './detail/ProductSpecifications';
-import QuoteRequestModal from './QuoteRequestModal';
+import RequestQuoteModal from '@/components/RequestQuoteModal';
 import { ProductDetailSkeleton } from '@/components/ui/skeleton-card';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { useProductQuote } from '@/hooks/useProductQuote';
@@ -109,7 +109,7 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
         </div>
       )}
 
-      <QuoteRequestModal
+      <RequestQuoteModal
         isOpen={isModalOpen}
         onClose={closeQuoteModal}
         productName={selectedProduct.name}

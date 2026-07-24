@@ -51,7 +51,7 @@ export default {
 					DEFAULT: 'hsl(var(--secondary))',
 					light: 'hsl(var(--secondary-light))',
 					dark: 'hsl(var(--secondary-dark))',
-					ink: 'hsl(var(--secondary-ink))', // AA-safe orange for TEXT on light
+					ink: 'hsl(var(--secondary-ink))', // AA-safe blue ink for TEXT on light backgrounds
 					foreground: 'hsl(var(--secondary-foreground))'
 				},
 				accent: {

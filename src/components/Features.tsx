@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Shield, Zap, Truck, Recycle, ThumbsUp, Factory } from 'lucide-react';
+import { Palette, Zap, Truck, Recycle, ThumbsUp, Factory } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -8,9 +8,9 @@ const Features = () => {
   const ref = useScrollAnimation();
 
   const features = [
-    { icon: Shield, title: 'جودة عالية', description: 'نستخدم أجود أنواع المواد الخام لإنتاج أكياس متينة ذات جودة عالية' },
+    { icon: Palette, title: 'طباعة شعارك', description: 'نطبع شعار علامتك التجارية على الأكياس بألوان متعددة وجودة طباعة عالية' },
     { icon: Zap, title: 'تقنيات حديثة', description: 'نعتمد على أحدث التقنيات والآلات في صناعة الأكياس البلاستيكية' },
-    { icon: Truck, title: 'توصيل سريع', description: 'نوفر خدمة توصيل سريعة لكافة المحافظات' },
+    { icon: Truck, title: 'تغطية لكل المحافظات', description: 'نوصل طلباتك إلى مختلف محافظات الجمهورية' },
     { icon: Recycle, title: 'مواد قابلة للتحلل', description: 'نقدم خيارات من الأكياس القابلة للتحلل' },
     { icon: ThumbsUp, title: 'أسعار تنافسية', description: 'نقدم أسعار مناسبة وتنافسية مع الحفاظ على مستوى الجودة' },
     { icon: Factory, title: 'طاقة إنتاجية كبيرة', description: 'لدينا القدرة على تلبية الطلبات الكبيرة في وقت قياسي' },
