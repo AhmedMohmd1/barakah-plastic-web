@@ -7,9 +7,10 @@ import { useThrottle } from '@/hooks/useDebounce';
 
 const NAV_ITEMS = [
   { label: 'الرئيسية', href: '#' },
-  { label: 'من نحن', href: '#about' },
   { label: 'منتجاتنا', href: '#products' },
+  { label: 'كيف نعمل', href: '#how-it-works' },
   { label: 'مميزاتنا', href: '#features' },
+  { label: 'من نحن', href: '#about' },
   { label: 'آراء العملاء', href: '#testimonials' },
   { label: 'الأسئلة المتكررة', href: '#faq' },
   { label: 'تواصل معنا', href: '#contact' },

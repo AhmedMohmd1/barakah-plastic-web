@@ -1,20 +1,25 @@
 
 import React from 'react';
-import { Palette, Zap, Truck, Recycle, ThumbsUp, Factory } from 'lucide-react';
+import { Ruler, Shield, Truck, Palette, Zap, MapPin, ThumbsUp, Factory } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
+const DIFFERENTIATORS = [
+  { icon: Ruler, title: 'أحجام مخصصة', description: 'تخصيص كامل للأبعاد والسماكة بما يتناسب مع مواصفات منتجاتكم التقنية الدقيقة.' },
+  { icon: Shield, title: 'متانة عالية', description: 'استخدام بوليمرات عالية الكثافة تضمن مقاومة فائقة للتمزق والظروف البيئية القاسية.' },
+  { icon: Truck, title: 'تسليم سريع', description: 'نظام لوجستي متطور يضمن معالجة الطلبات الكبيرة وشحنها في جداول زمنية قياسية.' },
+] as const;
+
+const CAPABILITIES = [
+  { icon: Palette, title: 'طباعة شعارك', description: 'نطبع شعار علامتك التجارية على الأكياس بألوان متعددة وجودة طباعة عالية' },
+  { icon: Zap, title: 'تقنيات حديثة', description: 'نعتمد على أحدث التقنيات والآلات في صناعة الأكياس البلاستيكية' },
+  { icon: MapPin, title: 'تغطية لكل المحافظات', description: 'نوصل طلباتك إلى مختلف محافظات الجمهورية' },
+  { icon: ThumbsUp, title: 'أسعار تنافسية', description: 'نقدم أسعار مناسبة وتنافسية مع الحفاظ على مستوى الجودة' },
+  { icon: Factory, title: 'طاقة إنتاجية كبيرة', description: 'لدينا القدرة على تلبية الطلبات الكبيرة في وقت قياسي' },
+] as const;
+
 const Features = () => {
   const ref = useScrollAnimation();
-
-  const features = [
-    { icon: Palette, title: 'طباعة شعارك', description: 'نطبع شعار علامتك التجارية على الأكياس بألوان متعددة وجودة طباعة عالية' },
-    { icon: Zap, title: 'تقنيات حديثة', description: 'نعتمد على أحدث التقنيات والآلات في صناعة الأكياس البلاستيكية' },
-    { icon: Truck, title: 'تغطية لكل المحافظات', description: 'نوصل طلباتك إلى مختلف محافظات الجمهورية' },
-    { icon: Recycle, title: 'مواد قابلة للتحلل', description: 'نقدم خيارات من الأكياس القابلة للتحلل' },
-    { icon: ThumbsUp, title: 'أسعار تنافسية', description: 'نقدم أسعار مناسبة وتنافسية مع الحفاظ على مستوى الجودة' },
-    { icon: Factory, title: 'طاقة إنتاجية كبيرة', description: 'لدينا القدرة على تلبية الطلبات الكبيرة في وقت قياسي' },
-  ];
 
   return (
     <section id="features" className="section-padding bg-background" ref={ref}>
@@ -27,18 +32,37 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
+        <h3 className="font-cairo font-bold text-lg text-primary mb-5 scroll-animate">ما يميز منتجاتنا</h3>
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {DIFFERENTIATORS.map((item, index) => (
             <Card
-              key={index}
+              key={item.title}
               variant="interactive"
               className="scroll-animate overflow-hidden p-6 md:p-8 group"
               style={{ transitionDelay: `${index * 75}ms` }}
             >
               <div className="bg-secondary/10 group-hover:bg-secondary/15 p-4 rounded-xl inline-flex mb-5 transition-colors duration-300">
+                <item.icon className="h-8 w-8 text-secondary" strokeWidth={1.5} />
+              </div>
+              <h4 className="font-bold text-xl mb-3 text-foreground">{item.title}</h4>
+              <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+            </Card>
+          ))}
+        </div>
+
+        <h3 className="font-cairo font-bold text-lg text-primary mb-5 scroll-animate">خدماتنا وإمكانياتنا</h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {CAPABILITIES.map((feature, index) => (
+            <Card
+              key={feature.title}
+              variant="interactive"
+              className="scroll-animate overflow-hidden p-6 md:p-8 group"
+              style={{ transitionDelay: `${(index + 3) * 75}ms` }}
+            >
+              <div className="bg-secondary/10 group-hover:bg-secondary/15 p-4 rounded-xl inline-flex mb-5 transition-colors duration-300">
                 <feature.icon className="h-8 w-8 text-secondary" />
               </div>
-              <h3 className="font-bold text-xl mb-3 text-foreground">{feature.title}</h3>
+              <h4 className="font-bold text-xl mb-3 text-foreground">{feature.title}</h4>
               <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
             </Card>
           ))}

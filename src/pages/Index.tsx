@@ -2,10 +2,10 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import ValueProposition from '@/components/ValueProposition';
-import About from '@/components/About';
 import Products from '@/components/Products';
+import HowItWorks from '@/components/HowItWorks';
 import Features from '@/components/Features';
+import About from '@/components/About';
 import Testimonials from '@/components/Testimonials';
 import Faq from '@/components/Faq';
 import Contact from '@/components/Contact';
@@ -24,7 +24,10 @@ const Index = () => {
       <Navbar />
       <main id="main-content">
         <Hero />
-        <ValueProposition />
+        <Products />
+        <HowItWorks />
+        <Features />
+        <About />
 
         {/* عملاؤنا — TODO: أضِف شعارات العملاء الحقيقية هنا عند توفرها */}
         <section aria-label="عملاؤنا" className="bg-card/50 border-y border-primary/5 py-6">
@@ -35,9 +38,6 @@ const Index = () => {
           </div>
         </section>
 
-        <About />
-        <Products />
-        <Features />
         <Testimonials />
         <Faq />
         <Contact />

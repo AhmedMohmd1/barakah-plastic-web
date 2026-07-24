@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from 'sonner';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { LEAD_FORM_ENDPOINT } from '@/constants/contact';
 
 const PRODUCT_OPTIONS = [
   'شُنط مطبوعة بشعارك',
@@ -23,6 +24,8 @@ const Contact = () => {
     phone: '',
     email: '',
     product: '',
+    quantity: '',
+    size: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,21 +62,24 @@ const Contact = () => {
     if (!validateForm()) { toast.error('يرجى تصحيح الأخطاء في النموذج'); return; }
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://sheetdb.io/api/v1/az68rhltg636u', {
+      const response = await fetch(LEAD_FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           "الأسم": formData.name,
+          "اسم الشركة": formData.company || '',
           "رقم التليفون": formData.phone,
           "البريد الالكتروني": formData.email || '',
           "الموضوع": formData.product || '',
+          "الكمية المطلوبة": formData.quantity || '',
+          "المقاس أو السماكة": formData.size || '',
           "الرسالة": formData.message
         }),
       });
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       await response.json();
       toast.success('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً');
-      setFormData({ name: '', company: '', phone: '', email: '', product: '', message: '' });
+      setFormData({ name: '', company: '', phone: '', email: '', product: '', quantity: '', size: '', message: '' });
       setErrors({});
     } catch (error) {
       console.error('Error submitting contact form:', error);
@@ -172,6 +178,17 @@ const Contact = () => {
                     <option key={opt} value={opt}>{opt}</option>
                   ))}
                 </select>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-5">
+                <div className="space-y-2">
+                  <label htmlFor="quantity" className="block font-medium text-foreground text-sm">الكمية المطلوبة</label>
+                  <Input id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} placeholder="مثال: 5000 قطعة" className="modern-input" />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="size" className="block font-medium text-foreground text-sm">المقاس أو السماكة</label>
+                  <Input id="size" name="size" value={formData.size} onChange={handleChange} placeholder="إن وجد (اختياري)" className="modern-input" />
+                </div>
               </div>
 
               <div className="space-y-2">

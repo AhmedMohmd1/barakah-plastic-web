@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { FormField } from '@/components/ui/form-field';
 import { useForm } from '@/hooks/useForm';
 import { PRODUCTS, PRODUCT_IMAGE_FALLBACK } from "@/constants/products";
+import { LEAD_FORM_ENDPOINT } from "@/constants/contact";
 
 interface RequestQuoteModalProps {
   isOpen: boolean;
@@ -29,16 +30,24 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
     initialData: {
       product: '',
       name: '',
+      company: '',
       phone: '',
+      email: '',
+      quantity: '',
+      size: '',
       note: '',
     },
     validationSchema: {
       product: 'required',
       name: 'required',
+      company: 'optional',
       phone: 'phone',
+      email: 'email',
+      quantity: 'optional',
+      size: 'optional',
       note: 'optional'
     },
-    endpoint: 'https://sheetdb.io/api/v1/8rd4nognbuv4g',
+    endpoint: LEAD_FORM_ENDPOINT,
     successMessage: 'تم إرسال طلبك بنجاح، سنتواصل معك قريباً',
     errorMessage: 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى',
     onSuccess: onClose
@@ -53,10 +62,14 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
 
   const onSubmit = (e: React.FormEvent) => {
     handleSubmit(e, {
-      "product name": formData.product,
-      "client name": formData.name,
-      "phone number": formData.phone,
-      "notes": formData.note || ''
+      "الأسم": formData.name,
+      "اسم الشركة": formData.company || '',
+      "رقم التليفون": formData.phone,
+      "البريد الالكتروني": formData.email || '',
+      "الموضوع": formData.product,
+      "الكمية المطلوبة": formData.quantity || '',
+      "المقاس أو السماكة": formData.size || '',
+      "الرسالة": formData.note || ''
     });
   };
 
@@ -126,6 +139,15 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
           />
 
           <FormField
+            type="text"
+            name="company"
+            label="اسم الشركة"
+            value={formData.company}
+            onChange={handleChange}
+            errors={errors}
+          />
+
+          <FormField
             type="tel"
             name="phone"
             label="رقم الهاتف"
@@ -136,6 +158,35 @@ const RequestQuoteModal: React.FC<RequestQuoteModalProps> = ({ isOpen, onClose, 
             className="ltr"
             dir="ltr"
           />
+
+          <FormField
+            type="email"
+            name="email"
+            label="البريد الإلكتروني"
+            value={formData.email}
+            onChange={handleChange}
+            errors={errors}
+          />
+
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              type="text"
+              name="quantity"
+              label="الكمية المطلوبة"
+              value={formData.quantity}
+              onChange={handleChange}
+              errors={errors}
+            />
+
+            <FormField
+              type="text"
+              name="size"
+              label="المقاس أو السماكة"
+              value={formData.size}
+              onChange={handleChange}
+              errors={errors}
+            />
+          </div>
 
           <FormField
             type="textarea"

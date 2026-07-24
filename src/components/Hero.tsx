@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { ArrowLeft } from 'lucide-react';
+import RequestQuoteModal from './RequestQuoteModal';
 
 const HERO_IMAGES = [
   "/images/hero.webp",
@@ -13,6 +14,7 @@ const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [mountedSlides, setMountedSlides] = useState<Set<number>>(() => new Set([0, 1]));
   const [isPaused, setIsPaused] = useState(false);
+  const [showQuoteModal, setShowQuoteModal] = useState(false);
 
   useEffect(() => {
     setMountedSlides((prev) => {
@@ -65,39 +67,39 @@ const Hero = () => {
 
             <div className="relative z-10">
               <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-lg bg-secondary/10 border-r-4 border-secondary text-white/90 text-xs md:text-sm font-bold mb-8 tracking-wide font-tajawal">
-                منذ 2011 — جودة صناعية معتمدة
+                منذ 2011 — متخصصون في أكياس الجملة
               </div>
 
               <h1 className="font-cairo font-extrabold text-white leading-[1.2] text-4xl md:text-5xl lg:text-6xl mb-6">
-                صناعة أكياس بلاستيكية
+                أكياس بلاستيكية للجملة
                 <br />
-                <span className="text-secondary border-b-4 border-secondary/20">عالية الجودة</span>
+                <span className="text-secondary border-b-4 border-secondary/20">بشعارك الخاص</span>
               </h1>
 
               <p className="text-base md:text-lg text-white/70 max-w-2xl mb-8 leading-relaxed font-tajawal">
-                مصنع متخصص في الأكياس البلاستيكية والشنط المطبوعة بشعارك — لطلبات الجملة
-                والكميات الكبيرة، مع تسليم لكل المحافظات.
+                مصنع بخبرة أكثر من 12 عامًا و5+ خطوط إنتاج — نلبي طلبات الجملة والكميات
+                الكبيرة، مع تسليم لكل محافظات مصر.
               </p>
 
               {/* TODO: استبدل الحد الأدنى للطلب بالقيمة الحقيقية عند توفرها */}
               <div className="inline-flex items-center gap-2 mb-10 text-white/80 text-sm font-tajawal">
                 <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-                <span>أقل كمية للطلب تبدأ من الجملة — تواصل معنا لمعرفة التفاصيل</span>
+                <span>للكميات الكبيرة؟ تواصل معنا لمعرفة الحد الأدنى للطلب</span>
               </div>
 
               <div className="flex flex-wrap gap-4">
                 <button
-                  onClick={() => scrollToSection('products')}
+                  onClick={() => setShowQuoteModal(true)}
                   className="group bg-secondary hover:bg-secondary/90 text-white px-8 md:px-10 py-4 rounded-xl font-bold text-base md:text-lg transition-all hover:shadow-[0_0_30px_hsl(var(--secondary)/0.4)] flex items-center gap-3"
                 >
-                  <span>تصفح المنتجات</span>
+                  <span>اطلب تسعيرة الآن</span>
                   <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
                 </button>
                 <button
-                  onClick={() => scrollToSection('contact')}
+                  onClick={() => scrollToSection('products')}
                   className="border-2 border-white/15 text-white px-8 md:px-10 py-4 rounded-xl font-bold text-base md:text-lg hover:bg-white/5 transition-all"
                 >
-                  تواصل معنا
+                  تصفح المنتجات
                 </button>
               </div>
             </div>
@@ -170,6 +172,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      <RequestQuoteModal isOpen={showQuoteModal} onClose={() => setShowQuoteModal(false)} />
     </section>
   );
 };
