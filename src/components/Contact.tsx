@@ -88,7 +88,7 @@ const Contact = () => {
       <div className="container-custom">
         <div className="text-center mb-14 scroll-animate">
           <span className="eyebrow">نحن هنا لمساعدتك</span>
-          <h2 className="heading-2 text-foreground mb-4">اوصل لينا بسهولة</h2>
+          <h2 className="heading-2 text-foreground mb-4">تواصل معنا بسهولة</h2>
           <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             للطلبات التفصيلية واستفسارات التسعير، املأ النموذج أدناه وسنعود إليك بعرض متكامل.
             وإذا كنت تريد رداً سريعاً خلال دقائق، راسلنا مباشرة على واتساب.
@@ -136,8 +136,8 @@ const Contact = () => {
               <div className="grid md:grid-cols-2 gap-5">
                 <div className="space-y-2">
                   <label htmlFor="name" className="block font-medium text-foreground text-sm">الاسم الكامل *</label>
-                  <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="أدخل اسمك الكامل" className={`modern-input ${errors.name ? 'border-destructive' : ''}`} required />
-                  {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
+                  <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="أدخل اسمك الكامل" className={`modern-input ${errors.name ? 'border-destructive' : ''}`} required aria-invalid={errors.name ? true : undefined} aria-describedby={errors.name ? 'name-error' : undefined} />
+                  {errors.name && <p id="name-error" className="text-sm text-destructive">{errors.name}</p>}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="company" className="block font-medium text-foreground text-sm">اسم الشركة</label>
@@ -148,13 +148,13 @@ const Contact = () => {
               <div className="grid md:grid-cols-2 gap-5">
                 <div className="space-y-2">
                   <label htmlFor="phone" className="block font-medium text-foreground text-sm">رقم الهاتف *</label>
-                  <Input id="phone" name="phone" value={formData.phone} onChange={handleChange} placeholder="أدخل رقم الهاتف" className={`modern-input ${errors.phone ? 'border-destructive' : ''}`} required />
-                  {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
+                  <Input id="phone" name="phone" value={formData.phone} onChange={handleChange} placeholder="أدخل رقم الهاتف" className={`modern-input ${errors.phone ? 'border-destructive' : ''}`} required aria-invalid={errors.phone ? true : undefined} aria-describedby={errors.phone ? 'phone-error' : undefined} />
+                  {errors.phone && <p id="phone-error" className="text-sm text-destructive">{errors.phone}</p>}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="block font-medium text-foreground text-sm">البريد الإلكتروني</label>
-                  <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="أدخل بريدك الإلكتروني" className={`modern-input ${errors.email ? 'border-destructive' : ''}`} />
-                  {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                  <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="أدخل بريدك الإلكتروني" className={`modern-input ${errors.email ? 'border-destructive' : ''}`} aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? 'email-error' : undefined} />
+                  {errors.email && <p id="email-error" className="text-sm text-destructive">{errors.email}</p>}
                 </div>
               </div>
 
@@ -176,8 +176,8 @@ const Contact = () => {
 
               <div className="space-y-2">
                 <label htmlFor="message" className="block font-medium text-foreground text-sm">الرسالة *</label>
-                <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="اكتب رسالتك أو تفاصيل طلبك هنا..." rows={4} className={`modern-input resize-none ${errors.message ? 'border-destructive' : ''}`} required />
-                {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
+                <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="اكتب رسالتك أو تفاصيل طلبك هنا..." rows={4} className={`modern-input resize-none ${errors.message ? 'border-destructive' : ''}`} required aria-invalid={errors.message ? true : undefined} aria-describedby={errors.message ? 'message-error' : undefined} />
+                {errors.message && <p id="message-error" className="text-sm text-destructive">{errors.message}</p>}
               </div>
 
               <Button type="submit" className="bg-secondary hover:bg-secondary-dark w-full rounded-xl text-base font-semibold py-5 shadow-md shadow-secondary/20" disabled={isSubmitting}>

@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Facebook, Instagram, MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 
@@ -39,14 +39,7 @@ const Footer = () => {
             <p className="text-white/60 mb-6 leading-relaxed text-sm">
               نحن متخصصون في صناعة الأكياس البلاستيكية بجودة عالية منذ عام 2011.
             </p>
-            <div className="flex space-x-3 space-x-reverse">
-              <a href="#" className="bg-white/10 hover:bg-secondary p-2.5 rounded-xl transition-all duration-300">
-                <Facebook className="h-4 w-4" />
-              </a>
-              <a href="#" className="bg-white/10 hover:bg-secondary p-2.5 rounded-xl transition-all duration-300">
-                <Instagram className="h-4 w-4" />
-              </a>
-            </div>
+            {/* TODO: أضِف روابط صفحات التواصل الاجتماعي الحقيقية هنا عند توفرها */}
           </div>
 
           <div>
@@ -54,7 +47,7 @@ const Footer = () => {
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.id}>
-                  <button onClick={() => scrollToSection(link.id)} className="text-white/60 hover:text-secondary transition-colors text-sm">
+                  <button onClick={() => scrollToSection(link.id)} className="text-white/60 hover:text-secondary-light transition-colors text-sm">
                     {link.label}
                   </button>
                 </li>
@@ -67,7 +60,7 @@ const Footer = () => {
             <ul className="space-y-2.5">
               {products.map((product) => (
                 <li key={product.id}>
-                  <button onClick={() => navigate(`/products/${product.id}`)} className="text-white/60 hover:text-secondary transition-colors text-sm">
+                  <button onClick={() => navigate(`/products/${product.id}`)} className="text-white/60 hover:text-secondary-light transition-colors text-sm">
                     {product.name}
                   </button>
                 </li>
@@ -103,13 +96,7 @@ const Footer = () => {
         </div>
 
         <div className={cn("border-t border-white/10 mt-12 pt-6", "flex flex-col md:flex-row justify-between items-center")}>
-          <p className="text-white/50 text-sm">&copy; {currentYear} البركة بلاست. جميع الحقوق محفوظة</p>
-          <div className="mt-4 md:mt-0">
-            <ul className="flex space-x-6 space-x-reverse">
-              <li><a href="#" className="text-white/50 hover:text-secondary text-sm transition-colors">سياسة الخصوصية</a></li>
-              <li><a href="#" className="text-white/50 hover:text-secondary text-sm transition-colors">الشروط والأحكام</a></li>
-            </ul>
-          </div>
+          <p className="text-white/60 text-sm">&copy; {currentYear} البركة بلاست. جميع الحقوق محفوظة</p>
         </div>
       </div>
     </footer>

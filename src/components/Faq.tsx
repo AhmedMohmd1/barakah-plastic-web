@@ -14,9 +14,9 @@ const Faq = () => {
       question: "كيف يمكنني الشراء؟",
       answer: (
         <div className="space-y-2">
-          <p>هناك طرق مختلفه لتقديم طلبك:</p>
+          <p>هناك طرق مختلفة لتقديم طلبك:</p>
           <ul className="space-y-2 pr-6 list-disc">
-            <li>مكالمة هاتفيه او عن طريق الوتساب: <span dir="ltr" className="text-primary font-bold">01009923040</span></li>
+            <li>مكالمة هاتفية أو عن طريق واتساب: <span dir="ltr" className="text-primary font-bold">01009923040</span></li>
             <li>عبر الايميل الرسمي: <span className="text-primary font-bold">info@elbarkaplast.com</span></li>
           </ul>
         </div>
@@ -31,7 +31,7 @@ const Faq = () => {
       answer: "نعم، نقدم خدمة طباعة الشعارات والعلامات التجارية على الأكياس البلاستيكية بجودة عالية وألوان متعددة."
     },
     {
-      question: "ما هي الحد الأدنى للطلب؟",
+      question: "ما هو الحد الأدنى للطلب؟",
       answer: "يختلف الحد الأدنى للطلب حسب نوع المنتج والمواصفات المطلوبة. يرجى التواصل معنا للحصول على تفاصيل أكثر عن طلبك المحدد."
     },
     {
