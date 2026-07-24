@@ -11,10 +11,11 @@ import Faq from '@/components/Faq';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import FloatingButtons from '@/components/FloatingButtons';
+import MobileDock from '@/components/MobileDock';
 
 const Index = () => {
   return (
-    <div className="min-h-screen font-tajawal bg-background">
+    <div className="min-h-screen font-tajawal bg-background pb-20 md:pb-0">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:right-3 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-secondary"
@@ -44,6 +45,7 @@ const Index = () => {
       </main>
       <Footer />
       <FloatingButtons />
+      <MobileDock />
     </div>
   );
 };
