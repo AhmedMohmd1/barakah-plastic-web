@@ -65,7 +65,7 @@ const GridProductCard: React.FC<GridProductCardProps> = ({
         <CardTitle className="font-bold text-lg text-foreground">{product.name}</CardTitle>
       </CardHeader>
       <CardContent className="p-5 pt-2">
-        <CardDescription className="text-muted-foreground h-14 overflow-hidden leading-relaxed text-sm">
+        <CardDescription className="text-muted-foreground line-clamp-2 leading-relaxed text-sm">
           {product.description}
         </CardDescription>
       </CardContent>

@@ -76,14 +76,14 @@ const Hero = () => {
                 <span className="text-secondary border-b-4 border-secondary/20">بشعارك الخاص</span>
               </h1>
 
-              <p className="text-base md:text-lg text-white/70 max-w-2xl mb-8 leading-relaxed font-tajawal">
+              <p className="text-base md:text-lg text-white/70 max-w-2xl mb-5 leading-relaxed font-tajawal">
                 مصنع بخبرة أكثر من 12 عامًا و5+ خطوط إنتاج — نلبي طلبات الجملة والكميات
                 الكبيرة، مع تسليم لكل محافظات مصر.
               </p>
 
               {/* TODO: استبدل الحد الأدنى للطلب بالقيمة الحقيقية عند توفرها */}
-              <div className="inline-flex items-center gap-2 mb-10 text-white/80 text-sm font-tajawal">
-                <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-lg bg-white/5 text-white/90 text-sm font-medium font-tajawal">
+                <span className="h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
                 <span>للكميات الكبيرة؟ تواصل معنا لمعرفة الحد الأدنى للطلب</span>
               </div>
 
@@ -164,8 +164,8 @@ const Hero = () => {
                 <div className="font-sora font-extrabold text-3xl text-secondary">12+</div>
                 <div className="text-primary-light font-bold text-xs mt-1 font-tajawal">سنة خبرة</div>
               </div>
-              <div className="bg-background rounded-2xl p-5 border border-secondary/20 shadow-sm flex flex-col items-center justify-center text-center">
-                <div className="font-sora font-extrabold text-3xl text-primary">5+</div>
+              <div className="bg-card rounded-2xl p-5 border border-primary/5 shadow-sm flex flex-col items-center justify-center text-center">
+                <div className="font-sora font-extrabold text-3xl text-secondary">5+</div>
                 <div className="text-primary-light font-bold text-xs mt-1 font-tajawal">خطوط إنتاج</div>
               </div>
             </div>

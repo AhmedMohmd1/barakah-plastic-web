@@ -21,7 +21,7 @@ const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onViewChange }) => {
 
   return (
     <div className="flex justify-end mb-6">
-      <div className="bg-white rounded-lg p-1 inline-flex shadow-sm">
+      <div className="bg-card rounded-lg p-1 inline-flex shadow-sm border border-border/50">
         <Button 
           variant={viewMode === 'grid' ? "secondary" : "ghost"} 
           size="icon" 
