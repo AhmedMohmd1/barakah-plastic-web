@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { label: 'كيف نعمل', href: '#how-it-works' },
   { label: 'مميزاتنا', href: '#features' },
   { label: 'من نحن', href: '#about' },
-  { label: 'آراء العملاء', href: '#testimonials' },
+  { label: 'مصنعنا', href: '#factory' },
   { label: 'الأسئلة المتكررة', href: '#faq' },
   { label: 'تواصل معنا', href: '#contact' },
 ] as const;

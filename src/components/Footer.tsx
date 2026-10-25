@@ -26,7 +26,7 @@ const Footer = () => {
     { label: 'من نحن', id: 'about' },
     { label: 'منتجاتنا', id: 'products' },
     { label: 'مميزاتنا', id: 'features' },
-    { label: 'آراء العملاء', id: 'testimonials' },
+    { label: 'مصنعنا', id: 'factory' },
     { label: 'تواصل معنا', id: 'contact' },
   ];
 
