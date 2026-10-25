@@ -222,3 +222,25 @@
     opacity: 1;
   }
 }
+
+/* Signature motion: "the stamp" — the client's mark is pressed onto the bag */
+@keyframes stampPress {
+  0% { opacity: 0; transform: scale(1.6) rotate(-14deg); }
+  60% { opacity: 1; transform: scale(0.94) rotate(-8deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-8deg); }
+}
+@keyframes stampRipple {
+  0% { opacity: 0.6; transform: scale(0.9); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+@keyframes inkLine {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.stamp-press { animation: stampPress 700ms cubic-bezier(.2,.8,.2,1) 900ms both; }
+.stamp-ripple { animation: stampRipple 900ms ease-out 1450ms both; }
+.ink-line { transform-origin: right; animation: inkLine 900ms cubic-bezier(.2,.8,.2,1) 300ms both; }
+@media (prefers-reduced-motion: reduce) {
+  .stamp-press, .stamp-ripple, .ink-line { animation: none; }
+  .stamp-ripple { opacity: 0; }
+}

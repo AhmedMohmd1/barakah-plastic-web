@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CONCEPT — البركة بلاست
 
 ## Candidates
@@ -68,3 +69,11 @@ skill's banned "route line" example), needs per-governorate claims we cannot pro
    No user references were given. The "card on a dark field" look is avoided by real bag anatomy (slot, seals,
    patch, register marks, small print, die punch) — critics should check this specifically.
 3. «الصفحة نفسها شنطة بتتطبع وتتخرم قدامك — زي ما شنطتك هتتعمل في مصنعنا.»
+=======
+# CONCEPT — "الختم" (The Stamp)
+
+Derivation: business fact (in-house logo printing, own factory since 2011) → metaphor (your mark pressed onto the bag) → object (dashed "شعارك هنا" stamp over the factory photo) → motion (stamp presses in at ~0.9s, ink ripple, done by ~2.3s) → CTA ("اطلب تسعيرة الآن" = get your mark on our bags).
+
+Proof section uses only real facts from PRODUCT.md (2011, 5+ lines, 5 categories, delivery to all governorates). Invented testimonials removed from the page.
+Reduced motion: final stamped state shown statically.
+>>>>>>> 53214cf4861514c91d069980ba22f575dd23d481
