@@ -8,8 +8,12 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProductDetails from "./pages/ProductDetails";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { preloadCriticalResources } from "@/utils/preloader";
+
+const loadLandingV2 = () => import("./v2/LandingV2");
+if (typeof window !== "undefined" && window.location.pathname.startsWith("/v2")) loadLandingV2();
+const LandingV2 = lazy(loadLandingV2);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,6 +68,14 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route
+                path="/v2"
+                element={
+                  <Suspense fallback={<div className="min-h-screen bg-[#0f1b3d]" />}>
+                    <LandingV2 />
+                  </Suspense>
+                }
+              />
               <Route path="/products/:productId" element={<ProductDetails />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

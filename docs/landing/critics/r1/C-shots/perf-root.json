@@ -1,0 +1,233 @@
+{
+ "1440": {
+  "firstLoad": {
+   "Document": "2 KB",
+   "Stylesheet": "16 KB",
+   "Script": "147 KB",
+   "Manifest": "1 KB",
+   "Font": "144 KB",
+   "Image": "406 KB",
+   "Other": "8 KB",
+   "total": "723 KB"
+  },
+  "firstLoadList": [
+   "Document 2KB 200 /",
+   "Stylesheet 2KB 200 https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&family=Sora:wght@400;600;",
+   "Script 53KB 200 /assets/index-Bkficikn.js",
+   "Script 44KB 200 /assets/vendor-BtPQM8GQ.js",
+   "Script 30KB 200 /assets/ui-CuROwe5G.js",
+   "Script 7KB 200 /assets/utils-qJ7GjZ6G.js",
+   "Script 4KB 200 /assets/icons-VbBKJeEz.js",
+   "Script 8KB 200 /assets/router-B1pT5lLW.js",
+   "Stylesheet 14KB 200 /assets/index-BbTWTdtR.css",
+   "Script 0KB 200 https://cdn.gpteng.co/gptengineer.js",
+   "Manifest 1KB 200 /site.webmanifest",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+   "Font 30KB 200 https://fonts.gstatic.com/s/cairo/v31/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscQyyS4J0.woff2",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+   "Font 25KB 200 https://fonts.gstatic.com/s/sora/v17/xMQ9uFFYT72X5wkB_18qmnndmSdSnh2BAfO5mnuyOo1lfiQwV6-x.woff2",
+   "Font 33KB 200 https://fonts.gstatic.com/s/cairo/v31/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscRiyS.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrFpiQ.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+   "Image 163KB 200 /images/hero.webp",
+   "Image 163KB 200 /logo.png",
+   "Image 38KB 200 /images/canvas.webp",
+   "Other 1KB 200 /favicon.ico",
+   "Other 7KB 200 /icon-192.png",
+   "Image 42KB 200 /images/plasticbag.webp"
+  ],
+  "afterScroll": {
+   "Document": "2 KB",
+   "Stylesheet": "16 KB",
+   "Script": "147 KB",
+   "Manifest": "1 KB",
+   "Font": "144 KB",
+   "Image": "514 KB",
+   "Other": "8 KB",
+   "total": "831 KB"
+  },
+  "afterScrollNew": [
+   "Image 34KB /images/softbagsCover.webp",
+   "Image 43KB /images/solfan1.webp",
+   "Image 30KB /images/ziplock-bag-2.webp"
+  ],
+  "lcp": [
+   {
+    "t": 1012,
+    "size": 68080,
+    "url": "",
+    "el": "H1.font-cairo font-extrabold text-white leading-[1.2] text-4xl md:text-5xl lg:te أكياس بلاستيكية للجملةبشعارك الخاص"
+   },
+   {
+    "t": 1148,
+    "size": 162540,
+    "url": "http://127.0.0.1:4173/images/hero.webp",
+    "el": "IMG.absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 "
+   }
+  ],
+  "paint": [
+   "first-paint:412",
+   "first-contentful-paint:1012"
+  ],
+  "longTasksLoad": [
+   {
+    "t": 416,
+    "d": 269
+   }
+  ],
+  "longTasksTotal": [
+   {
+    "t": 416,
+    "d": 269
+   }
+  ],
+  "errors": [],
+  "console": [],
+  "sheetdbReal": 0,
+  "domContentLoaded": 414,
+  "load": 414
+ },
+ "390-throttled": {
+  "firstLoad": {
+   "Document": "2 KB",
+   "Stylesheet": "16 KB",
+   "Script": "147 KB",
+   "Manifest": "1 KB",
+   "Font": "144 KB",
+   "Image": "441 KB",
+   "Other": "7 KB",
+   "total": "756 KB"
+  },
+  "firstLoadList": [
+   "Document 2KB 200 /",
+   "Stylesheet 2KB 200 https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&family=Sora:wght@400;600;",
+   "Script 53KB 200 /assets/index-Bkficikn.js",
+   "Script 44KB 200 /assets/vendor-BtPQM8GQ.js",
+   "Script 30KB 200 /assets/ui-CuROwe5G.js",
+   "Script 7KB 200 /assets/utils-qJ7GjZ6G.js",
+   "Script 4KB 200 /assets/icons-VbBKJeEz.js",
+   "Script 8KB 200 /assets/router-B1pT5lLW.js",
+   "Stylesheet 14KB 200 /assets/index-BbTWTdtR.css",
+   "Script 0KB 200 https://cdn.gpteng.co/gptengineer.js",
+   "Manifest 1KB 200 /site.webmanifest",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+   "Font 30KB 200 https://fonts.gstatic.com/s/cairo/v31/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscQyyS4J0.woff2",
+   "Font 25KB 200 https://fonts.gstatic.com/s/sora/v17/xMQ9uFFYT72X5wkB_18qmnndmSdSnh2BAfO5mnuyOo1lfiQwV6-x.woff2",
+   "Font 33KB 200 https://fonts.gstatic.com/s/cairo/v31/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscRiyS.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrFpiQ.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+   "Image 163KB 200 /images/hero.webp",
+   "Image 163KB 200 /logo.png",
+   "Image 38KB 200 /images/canvas.webp",
+   "Other 0KB 200 /favicon.ico",
+   "Other 7KB 200 /icon-192.png",
+   "Image 42KB 200 /images/plasticbag.webp",
+   "Image 34KB 200 /images/softbagsCover.webp",
+   "Image 0KB 200 /images/plasticbag.webp"
+  ],
+  "afterScroll": {
+   "Document": "2 KB",
+   "Stylesheet": "16 KB",
+   "Script": "147 KB",
+   "Manifest": "1 KB",
+   "Font": "144 KB",
+   "Image": "763 KB",
+   "Other": "7 KB",
+   "total": "1078 KB"
+  },
+  "afterScrollNew": [
+   "Image 35KB /images/softBag1.webp",
+   "Image 43KB /images/solfan1.webp",
+   "Image 30KB /images/ziplock-bag-2.webp",
+   "Image 214KB /images/ziplockBag.webp"
+  ],
+  "lcp": [
+   {
+    "t": 5144,
+    "size": 25298,
+    "url": "",
+    "el": "H1.font-cairo font-extrabold text-white leading-[1.2] text-4xl md:text-5xl lg:te أكياس بلاستيكية للجملةبشعارك الخاص"
+   },
+   {
+    "t": 7744,
+    "size": 52198,
+    "url": "http://127.0.0.1:4173/images/hero.webp",
+    "el": "IMG.absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 "
+   }
+  ],
+  "paint": [
+   "first-paint:812",
+   "first-contentful-paint:5144"
+  ],
+  "longTasksLoad": [
+   {
+    "t": 1252,
+    "d": 119
+   },
+   {
+    "t": 1412,
+    "d": 3347
+   },
+   {
+    "t": 4770,
+    "d": 56
+   },
+   {
+    "t": 4905,
+    "d": 202
+   },
+   {
+    "t": 5147,
+    "d": 174
+   },
+   {
+    "t": 6606,
+    "d": 113
+   },
+   {
+    "t": 9793,
+    "d": 71
+   }
+  ],
+  "longTasksTotal": [
+   {
+    "t": 1252,
+    "d": 119
+   },
+   {
+    "t": 1412,
+    "d": 3347
+   },
+   {
+    "t": 4770,
+    "d": 56
+   },
+   {
+    "t": 4905,
+    "d": 202
+   },
+   {
+    "t": 5147,
+    "d": 174
+   },
+   {
+    "t": 6606,
+    "d": 113
+   },
+   {
+    "t": 9793,
+    "d": 71
+   }
+  ],
+  "errors": [],
+  "console": [],
+  "sheetdbReal": 0,
+  "domContentLoaded": 1404,
+  "load": 1407
+ }
+}

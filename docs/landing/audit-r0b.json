@@ -1,0 +1,89 @@
+{
+ "url": "http://127.0.0.1:4173/v2",
+ "sizes": [
+  {
+   "size": "390x844 mobile",
+   "overflowX": false,
+   "fold": "ok (514/844)",
+   "h1Lines": 4,
+   "h1Count": 1,
+   "fonts": {
+    "h1": "Cairo",
+    "h2": "Cairo",
+    "p": ""
+   },
+   "distinctFontSizes": 7,
+   "longLines": [],
+   "contrastFails": [
+    {
+     "text": "3فنيّون على الخطوط",
+     "ratio": 1.26,
+     "size": 20
+    },
+    {
+     "text": "الأسئلة",
+     "ratio": 1.41,
+     "size": 15
+    }
+   ],
+   "targetsUnder24": [],
+   "targetsUnder44Advisory": [
+    "A 75x24 01009923040",
+    "A 48x40 المصنع",
+    "A 55x40 المنتجات",
+    "A 72x40 جرّب اسمك",
+    "A 83x40 طريقة الطلب",
+    "A 45x40 الأسئلة",
+    "A 73x40 تواصل معنا",
+    "A 144x40 شُنط مطبوعة بشعارك",
+    "A 192x40 شنط سوفت للمحلات الملابس",
+    "A 79x40 شنط قماش",
+    "A 149x40 اكياس سلوفان بشريطه",
+    "A 186x40 اكياس ذات غالق - ziplock"
+   ],
+   "obstructed": [],
+   "outsideViewport": [],
+   "cls": 0.0478,
+   "errors": []
+  },
+  {
+   "size": "1440x900",
+   "overflowX": false,
+   "fold": "ok (662/900)",
+   "h1Lines": 3,
+   "h1Count": 1,
+   "fonts": {
+    "h1": "Cairo",
+    "h2": "Cairo",
+    "p": "Tajawal"
+   },
+   "distinctFontSizes": 8,
+   "longLines": [],
+   "contrastFails": [
+    {
+     "text": "المصنع",
+     "ratio": 2.31,
+     "size": 15
+    },
+    {
+     "text": "اكتب اسم محلك، وشوفه على الشنطة.",
+     "ratio": 1.26,
+     "size": 44
+    }
+   ],
+   "targetsUnder24": [],
+   "obstructed": [],
+   "outsideViewport": [],
+   "cls": 0.0138,
+   "errors": []
+  }
+ ],
+ "hardFails": [
+  "390x844 mobile: 2 contrast failures",
+  "1440x900: 2 contrast failures"
+ ],
+ "reducedMotion": {
+  "invisibleText": []
+ },
+ "verdict": "FAIL"
+}

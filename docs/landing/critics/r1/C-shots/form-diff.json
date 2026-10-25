@@ -1,0 +1,414 @@
+{
+ "http://127.0.0.1:4173/": {
+  "empty": {
+   "nativeValid": false,
+   "errs": [],
+   "toasts": [],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "",
+    "phone": "",
+    "message": ""
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "shortPhone": {
+   "nativeValid": true,
+   "errs": [
+    "يجب أن يكون رقم الهاتف 11 رقم"
+   ],
+   "toasts": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "اختبار",
+    "phone": "123",
+    "message": "رسالة"
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "badPrefix": {
+   "nativeValid": true,
+   "errs": [
+    "يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010"
+   ],
+   "toasts": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "اختبار",
+    "phone": "02012345678",
+    "message": "رسالة"
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "badEmailRegex": {
+   "nativeValid": true,
+   "errs": [
+    "يرجى إدخال بريد إلكتروني صحيح"
+   ],
+   "toasts": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "اختبار",
+    "phone": "01012345678",
+    "message": "رسالة"
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "noMessage": {
+   "nativeValid": true,
+   "errs": [
+    "يرجى إدخال الرسالة"
+   ],
+   "toasts": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "اختبار",
+    "phone": "01012345678",
+    "message": "   "
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "phoneSpaces": {
+   "nativeValid": true,
+   "errs": [],
+   "toasts": [
+    "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+   ],
+   "posts": [
+    {
+     "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+     "method": "POST",
+     "headers": {
+      "Content-Type": "application/json"
+     },
+     "body": {
+      "الأسم": "اختبار",
+      "اسم الشركة": "",
+      "رقم التليفون": "010 1234 5678",
+      "البريد الالكتروني": "",
+      "الموضوع": "",
+      "الكمية المطلوبة": "",
+      "المقاس أو السماكة": "",
+      "الرسالة": "رسالة"
+     }
+    }
+   ],
+   "fieldsAfter": {
+    "name": "",
+    "phone": "",
+    "message": ""
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "valid": {
+   "nativeValid": true,
+   "errs": [],
+   "toasts": [
+    "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+   ],
+   "posts": [
+    {
+     "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+     "method": "POST",
+     "headers": {
+      "Content-Type": "application/json"
+     },
+     "body": {
+      "الأسم": "اختبار نقد",
+      "اسم الشركة": "شركة س",
+      "رقم التليفون": "01012345678",
+      "البريد الالكتروني": "a@b.co",
+      "الموضوع": "شنط قماش",
+      "الكمية المطلوبة": "5000",
+      "المقاس أو السماكة": "30x40",
+      "الرسالة": "رسالة اختبار"
+     }
+    }
+   ],
+   "fieldsAfter": {
+    "name": "",
+    "phone": "",
+    "message": ""
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "realSheetdbRequestsIntercepted": 0
+ },
+ "http://127.0.0.1:4173/v2": {
+  "empty": {
+   "nativeValid": false,
+   "errs": [],
+   "toasts": [],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "",
+    "phone": "",
+    "message": ""
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "shortPhone": {
+   "nativeValid": true,
+   "errs": [
+    "يجب أن يكون رقم الهاتف 11 رقم"
+   ],
+   "toasts": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "اختبار",
+    "phone": "123",
+    "message": "رسالة"
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "badPrefix": {
+   "nativeValid": true,
+   "errs": [
+    "يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010"
+   ],
+   "toasts": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "اختبار",
+    "phone": "02012345678",
+    "message": "رسالة"
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "badEmailRegex": {
+   "nativeValid": true,
+   "errs": [
+    "يرجى إدخال بريد إلكتروني صحيح"
+   ],
+   "toasts": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "اختبار",
+    "phone": "01012345678",
+    "message": "رسالة"
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "noMessage": {
+   "nativeValid": true,
+   "errs": [
+    "يرجى إدخال الرسالة"
+   ],
+   "toasts": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "fieldsAfter": {
+    "name": "اختبار",
+    "phone": "01012345678",
+    "message": "   "
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "phoneSpaces": {
+   "nativeValid": true,
+   "errs": [],
+   "toasts": [
+    "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+   ],
+   "posts": [
+    {
+     "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+     "method": "POST",
+     "headers": {
+      "Content-Type": "application/json"
+     },
+     "body": {
+      "الأسم": "اختبار",
+      "اسم الشركة": "",
+      "رقم التليفون": "010 1234 5678",
+      "البريد الالكتروني": "",
+      "الموضوع": "",
+      "الكمية المطلوبة": "",
+      "المقاس أو السماكة": "",
+      "الرسالة": "رسالة"
+     }
+    }
+   ],
+   "fieldsAfter": {
+    "name": "",
+    "phone": "",
+    "message": ""
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "valid": {
+   "nativeValid": true,
+   "errs": [],
+   "toasts": [
+    "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+   ],
+   "posts": [
+    {
+     "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+     "method": "POST",
+     "headers": {
+      "Content-Type": "application/json"
+     },
+     "body": {
+      "الأسم": "اختبار نقد",
+      "اسم الشركة": "شركة س",
+      "رقم التليفون": "01012345678",
+      "البريد الالكتروني": "a@b.co",
+      "الموضوع": "شنط قماش",
+      "الكمية المطلوبة": "5000",
+      "المقاس أو السماكة": "30x40",
+      "الرسالة": "رسالة اختبار"
+     }
+    }
+   ],
+   "fieldsAfter": {
+    "name": "",
+    "phone": "",
+    "message": ""
+   },
+   "attrs": [
+    "name*:text",
+    "company:text",
+    "phone*:text",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message*:textarea"
+   ]
+  },
+  "realSheetdbRequestsIntercepted": 0
+ }
+}
