@@ -73,7 +73,10 @@ const Hero = () => {
               <h1 className="font-cairo font-extrabold text-white leading-[1.2] text-4xl md:text-5xl lg:text-6xl mb-6">
                 أكياس بلاستيكية للجملة
                 <br />
-                <span className="text-secondary border-b-4 border-secondary/20">بشعارك الخاص</span>
+                <span className="relative inline-block text-secondary">
+                  بشعارك الخاص
+                  <span className="ink-line absolute -bottom-1 right-0 left-0 h-1 rounded-full bg-secondary" aria-hidden="true" />
+                </span>
               </h1>
 
               <p className="text-base md:text-lg text-white/70 max-w-2xl mb-5 leading-relaxed font-tajawal">
@@ -129,6 +132,16 @@ const Hero = () => {
                 ) : null
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent" />
+              {/* Signature: the client's mark is stamped onto the bag */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[70%] z-10 pointer-events-none" aria-hidden="true">
+                <div className="relative">
+                  <div className="stamp-ripple absolute inset-0 rounded-2xl border-2 border-secondary" />
+                  <div className="stamp-press rounded-2xl border-[3px] border-dashed border-primary-foreground/90 bg-primary/40 backdrop-blur-sm px-6 py-4 text-center">
+                    <div className="font-cairo font-extrabold text-primary-foreground text-2xl leading-none">شعارك هنا</div>
+                    <div className="mt-2 text-[11px] tracking-widest text-primary-foreground/80 font-tajawal">طباعة داخل المصنع</div>
+                  </div>
+                </div>
+              </div>
               <div className="absolute bottom-6 right-6 left-6 z-10">
                 <div className="flex flex-col gap-2">
                   <div className="h-1 w-12 bg-secondary" />
