@@ -27,7 +27,7 @@ const FactoryProof = () => {
       />
       <div className="container-custom relative">
         <div className="max-w-2xl mb-12 scroll-animate">
-          <span className="eyebrow">مصنع واحد · خمس فئات</span>
+          <span className="eyebrow !text-primary-foreground/70">مصنع واحد · خمس فئات</span>
           <h2 className="heading-2 mb-4">كل أكياسك من مكان واحد</h2>
           <p className="text-primary-foreground/75 leading-relaxed font-tajawal">
             بدل ما تتعامل مع مورد لكل نوع، بنصنّع ونطبع الخمس فئات في نفس المصنع — جودة واحدة، وسعر جملة، ومسؤول واحد عن طلبك.
