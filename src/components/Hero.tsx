@@ -1,22 +1,40 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import RequestQuoteModal from './RequestQuoteModal';
 
-const HERO_IMAGES = [
-  "/images/hero.webp",
-  "/images/canvas.webp",
-  "/images/plasticbag.webp",
-  "/images/softBag1.webp",
-  "/images/ziplockBag.webp",
-] as const;
+// Small/medium variants exist as <name>-480.webp and <name>-800.webp in public/images.
+const HERO_IMAGES = ["hero", "canvas", "plasticbag", "softBag1", "ziplockBag"] as const;
+const srcFor = (name: string) => `/images/${name}-800.webp`;
+const srcSetFor = (name: string) => `/images/${name}-480.webp 480w, /images/${name}-800.webp 800w`;
+const HERO_SIZES = "(min-width: 1024px) 34vw, 100vw";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [mountedSlides, setMountedSlides] = useState<Set<number>>(() => new Set([0, 1]));
+  const [mountedSlides, setMountedSlides] = useState<Set<number>>(() => new Set([0]));
   const [isPaused, setIsPaused] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [canRotate, setCanRotate] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  // Start rotating only after the page has loaded, and only while the slider is on screen and the tab is visible.
+  useEffect(() => {
+    const start = () => setTimeout(() => setCanRotate(true), 1500);
+    let t: ReturnType<typeof setTimeout> | undefined;
+    if (document.readyState === 'complete') t = start();
+    else window.addEventListener('load', () => { t = start(); }, { once: true });
+    const el = sliderRef.current;
+    const io = el && 'IntersectionObserver' in window
+      ? new IntersectionObserver(([e]) => setIsVisible(e.isIntersecting))
+      : undefined;
+    if (el && io) io.observe(el);
+    const onVis = () => setIsVisible(document.visibilityState === 'visible');
+    document.addEventListener('visibilitychange', onVis);
+    return () => { if (t) clearTimeout(t); io?.disconnect(); document.removeEventListener('visibilitychange', onVis); };
+  }, []);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
 
   useEffect(() => {
+    if (!canRotate) return;
     setMountedSlides((prev) => {
       const next = (currentSlide + 1) % HERO_IMAGES.length;
       if (prev.has(currentSlide) && prev.has(next)) return prev;
@@ -25,7 +43,7 @@ const Hero = () => {
       updated.add(next);
       return updated;
     });
-  }, [currentSlide]);
+  }, [currentSlide, canRotate]);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % HERO_IMAGES.length);
@@ -34,7 +52,7 @@ const Hero = () => {
   // Auto-advance is a progressive enhancement: pause on hover/focus, and never
   // auto-rotate for visitors who prefer reduced motion.
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || !isVisible || !canRotate) return;
     const prefersReducedMotion =
       typeof window !== 'undefined' &&
       window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -42,7 +60,7 @@ const Hero = () => {
 
     const interval = setInterval(nextSlide, 4000);
     return () => clearInterval(interval);
-  }, [nextSlide, isPaused]);
+  }, [nextSlide, isPaused, isVisible, canRotate]);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -112,6 +130,7 @@ const Hero = () => {
           <div className="lg:col-span-4 flex flex-col gap-6">
             <div
               className="relative h-64 lg:h-full min-h-[320px] rounded-[2rem] overflow-hidden border border-primary/10 bg-card shadow-xl"
+              ref={sliderRef}
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
               onFocusCapture={() => setIsPaused(true)}
@@ -121,13 +140,19 @@ const Hero = () => {
                 mountedSlides.has(index) ? (
                   <img
                     key={index}
-                    src={image}
+                    src={srcFor(image)}
+                    srcSet={srcSetFor(image)}
+                    sizes={HERO_SIZES}
+                    width={800}
+                    height={image === 'hero' ? 533 : 800}
                     alt=""
                     aria-hidden="true"
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
                       index === currentSlide ? 'opacity-100' : 'opacity-0'
                     }`}
                     loading={index === 0 ? 'eager' : 'lazy'}
+                    decoding={index === 0 ? 'sync' : 'async'}
+                    fetchPriority={index === 0 ? 'high' : 'low'}
                   />
                 ) : null
               )}
@@ -136,7 +161,7 @@ const Hero = () => {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[70%] z-10 pointer-events-none" aria-hidden="true">
                 <div className="relative">
                   <div className="stamp-ripple absolute inset-0 rounded-2xl border-2 border-secondary" />
-                  <div className="stamp-press rounded-2xl border-[3px] border-dashed border-primary-foreground/90 bg-primary/40 backdrop-blur-sm px-6 py-4 text-center">
+                  <div className="stamp-press rounded-2xl border-[3px] border-dashed border-primary-foreground/90 bg-primary/60 px-6 py-4 text-center">
                     <div className="font-cairo font-extrabold text-primary-foreground text-2xl leading-none">شعارك هنا</div>
                     <div className="mt-2 text-[11px] tracking-widest text-primary-foreground/80 font-tajawal">طباعة داخل المصنع</div>
                   </div>
@@ -161,7 +186,7 @@ const Hero = () => {
                   <button
                     key={index}
                     type="button"
-                    onClick={() => setCurrentSlide(index)}
+                    onClick={() => { setCanRotate(true); setCurrentSlide(index); }}
                     aria-label={`عرض الصورة ${index + 1} من ${HERO_IMAGES.length}`}
                     aria-current={index === currentSlide}
                     className={`h-2.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary ${
