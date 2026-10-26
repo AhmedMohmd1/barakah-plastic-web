@@ -147,7 +147,7 @@ const Hero = () => {
                     height={image === 'hero' ? 533 : 800}
                     alt=""
                     aria-hidden="true"
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
                       index === currentSlide ? 'opacity-100' : 'opacity-0'
                     }`}
                     loading={index === 0 ? 'eager' : 'lazy'}
