@@ -66,6 +66,8 @@ export const Factory = () => {
   const sentinels = useRef<(HTMLDivElement | null)[]>([]);
   // fallback only (no scroll-driven animations): open the window once the pinned stage is in view
   const stickRef = usePlayOnce<HTMLDivElement>(0.85);
+  // phones: the first crop is punched on a timer once it is fully on screen (not tied to ~90 px of scroll)
+  const cropRef = usePlayOnce<HTMLDivElement>(0.9);
 
   useEffect(() => {
     if (!('IntersectionObserver' in window)) return;
@@ -96,7 +98,7 @@ export const Factory = () => {
             return (
               <figure className="v2-fac__card" key={s.title}>
                 {/* only the first crop is punched open (the hero's handle, on screen); the rest just fade */}
-                <div className="v2-fac__cropwrap">
+                <div className="v2-fac__cropwrap" ref={i === 0 ? cropRef : undefined}>
                   <div className="v2-fac__crop">
                     <img
                       src="/images/hero.webp"
@@ -107,7 +109,12 @@ export const Factory = () => {
                       style={{ transform: `translate(${c.tx * 100}%, ${c.ty * 100}%) scale(${s.s})` }}
                     />
                   </div>
-                  {i === 0 && <span className="v2-bag__die v2-fac__die" aria-hidden="true" />}
+                  {i === 0 && (
+                    <>
+                      <span className="v2-fac__film" aria-hidden="true" />
+                      <span className="v2-bag__die v2-fac__die" aria-hidden="true" />
+                    </>
+                  )}
                 </div>
                 <figcaption>
                   <h3>
@@ -153,6 +160,8 @@ export const Factory = () => {
           </div>
           <div className="v2-fac__shade" aria-hidden="true" />
           <div className="v2-fac__finder" aria-hidden="true" />
+          {/* the hero's handle as uncut film: the die lands on it, then the window opens */}
+          <span className="v2-fac__film" aria-hidden="true" />
           <span className="v2-bag__die v2-fac__die" aria-hidden="true" />
           <div className="v2-fac__panel">
             <span className="v2-opener">المصنع</span>
@@ -183,13 +192,24 @@ export const Factory = () => {
   );
 };
 
-/* 4 · Products — desktop: one proof sheet (the colour bar runs across it, then the photos
-   take their ink; hover opens a photo from the handle-slot shape). Phones: an RTL swipe rail. */
+/* 4 · Products — desktop: one proof sheet (the colour bar runs across it; each photo takes its
+   ink as it comes into view, opening once from the handle-slot pill to its full frame and resting
+   as a rectangle). Phones: an RTL swipe rail. */
 const PCard = ({ lg, i, children }: { lg: boolean; i: number; children: React.ReactNode }) => (
-  <li className={`v2-pcard${lg ? ' v2-pcard--lg' : ''}`} style={css({ '--i': i })}>
+  // --k: position inside its row on the ≥1100 sheet (2 large, then 3 small) — the stagger within a row
+  <li className={`v2-pcard${lg ? ' v2-pcard--lg' : ''}`} style={css({ '--i': i, '--k': i < 2 ? i : i - 2 })}>
     {children}
   </li>
 );
+/* each photo arms itself and inks up when ≥ 60 % of it is on screen (per card, not per sheet) */
+const PWin = ({ children }: { children: React.ReactNode }) => {
+  const ref = usePlayOnce<HTMLDivElement>(0.6);
+  return (
+    <div className="v2-pcard__win" ref={ref}>
+      {children}
+    </div>
+  );
+};
 
 export const Products = ({ onQuote }: { onQuote: (name: string, image: string) => void }) => {
   const sheet = usePlayOnce<HTMLDivElement>(0.2);
@@ -233,9 +253,9 @@ export const Products = ({ onQuote }: { onQuote: (name: string, image: string) =
           const photo = p.images[1] ?? p.image;
           return (
             <PCard key={p.id} lg={i < 2} i={i}>
-              <div className="v2-pcard__win">
+              <PWin>
                 <img src={photo} alt={p.name} loading="lazy" width={1024} height={1024} />
-              </div>
+              </PWin>
               <div className="v2-pcard__body">
                 <h3>
                   <span className="v2-reg">
@@ -272,7 +292,8 @@ export const Products = ({ onQuote }: { onQuote: (name: string, image: string) =
           ))}
         </span>
         <span>
-          {at + 1} من {PRODUCTS.length} · اسحب للمزيد
+          {at + 1} من {PRODUCTS.length}
+          {at < PRODUCTS.length - 1 ? ' · اسحب للمزيد' : ' · اسحب للرجوع'}
         </span>
       </div>
       </div>
@@ -297,17 +318,28 @@ export const TryName = ({
 }) => {
   const [phone, setPhone] = useState('');
   const shown = name.trim() || 'اسم محلك';
-  // re-key the print after typing pauses so the plates run once, not per keystroke
+  /* The press: what is printed (plate 1 + ghost) is the last PRESSED text. While you type, the
+     changed part shows as a faint proof (never an empty bag) and the old plate is lifted off;
+     after a typing pause the plate lands once over the proof. Nothing re-prints unless the text
+     or ink actually changed since the last press; an ink switch presses at once. */
+  const [pressed, setPressed] = useState({ name: shown, phone, ink });
   const [pressKey, setPressKey] = useState(0);
-  const [spoken, setSpoken] = useState(shown);
+  const draftName = pressed.name !== shown;
+  const draftPhone = pressed.phone !== phone;
+  const changed = draftName || draftPhone || pressed.ink !== ink;
   useEffect(() => {
-    const t = window.setTimeout(() => {
-      setPressKey((k) => k + 1);
-      setSpoken(shown);
-    }, 260);
+    if (!changed) return;
+    const t = window.setTimeout(
+      () => {
+        setPressed({ name: shown, phone, ink });
+        setPressKey((k) => k + 1);
+      },
+      draftName || draftPhone ? 260 : 0,
+    );
     return () => window.clearTimeout(t);
-  }, [name, phone, ink, shown]);
+  }, [changed, draftName, draftPhone, shown, phone, ink]);
   const inkDef = INKS.find((i) => i.key === ink)!;
+  const pressedInk = INKS.find((i) => i.key === pressed.ink)!;
   // touch devices share the PNG (WhatsApp); fine pointers save the file
   const [coarse, setCoarse] = useState(() => typeof window !== 'undefined' && !!window.matchMedia?.('(pointer: coarse)').matches);
   useEffect(() => {
@@ -323,8 +355,12 @@ export const TryName = ({
     return () => window.clearTimeout(t);
   }, []);
   const [saving, setSaving] = useState(false);
+  const busy = useRef(false);
   const [saveMsg, setSaveMsg] = useState('');
+  // aria-disabled, not disabled: a disabled button drops keyboard focus mid-render
   const save = async () => {
+    if (busy.current) return;
+    busy.current = true;
     setSaving(true);
     setSaveMsg('');
     try {
@@ -333,8 +369,25 @@ export const TryName = ({
     } catch {
       setSaveMsg('ما قدرناش نجهّز الصورة، جرّب تاني.');
     } finally {
+      busy.current = false;
       setSaving(false);
     }
+  };
+
+  /* phones (< 960): while a control in the form has focus the stage sticks under the header and
+     shrinks (CSS); if the focused field would sit under it, move the page once so it shows below */
+  const stageRef = useRef<HTMLDivElement>(null);
+  const onFormFocus = (e: React.FocusEvent<HTMLFormElement>) => {
+    if (!window.matchMedia?.('(max-width: 959px)').matches) return;
+    const field = (e.target as HTMLElement).closest('.v2-field') ?? (e.target as HTMLElement);
+    const stage = stageRef.current;
+    const press = stage?.querySelector<HTMLElement>('.v2-try__press');
+    if (!stage || !press) return;
+    const hdr = parseFloat(getComputedStyle(stage).getPropertyValue('--hdr')) || 60;
+    const stageTop = Math.max(hdr + 8, stage.getBoundingClientRect().top);
+    const bagBottom = stageTop + press.offsetHeight * 0.6; // the focused scale (v2.css)
+    const top = field.getBoundingClientRect().top;
+    if (top < bagBottom + 12) window.scrollBy({ top: top - bagBottom - 12, behavior: 'instant' as ScrollBehavior });
   };
 
   return (
@@ -346,7 +399,7 @@ export const TryName = ({
         </h2>
         <p className="v2-lead v2-measure">معاينة توضيحية على شنطة مقصوصة — التصميم النهائي نراجعه معك قبل الطباعة.</p>
         <div className="v2-try__grid">
-          <form className="v2-try__form" onSubmit={(e) => e.preventDefault()}>
+          <form className="v2-try__form" onSubmit={(e) => e.preventDefault()} onFocus={onFormFocus}>
             <div className="v2-field">
               <label htmlFor="v2-try-name">اسم المحل أو البراند</label>
               <input
@@ -388,7 +441,7 @@ export const TryName = ({
                 اطلب تسعيرة لهذه الشنطة
                 <ArrowLeft className="v2-arrow" size={20} aria-hidden="true" />
               </button>
-              <button type="button" className="v2-link v2-link--btn" onClick={save} disabled={saving} aria-busy={saving || undefined}>
+              <button type="button" className="v2-link v2-link--btn" onClick={save} aria-disabled={saving || undefined} aria-busy={saving || undefined}>
                 {coarse ? <Share2 size={18} aria-hidden="true" /> : <Download size={18} aria-hidden="true" />}
                 {saving ? 'جاري التجهيز…' : coarse ? 'ابعت الصورة على واتساب' : 'احفظ صورة الشنطة'}
               </button>
@@ -398,21 +451,26 @@ export const TryName = ({
               {saveMsg}
             </span>
           </form>
-          <div className="v2-try__stage">
-            {/* re-keyed after typing pauses: the bag dips as plate 1 lands, then the plates run once */}
+          <div className="v2-try__stage" ref={stageRef} data-draft-name={draftName || undefined} data-draft-phone={draftPhone || undefined}>
+            {/* re-keyed once per press: the bag dips as plate 1 lands over the proof, then the ghost */}
             <div key={pressKey} className="v2-try__press">
               <span className="v2-try__window" aria-hidden="true" />
               <Bag size="sm" aria-hidden>
-                <div className="v2-try__print" style={css({ '--ink-c': inkDef.color, '--len': Math.max(5, [...shown].length) })}>
-                  <span className="v2-try__name" data-ghost={shown}>
-                    {shown}
-                  </span>
+                {/* the live proof (faint while you type) under the pressed plate */}
+                <div className="v2-try__print v2-try__print--proof" style={css({ '--ink-c': inkDef.color, '--len': Math.max(5, [...shown].length) })}>
+                  <span className="v2-try__name">{shown}</span>
                   {phone && <span className="v2-try__phone">{phone}</span>}
+                </div>
+                <div className="v2-try__print v2-try__print--plate" style={css({ '--ink-c': pressedInk.color, '--len': Math.max(5, [...pressed.name].length) })}>
+                  <span className="v2-try__name" data-ghost={pressed.name}>
+                    {pressed.name}
+                  </span>
+                  {pressed.phone && <span className="v2-try__phone">{pressed.phone}</span>}
                 </div>
               </Bag>
             </div>
             <span className="v2-sr" aria-live="polite">
-              المعاينة: {spoken}
+              المعاينة: {pressed.name}
             </span>
           </div>
         </div>

@@ -15,7 +15,7 @@ const Hero = ({ onQuote, ctaRef }: HeroProps) => {
   const heroRef = useRef<HTMLElement>(null);
   const bagRef = useRef<HTMLDivElement>(null);
 
-  // Play the story when it is SEEN: fonts ready + two frames + ≥45% visible (4 s fallback).
+  // Play the story when it is SEEN: fonts ready + two frames + ≥45% visible (3 s fallback, only if on screen).
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
@@ -30,7 +30,10 @@ const Hero = ({ onQuote, ctaRef }: HeroProps) => {
       return;
     }
     let io: IntersectionObserver | undefined;
-    const fallback = window.setTimeout(go, 1500);
+    const fallback = window.setTimeout(() => {
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight * 0.55 && r.bottom > innerHeight * 0.45) go();
+    }, 3000);
     const fonts = (document as Document & { fonts?: FontFaceSet }).fonts;
     (fonts ? fonts.ready : Promise.resolve()).then(() =>
       requestAnimationFrame(() =>

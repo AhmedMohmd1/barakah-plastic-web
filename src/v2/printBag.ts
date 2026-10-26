@@ -1,4 +1,4 @@
-// Renders the visitor's preview bag to a PNG they can keep or forward on WhatsApp.
+// Renders the visitor's preview bag to an image (JPEG: it is fully opaque) they can keep or forward on WhatsApp.
 // Same object as the page, scaled from the hero bag (620 px wide) to 800 px:
 // back ply, film panel with 3/3/6/6 corners, welded reinforcement patch, a handle
 // punched clean through (the factory shows through it, as in the hero), side
@@ -12,8 +12,12 @@ const H = 1350;
 const GROUND = '#0f1b3d';
 const HERO_SRC = '/images/hero.webp';
 const SHARE_TEXT = 'اسم محلنا على شنطة البركة بلاست';
-const FILE_DL = 'شنطتي-البركة-بلاست.png';
-const FILE_SHARE = 'baraka-plast-bag.png';
+const FILE_DL = 'شنطتي-البركة-بلاست.jpg';
+const FILE_SHARE = 'baraka-plast-bag.jpg';
+/* the image is fully opaque, so JPEG loses nothing visible; at .9 the film grain stays
+   (as PNG the per-pixel grain made the file ~1.6 MB) */
+const MIME = 'image/jpeg';
+const QUALITY = 0.9;
 
 /* geometry: bag = 74% of the canvas width, hero proportions × S */
 const BW = 800;
@@ -275,19 +279,39 @@ const paint = (c: CanvasRenderingContext2D, name: string, phone: string, ink: st
     c.fillRect(BX, BY, BW, BH);
   }
 
-  // reinforcement patch: a heat weld, not an outlined box (fold edge along the bottom only)
+  // reinforcement patch: a second film layer heat-welded on, as on the page (.v2-bag__patch) — a soft
+  // lighter layer, a fold edge and a stippled weld line along the bottom, all fading out at both ends
   const pw = Math.min(380 * S, BW * 0.7);
   const ph = SLOT_TOP * 2 + SLOT_H;
   const px = W / 2 - pw / 2;
-  c.fillStyle = 'rgba(255, 255, 255, 0.35)';
-  c.fillRect(px, BY, pw, ph);
-  c.fillStyle = 'rgba(15, 27, 61, 0.07)';
-  c.fillRect(px, BY + ph - 1, pw, 1);
-  c.fillStyle = 'rgba(255, 255, 255, 0.9)';
-  c.fillRect(px, BY + ph, pw, 1);
-  c.fillStyle = 'rgba(15, 27, 61, 0.12)';
-  c.fillRect(px, BY + ph - 6 * S, 1, 6 * S); // weld ticks at the lower corners
-  c.fillRect(px + pw - 1, BY + ph - 6 * S, 1, 6 * S);
+  const pc = document.createElement('canvas');
+  pc.width = Math.ceil(pw);
+  pc.height = Math.ceil(ph + 2);
+  const p2 = pc.getContext('2d');
+  if (p2) {
+    const film = p2.createLinearGradient(0, 0, 0, ph);
+    film.addColorStop(0, 'rgba(255, 255, 255, 0.2)');
+    film.addColorStop(1, 'rgba(255, 255, 255, 0.45)');
+    p2.fillStyle = film;
+    p2.fillRect(0, 0, pw, ph);
+    p2.fillStyle = 'rgba(15, 27, 61, 0.08)'; // fold edge
+    p2.fillRect(0, ph - 1, pw, 1);
+    p2.fillStyle = 'rgba(255, 255, 255, 0.9)'; // its highlight
+    p2.fillRect(0, ph, pw, 1);
+    p2.fillStyle = 'rgba(15, 27, 61, 0.2)'; // stippled weld line: 2 on, 3 off (× S)
+    const wy = Math.round(ph - 1 - 6 * S);
+    for (let x = 0; x < pw; x += 5 * S) p2.fillRect(Math.round(x), wy, Math.max(2, Math.round(2 * S)), 1);
+    // fade both ends (the page's mask: transparent → 9 % → 91 % → transparent)
+    p2.globalCompositeOperation = 'destination-in';
+    const fade = p2.createLinearGradient(0, 0, pw, 0);
+    fade.addColorStop(0, 'rgba(0, 0, 0, 0)');
+    fade.addColorStop(0.09, 'rgba(0, 0, 0, 1)');
+    fade.addColorStop(0.91, 'rgba(0, 0, 0, 1)');
+    fade.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    p2.fillStyle = fade;
+    p2.fillRect(0, 0, pc.width, pc.height);
+    c.drawImage(pc, Math.round(px), BY);
+  }
 
   // side seals (dark 1 px + white 1 px), stopping at the bottom seal
   const sealInset = 14 * S;
@@ -363,7 +387,7 @@ const paint = (c: CanvasRenderingContext2D, name: string, phone: string, ink: st
   }
 };
 
-/** Draw the bag and return it as a PNG blob. Image failures still yield a PNG. */
+/** Draw the bag and return it as a JPEG blob. Image failures still yield an image. */
 export async function renderBag(name: string, phone: string, inkHex: string): Promise<Blob> {
   const [a] = await Promise.all([prepareBag(), waitFonts(name, phone)]);
   const cv = document.createElement('canvas');
@@ -372,9 +396,9 @@ export async function renderBag(name: string, phone: string, inkHex: string): Pr
   const c = cv.getContext('2d');
   if (!c) throw new Error('canvas 2d unavailable');
   paint(c, name, phone, inkHex, a);
-  const blob = await new Promise<Blob | null>((res) => cv.toBlob(res, 'image/png'));
+  const blob = await new Promise<Blob | null>((res) => cv.toBlob(res, MIME, QUALITY));
   if (blob) return blob;
-  return (await fetch(cv.toDataURL('image/png'))).blob();
+  return (await fetch(cv.toDataURL(MIME, QUALITY))).blob();
 }
 
 const download = (blob: Blob) => {
@@ -391,13 +415,13 @@ const download = (blob: Blob) => {
 export type SaveResult = 'shared' | 'downloaded' | 'cancelled';
 
 /**
- * Share the PNG through the system sheet (WhatsApp) when `preferShare` and the
+ * Share the image through the system sheet (WhatsApp) when `preferShare` and the
  * browser can share files; otherwise download it. A cancelled share is silent.
  */
 export async function saveBag(name: string, phone: string, inkHex: string, preferShare = false): Promise<SaveResult> {
   const blob = await renderBag(name, phone, inkHex);
   if (preferShare && typeof navigator.share === 'function' && typeof File === 'function') {
-    const file = new File([blob], FILE_SHARE, { type: 'image/png' });
+    const file = new File([blob], FILE_SHARE, { type: MIME });
     if (navigator.canShare?.({ files: [file] })) {
       try {
         await navigator.share({ files: [file], text: SHARE_TEXT });

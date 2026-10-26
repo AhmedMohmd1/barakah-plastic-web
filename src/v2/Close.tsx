@@ -56,7 +56,7 @@ export const Close = ({ name, ink, onQuote, closeRef }: CloseProps) => {
           return (
             <div key={i} className={`v2-close__bag${b.x !== 0 && Math.abs(b.x) < 400 ? ' v2-close__bag--mid' : ''}`} style={css({ '--x': b.x, '--y': b.y, '--r': `${b.r}deg`, '--d': `${(STACK.length - 1 - i) * 0.07}s` })}>
               <Bag size="xs">
-                <span className="v2-close__print" style={css({ '--ink-c': color })}>
+                <span className="v2-close__print" style={css({ '--ink-c': color, '--len': Math.max(5, [...shown].length) })}>
                   {shown}
                 </span>
               </Bag>

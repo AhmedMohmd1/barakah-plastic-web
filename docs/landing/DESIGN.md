@@ -23,7 +23,7 @@ All copy on /v2 is **draft — user to approve** (BRIEF §Copy status).
 | `--line` / `--line-inv` | rgba(15,27,61,.14) / rgba(255,255,255,.16) | hairlines |
 | `--danger` | #c62828 | form errors only |
 | `--wa` | #1f7a45 | WhatsApp icon only (UI role, not a print ink): 4.9:1 on film, 5.3:1 on white |
-| `--ink-dim` | #76839a | manifesto words before they fill — display text ≥ 28 px only (3.3:1 on paper) |
+| `--ink-dim` | #76839a | manifesto words before they fill — display text ≥ 26 px only (3.3:1 on paper; large-text use) |
 | print inks (product depiction in the toy only) | navy #0f1b3d · black #1c1c1c · red #b3261e · green #1f6b3a | the visitor's print colour |
 
 ### Contrast table (computed WCAG ratios; re-measured on pixels by audit.mjs)
@@ -72,7 +72,7 @@ Focus rings: on light = `--ink` 2 px + 2 px offset (15:1); on deep = `--action` 
 | section opener `.v2-opener` | 28×10 stadium outline (the handle slot) + label in 15/700 accent-ink | every section is "punched" from the same die |
 | step marker `.v2-reg` | registration mark: 44-px box, 32-px circle + cross hairlines, number in Cairo 800 centred (the bag's own print marks are 22-px SVG — same symbol at print scale) | print register = precision |
 | FAQ toggle `.v2-faq__x` | the same `.v2-reg` symbol (crosshair .6); turns 15° on hover/focus, 45° to × when open | print register |
-| photo window `.v2-pcard__win` / factory | desktop: product photos rest inside the handle-slot pill and open to full on hover/focus, after a grayscale→colour proof pass; the factory opens from the hero's 196×64 slot (a mask, paint-only) while pinned, behind a steel-rule die | proof sheet / punched handle |
+| photo window `.v2-pcard__win` / factory | product photos wait as a film pill, then (per photo, when 60 % seen) open to their full rectangle while inking grayscale→colour; at rest they are whole rectangles with bag corners (3 3 6 6); hover = 1.025 image scale. The factory stays shut until a steel-rule die lands on a film pill, then opens from the hero's 196×64 slot (masks, paint-only; on phones the first crop plays on a timer at 90 % seen) | proof sheet / punched handle |
 | progress indicator `.v2-colorbar` | 4 square ink patches (navy, blue, orange-tint, black) that fill per step | the colour-control strip on every printed roll |
 | closing callback `.v2-close__stack` | 5 bags (3 on phones), each printed with the name the visitor typed, fanned and rising behind the last CTA | your order: the hero bag, multiplied |
 | footer slug `.v2-foot__slug` | 22-px register mark, 4 ink patches, «البركة بلاست · قليوب، القليوبية · منذ 2011», © — on a dashed rule above a ribbed seal band | the small print on a bag's bottom edge |

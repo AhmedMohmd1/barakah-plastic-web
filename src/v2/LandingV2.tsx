@@ -22,7 +22,11 @@ const LandingV2 = () => {
   const closeQuote = useCallback(() => {
     setQuote((q) => ({ ...q, open: false }));
     // the modal does not restore focus itself; give it back to the button that opened it
-    window.setTimeout(() => opener.current?.isConnected && opener.current.focus(), 0);
+    window.setTimeout(() => {
+      const el = opener.current;
+      const target = el?.isConnected && el.getClientRects().length ? el : document.querySelector<HTMLElement>('.v2-menu-btn');
+      target?.focus();
+    }, 0);
   }, []);
   const [menuOpen, setMenuOpen] = useState(false);
   const [printName, setPrintName] = useState('');
@@ -95,6 +99,12 @@ const LandingV2 = () => {
     return () => window.removeEventListener('open-quote-modal', handler);
   }, [openQuote]);
 
+  // the route is lazy, so the browser's own jump to #hash happened before the section existed
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (id) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }));
+  }, []);
+
   useEffect(() => {
     const prev = document.title;
     document.title = 'البركة بلاست — شنط وأكياس بالجملة بطباعة اسم محلك';
@@ -115,7 +125,8 @@ const LandingV2 = () => {
       if (!(el instanceof HTMLElement) || !bar || bar.contains(el)) return;
       // the bar is display:none from 1100px — its rect would read 0 and push every focus off screen
       if (!bar.getClientRects().length) return;
-      const overlap = el.getBoundingClientRect().bottom - bar.getBoundingClientRect().top;
+      const box = el.closest('label') ?? el;
+      const overlap = box.getBoundingClientRect().bottom - bar.getBoundingClientRect().top;
       if (overlap > 0) window.scrollBy({ top: overlap + 16 });
     };
     document.addEventListener('focusin', onFocus);

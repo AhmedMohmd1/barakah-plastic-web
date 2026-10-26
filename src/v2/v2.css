@@ -90,6 +90,8 @@
 .v2 :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 /* keep focused controls clear of the fixed mobile CTA bar (WCAG 2.4.11) */
 @media (max-width: 1099px) { html:has(.v2-mbar[data-show='true']) { scroll-padding-bottom: 96px; } }
+/* the shared html rule smooth-scrolls; reduced motion jumps */
+@media (prefers-reduced-motion: reduce) { html:has(.v2) { scroll-behavior: auto; } }
 .v2 .on-deep :focus-visible, .v2 .on-deep:focus-visible { outline-color: var(--action); }
 
 .v2-wrap { width: 100%; max-width: 1240px; margin-inline: auto; padding-inline: 24px; }
@@ -331,8 +333,8 @@
 .v2-hero .v2-bag__copy--1 { --rest: translate(-12px, 8px) rotate(-0.8deg); --fan: translate(-28px, 16px) rotate(-2deg); }
 .v2-hero .v2-bag__copy--2 { --rest: translate(-24px, 16px) rotate(-1.6deg); --fan: translate(-56px, 30px) rotate(-4deg); }
 @media (max-width: 767px) {
-  .v2-hero .v2-bag__copy--1 { --rest: translate(-5px, 6px) rotate(-0.6deg); --fan: translate(-14px, 12px) rotate(-1.6deg); }
-  .v2-hero .v2-bag__copy--2 { --rest: translate(-10px, 12px) rotate(-1.2deg); --fan: translate(-28px, 22px) rotate(-3.2deg); }
+  .v2-hero .v2-bag__copy--1 { --rest: translate(-5px, 6px) rotate(-0.6deg); --fan: translate(-6px, -14px) rotate(-1.6deg); }
+  .v2-hero .v2-bag__copy--2 { --rest: translate(-10px, 12px) rotate(-1.2deg); --fan: translate(6px, -26px) rotate(1.6deg); }
 }
 .v2-hero:has(.v2-cta-hero:hover, .v2-cta-hero:focus-visible) .v2-bag__copy { transform: var(--fan); }
 /* touch: no hover, so the stack fans once, ~0.5 s after the slug drops, then settles (no loop) */
@@ -348,7 +350,7 @@
 .v2-hero .v2-hero__stage.v2-a { animation: v2-rise 0.45s var(--ease-out) both; }
 .v2-hero .v2-bag__seal.v2-a { animation: v2-seal 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both; }
 .v2-hero .v2-bag__reg.v2-a path, .v2-hero .v2-bag__reg.v2-a circle { stroke-dasharray: 1; animation: v2-draw 0.5s cubic-bezier(0.4, 0, 0.2, 1) var(--d) both; }
-.v2-hero h1.v2-a { animation: v2-line 0.7s var(--ease-rise) 0.45s both; }
+.v2-hero h1.v2-a { animation: v2-line 0.7s var(--ease-rise) 0.25s both; }
 .v2-hero .v2-accent.v2-a::after { animation: v2-register 0.95s linear 0.7s both; }
 .v2-hero .v2-bag__bar i.v2-a { animation: v2-patch 0.4s var(--ease-out) var(--d) both; }
 .v2-hero .v2-hero__sub.v2-a { animation: v2-copy-in 0.5s var(--ease-out) 0.8s both; }
@@ -372,8 +374,8 @@
 }
 @keyframes v2-patch { from { transform: scale(0); } to { transform: none; } }
 @keyframes v2-die {
-  0% { transform: translateY(-72px); opacity: 0; animation-timing-function: linear; }
-  6% { transform: translateY(-68px); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  0% { transform: translateY(-40px); opacity: 0; animation-timing-function: linear; }
+  6% { transform: translateY(-38px); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
   28% { transform: none; opacity: 1; }
   42% { transform: none; opacity: 1; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
   100% { transform: translateY(-64px); opacity: 0; }
@@ -444,30 +446,48 @@
   transition: background-size 0.95s var(--ease-io), background-position 0.95s var(--ease-io); }
 /* the same steel-rule die as the hero (.v2-bag__die look), centred on the slot; final state = gone */
 .v2-fac__die { inset: auto; top: 50%; left: 50%; inline-size: 202px; block-size: 70px; margin: -35px 0 0 -101px; z-index: 2; pointer-events: none; }
-.v2-fac__cropwrap { position: relative; }
+/* the uncut handle: a pill of film under the die until impact (the window is closed until then), so
+   the die visibly cuts it and the factory appears; final state = gone */
+.v2-fac__film { position: absolute; top: 50%; left: 50%; inline-size: 196px; block-size: 64px; margin: -32px 0 0 -98px; border-radius: var(--r-pill); background: linear-gradient(180deg, #f3f6f9, #e6ebf1); box-shadow: inset 0 0 0 1px rgba(15, 27, 61, 0.12), 0 10px 24px -10px rgba(3, 8, 24, 0.6); opacity: 0; z-index: 1; pointer-events: none; }
+.v2-fac__cropwrap { position: relative; border-radius: var(--r-card); }
 .v2-fac__cropwrap .v2-fac__die { inline-size: 134px; block-size: 46px; margin: -23px 0 0 -67px; }
+.v2-fac__cropwrap .v2-fac__film { inline-size: 128px; block-size: 40px; margin: -20px 0 0 -64px; }
+/* desktop timeline (contain range of the 460vh track): die drops 0–10 % and lands at 5 %, which is
+   27.8 % of the window's 0–18 % range — the window stays shut (mask 0×0) until then, opens to the
+   196×64 pill at impact, then to full bleed */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .v2-fac__die { animation: v2-fac-die linear both; animation-timeline: --fac; animation-range: contain 0% contain 10%; }
-    .v2-fac__win { animation: v2-handle var(--ease-io) both; animation-timeline: --fac; animation-range: contain 5% contain 18%; }
+    .v2-fac__stick .v2-fac__die { animation: v2-fac-die linear both; animation-timeline: --fac; animation-range: contain 0% contain 10%; }
+    .v2-fac__stick .v2-fac__film { animation: v2-film linear both; animation-timeline: --fac; animation-range: contain 0% contain 18%; }
+    .v2-fac__win { animation: v2-handle var(--ease-io) both; animation-timeline: --fac; animation-range: contain 0% contain 18%; }
     .v2-fac__panel { animation: v2-fadeup linear both; animation-timeline: --fac; animation-range: contain 14% contain 20%; }
     .v2-fac__finder { animation: v2-finder-in linear both; animation-timeline: --fac; animation-range: contain 14% contain 20%; }
-    /* phones: the first crop is punched open while fully on screen; the other three only fade */
-    .v2-fac__cropwrap { view-timeline: --fc block; }
-    .v2-fac__card:first-child .v2-fac__crop { animation: v2-handle-sm var(--ease-io) both; animation-timeline: --fc; animation-range: contain 8% contain 45%; }
-    .v2-fac__cropwrap .v2-fac__die { animation: v2-fac-die linear both; animation-timeline: --fc; animation-range: contain 0% contain 16%; }
     .v2-fac__card:not(:first-child) .v2-fac__crop { animation: v2-fade linear both; animation-timeline: view(); animation-range: entry 10% cover 35%; }
   }
 }
-/* no scroll-driven animations: an IO (≥ 85 % of the pinned stage visible) opens it on a timer instead */
+/* no scroll-driven animations: an IO (≥ 85 % of the pinned stage visible) plays the same cut on a timer */
 @supports not (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .v2-fac__stick[data-armed] .v2-fac__win { transition: -webkit-mask-size 1.1s cubic-bezier(0.65, 0, 0, 1) 0.3s, mask-size 1.1s cubic-bezier(0.65, 0, 0, 1) 0.3s; }
-    .v2-fac__stick[data-armed]:not([data-play]) .v2-fac__win { -webkit-mask-size: 196px 64px; mask-size: 196px 64px; }
-    .v2-fac__stick[data-armed][data-play] .v2-fac__die { animation: v2-fac-die 0.6s linear both; }
-    .v2-fac__stick[data-armed] .v2-fac__panel { transition: opacity 0.5s 1.1s, transform 0.5s var(--ease-out) 1.1s; }
+    .v2-fac__stick[data-armed] .v2-fac__win { -webkit-mask-size: 0 0; mask-size: 0 0; }
+    .v2-fac__stick[data-armed] .v2-fac__film { opacity: 1; }
+    .v2-fac__stick[data-play] .v2-fac__win { animation: v2-handle 1.4s var(--ease-io) both; }
+    .v2-fac__stick[data-play] .v2-fac__die { animation: v2-fac-die 0.78s linear both; }
+    .v2-fac__stick[data-play] .v2-fac__film { animation: v2-film 1.4s linear both; }
+    .v2-fac__stick[data-armed] .v2-fac__panel { transition: opacity 0.5s 1.3s, transform 0.5s var(--ease-out) 1.3s; }
     .v2-fac__stick[data-armed]:not([data-play]) .v2-fac__panel { opacity: 0; transform: translateY(12px); }
   }
+}
+/* phones: the first crop is punched on a timer once ≥ 90 % of it is on screen (usePlayOnce in
+   Factory): the die drops (lands at 0.3 s), cuts the film, and the photo opens from the pill —
+   a mask, paint-only, so it never counts as a layout shift. Until then: the dark frame + the film. */
+@media (prefers-reduced-motion: no-preference) {
+  .v2-fac__cropwrap[data-armed] { background: var(--deeper); }
+  .v2-fac__cropwrap[data-armed] .v2-fac__crop { --pill: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 40' preserveAspectRatio='none'%3E%3Crect width='128' height='40' rx='20'/%3E%3C/svg%3E");
+    -webkit-mask: var(--pill) 50% 50% / 0 0 no-repeat; mask: var(--pill) 50% 50% / 0 0 no-repeat; }
+  .v2-fac__cropwrap[data-armed] .v2-fac__film { opacity: 1; }
+  .v2-fac__cropwrap[data-play] .v2-fac__crop { animation: v2-handle-sm 1.1s var(--ease-io) both; }
+  .v2-fac__cropwrap[data-play] .v2-fac__die { animation: v2-fac-die 0.6s linear both; }
+  .v2-fac__cropwrap[data-play] .v2-fac__film { animation: v2-film 1.1s linear both; }
 }
 @keyframes v2-fac-die {
   0% { transform: translateY(-140px); opacity: 0; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
@@ -476,8 +496,17 @@
   62% { transform: none; opacity: 1; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
   100% { transform: translateY(-110px); opacity: 0; }
 }
-@keyframes v2-handle { from { -webkit-mask-size: 196px 64px; mask-size: 196px 64px; } to { -webkit-mask-size: 300% 300%; mask-size: 300% 300%; } }
-@keyframes v2-handle-sm { from { clip-path: inset(calc(50% - 20px) calc(50% - 64px) round 999px); } to { clip-path: inset(0 round 16px); } }
+@keyframes v2-film { 0%, 27.5% { opacity: 1; } 28%, 100% { opacity: 0; } }
+@keyframes v2-handle {
+  0%, 27.5% { -webkit-mask-size: 0 0; mask-size: 0 0; }
+  28% { -webkit-mask-size: 196px 64px; mask-size: 196px 64px; }
+  100% { -webkit-mask-size: 300% 300%; mask-size: 300% 300%; }
+}
+@keyframes v2-handle-sm {
+  0%, 27.5% { -webkit-mask-size: 0 0; mask-size: 0 0; }
+  28% { -webkit-mask-size: 128px 40px; mask-size: 128px 40px; }
+  100% { -webkit-mask-size: 300% 300%; mask-size: 300% 300%; }
+}
 @keyframes v2-finder-in { from { filter: opacity(0); } to { filter: none; } }
 @keyframes v2-fade { from { opacity: 0; } to { opacity: 1; } }
 .v2-fac__shade { position: absolute; inset: 0; background: linear-gradient(270deg, rgba(15, 27, 61, 0.55), rgba(15, 27, 61, 0) 45%); pointer-events: none; }
@@ -532,7 +561,8 @@
 .v2-prod__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 48px 28px; grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .v2-pcard { grid-column: span 3; }
 @media (min-width: 1100px) { .v2-pcard { grid-column: span 2; } .v2-pcard--lg { grid-column: span 3; } }
-.v2-pcard__win { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-card); background: var(--white); }
+/* photos rest as whole rectangles with the bag's own corners — never cropped (printed logos stay whole) */
+.v2-pcard__win { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-bag); background: var(--white); }
 .v2-pcard__win img { inline-size: 100%; block-size: 100%; object-fit: cover; }
 .v2-pcard__body h3 { display: flex; align-items: center; gap: 12px; font-size: var(--t-20); margin: 18px 0 0; }
 .v2-pcard--lg .v2-pcard__body h3 { font-size: var(--t-26); }
@@ -559,24 +589,33 @@
   .v2-prod__bar { display: flex; gap: 4px; position: absolute; top: 26px; inset-inline-start: calc(100% - var(--edge) - 68px); }
   .v2-prod__sheet[data-armed] .v2-prod__bar { inset-inline-start: var(--edge); }
   .v2-prod__sheet[data-play] .v2-prod__bar { animation: v2-march 0.6s var(--ease-io) both; }
-  .v2-prod__sheet[data-armed] .v2-pcard__win img { filter: grayscale(1) contrast(1.1); }
-  .v2-prod__sheet[data-play] .v2-pcard__win img { animation: v2-inkup 0.5s var(--ease-out) calc(0.6s + var(--i, 0) * 90ms) both; }
+  /* each photo waits as a grey proof inside the handle-slot pill; once ≥ 60 % of it is on screen it
+     inks up and opens to its full rectangle in one beat (per card, staggered across its row).
+     A mask, paint-only: no layout shift. */
+  .v2-pcard__win[data-armed] { --pill: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 196 64' preserveAspectRatio='none'%3E%3Crect width='196' height='64' rx='32'/%3E%3C/svg%3E");
+    -webkit-mask: var(--pill) 50% 50% / 56% 24% no-repeat; mask: var(--pill) 50% 50% / 56% 24% no-repeat; }
+  .v2-pcard__win[data-armed] img { filter: grayscale(1) contrast(1.1); }
+  .v2-pcard__win[data-play] { animation: v2-pill-open 0.6s var(--ease-io) calc(0.1s + var(--k, 0) * 140ms) both; }
+  .v2-pcard__win[data-play] img { animation: v2-inkup 0.6s var(--ease-io) calc(0.1s + var(--k, 0) * 140ms) both; }
 }
 @media (min-width: 1100px) { .v2-prod__sheet { --edge: 56px; padding: 72px var(--edge) 56px; } }
 @keyframes v2-march { from { inset-inline-start: var(--edge); } to { inset-inline-start: calc(100% - var(--edge) - 68px); } }
 @keyframes v2-inkup { from { filter: grayscale(1) contrast(1.1); } to { filter: none; } }
-/* hover grammar: the photo rests in the handle-slot shape and opens to the full frame */
-@media (min-width: 720px) and (hover: hover) {
-  .v2-pcard__win { clip-path: inset(7% 5% round var(--r-pill)); transition: clip-path 0.26s var(--ease-io); }
-  .v2-pcard:hover .v2-pcard__win, .v2-pcard:focus-within .v2-pcard__win { clip-path: inset(0 round var(--r-card)); }
+@keyframes v2-pill-open { from { -webkit-mask-size: 56% 24%; mask-size: 56% 24%; } to { -webkit-mask-size: 300% 300%; mask-size: 300% 300%; } }
+/* hover/focus: a small breath of the photo inside its frame (transform: no layout shift, frame unchanged) */
+@media (min-width: 720px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .v2-pcard__win img { transition: transform 0.45s var(--ease-out); }
+  .v2-pcard:hover .v2-pcard__win img, .v2-pcard:focus-within .v2-pcard__win img { transform: scale(1.025); }
 }
 /* phones: a horizontal snap rail (swipe), RTL; no per-card reveal */
 @media (max-width: 719px) {
   .v2-prod__sheet { margin-block-start: 40px; }
   .v2-prod__grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 82vw; gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 24px; margin-inline: -24px; padding: 4px 24px 12px; scrollbar-width: none; }
   .v2-prod__grid::-webkit-scrollbar { display: none; }
+  /* an over-swipe past the last card must not trigger the browser's history-back gesture */
+  html:has(.v2-prod__grid) { overscroll-behavior-x: none; }
   .v2-pcard { grid-column: auto; scroll-snap-align: center; background: var(--film); border-radius: var(--r-card); padding: 12px 12px 16px; }
-  .v2-pcard__win { border-radius: 10px; }
+  .v2-pcard__win { border-radius: var(--r-card); }
   .v2-pcard__body { padding-inline: 4px; }
   .v2-pcard--lg .v2-pcard__body h3 { font-size: var(--t-20); }
   .v2-prod__cue { display: flex; align-items: center; gap: 14px; margin-block-start: 16px; font-size: var(--t-13); font-weight: 700; color: var(--ink-3); line-height: 1.85; }
@@ -597,6 +636,18 @@
 @media (min-width: 960px) { .v2-try__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 .v2-try__stage { display: grid; place-items: center; order: -1; }
 @media (min-width: 960px) { .v2-try__stage { order: 1; } }
+/* phones/tablets: while any control of the toy has focus, the printed bag sticks under the header at
+   60 % (scale: paint-only, the stage keeps its box so nothing below moves), on a deep band, so the
+   press stays visible above the soft keyboard. Flex, not grid: a sticky grid item is pinned to its
+   own row; a flex item can travel the whole column. */
+@media (max-width: 959px) {
+  .v2-try__grid { display: flex; flex-direction: column; align-items: stretch; }
+  .v2-try__grid:focus-within .v2-try__stage { position: sticky; top: calc(var(--hdr) + 8px); z-index: 2; pointer-events: none; }
+  .v2-try__press { transform-origin: 50% 0; transition: scale 0.3s var(--ease-out); }
+  .v2-try__grid:focus-within .v2-try__press { scale: 0.6; }
+  .v2-try__press::before { content: ''; position: absolute; inset: -14px -100vw; z-index: -1; background: var(--deep); box-shadow: 0 12px 24px -12px rgba(3, 8, 24, 0.7); opacity: 0; pointer-events: none; }
+  .v2-try__grid:focus-within .v2-try__press::before { opacity: 1; }
+}
 /* the press: re-keyed per print, so the bag dips 3 px as plate 1 lands */
 .v2-try__press { position: relative; inline-size: min(480px, 82vw, 100%); animation: v2-dip 0.18s var(--ease-out) both; }
 @keyframes v2-dip { 0%, 100% { transform: none; } 45% { transform: translateY(3px); } }
@@ -608,12 +659,22 @@
 /* second plate: the same name, off-register, slides into place */
 .v2-try__name::after { content: attr(data-ghost); content: attr(data-ghost) / ''; position: absolute; inset: 0; color: var(--accent); opacity: 0; animation: v2-ghost 0.42s var(--ease-io) 0.36s both; }
 .v2-try__phone { position: absolute; bottom: 28px; inset-inline: 0; text-align: center; font-size: var(--t-15); font-weight: 700; line-height: 1.85; direction: ltr; mix-blend-mode: multiply; animation: v2-plate 0.38s var(--ease-io) 0.2s both; }
+/* the live proof under the plate: hidden at rest; while a part is being typed, that part shows faint
+   here and the last pressed plate of it is lifted off — so the bag is never empty mid-typing. On each
+   press it holds under the wiping plate for the wipe's length, then goes. */
+.v2-try__print--proof .v2-try__name, .v2-try__print--proof .v2-try__phone { opacity: 0; animation: v2-proof 0.4s linear; }
+.v2-try__print--proof .v2-try__name::after { content: none; }
+.v2-try__stage[data-draft-name] .v2-try__print--proof .v2-try__name,
+.v2-try__stage[data-draft-phone] .v2-try__print--proof .v2-try__phone { opacity: 0.35; }
+.v2-try__stage[data-draft-name] .v2-try__print--plate .v2-try__name,
+.v2-try__stage[data-draft-phone] .v2-try__print--plate .v2-try__phone { opacity: 0; }
+@keyframes v2-proof { from, to { opacity: 0.35; } }
 @keyframes v2-plate { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
 @keyframes v2-ghost { 0% { opacity: 0.6; transform: translate(8px, -6px); } 100% { opacity: 0; transform: none; } }
 .v2-try__form { display: grid; gap: 22px; }
 .v2-try__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
 .v2-try__actions .v2-link--btn { color: var(--inv); }
-.v2-try__actions .v2-link--btn:disabled { opacity: 0.7; cursor: progress; }
+.v2-try__actions .v2-link--btn[aria-disabled='true'] { opacity: 0.7; cursor: progress; }
 .v2-field { display: grid; gap: 6px; }
 .v2-field label, .v2-field legend { font-size: var(--t-15); font-weight: 700; color: var(--inv); line-height: 1.85; }
 .v2-input { inline-size: 100%; min-block-size: 52px; border-radius: var(--r-ctl); border: 1px solid var(--line-inv); background: rgba(255, 255, 255, 0.06); color: var(--inv); padding-inline: 16px; font: inherit; font-size: var(--t-17); }
@@ -643,6 +704,12 @@
 .v2-who .v2-bag__print { flex: 1; block-size: auto; padding: calc(var(--slot-top) * 2 + var(--slot-h) + 28px) 36px 52px; }
 @media (max-width: 767px) { .v2-who .v2-bag__print { padding-inline: 24px; } }
 .v2-who h3 { font-size: var(--t-26); margin: 0; color: var(--ink); }
+/* B-W5: on phones the bag titles must stay under the section title (24) */
+@media (max-width: 767px) { .v2-who h3 { font-size: var(--t-20); } }
+/* B-W4: a bag is taller than wide — never a square card */
+@media (min-width: 768px) { .v2-who__item { min-block-size: 525px; } }
+/* B-W1: on paper the deep-ground shadow showed through the handle hole as a grey pill */
+.v2-who { --sh-bag: drop-shadow(0 18px 22px rgba(15, 27, 61, 0.16)); }
 .v2-who .v2-bag__print > p { margin: 6px 0 0; color: var(--ink-3); font-size: var(--t-15); line-height: 1.85; }
 .v2-who ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
 .v2-who li { display: grid; grid-template-columns: 18px 1fr; gap: 12px; color: var(--ink-2); }
@@ -774,10 +841,14 @@
 @media (max-width: 767px) {
   .v2-close__bag { inline-size: 128px; block-size: 164px; bottom: -24px; translate: calc(-50% + var(--x) / 400 * (50vw - 66px)) calc(var(--y) * 1px); }
   .v2-close__bag--mid { display: none; }
-  .v2-close__print { font-size: var(--t-15); padding-inline: 16px; }
+  .v2-close__print { font-size: clamp(13px, calc(150cqi / var(--len, 8)), 22px); padding-inline: 14px; }
 }
 .v2-close__bag .v2-bag { inline-size: 100%; block-size: 100%; }
-.v2-close__print { position: absolute; inset: 0; display: grid; place-items: start center; padding: 36% 16px 0; font-family: var(--f-display); font-weight: 800; font-size: var(--t-20); line-height: 1.4; color: var(--ink-c); text-align: center; mix-blend-mode: multiply; overflow-wrap: anywhere; }
+/* the printed name, fit to its bag (like the toy): ~34 px for a short name, smaller as it grows;
+   never broken inside a word (Arabic letters stay joined) */
+.v2-close__print { position: absolute; inset: 0; display: grid; place-items: start center; padding: 34% 16px 0; font-family: var(--f-display); font-weight: 800; font-size: clamp(15px, calc(150cqi / var(--len, 8)), 36px); line-height: 1.4; color: var(--ink-c); text-align: center; text-wrap: balance; mix-blend-mode: multiply; }
+/* the centre bag (the visitor's ink) is the big one */
+@media (min-width: 768px) { .v2-close__bag:last-child { inline-size: 280px; block-size: 350px; } }
 .v2-close[data-armed] .v2-close__bag > div { transform: translateY(70%); }
 .v2-close[data-play] .v2-close__bag > div { animation: v2-stack 0.7s var(--ease-rise) var(--d) both; }
 @keyframes v2-stack { from { transform: translateY(80%); } to { transform: none; } }

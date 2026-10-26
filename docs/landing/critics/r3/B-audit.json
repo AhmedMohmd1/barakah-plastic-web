@@ -32,7 +32,7 @@
    ],
    "obstructed": [],
    "outsideViewport": [],
-   "cls": 0.1004,
+   "cls": 0.0183,
    "errors": []
   },
   {
@@ -66,7 +66,7 @@
    ],
    "obstructed": [],
    "outsideViewport": [],
-   "cls": 0.0207,
+   "cls": 0.0218,
    "errors": []
   },
   {
@@ -86,13 +86,13 @@
    "targetsUnder24": [],
    "obstructed": [],
    "outsideViewport": [],
-   "cls": 0.0416,
+   "cls": 0.0415,
    "errors": []
   },
   {
    "size": "1280x800",
    "overflowX": false,
-   "fold": "ok (623/800)",
+   "fold": "ok (624/800)",
    "h1Lines": 2,
    "h1Count": 1,
    "fonts": {
@@ -106,7 +106,7 @@
    "targetsUnder24": [],
    "obstructed": [],
    "outsideViewport": [],
-   "cls": 0.019,
+   "cls": 0.0152,
    "errors": []
   },
   {
@@ -126,15 +126,13 @@
    "targetsUnder24": [],
    "obstructed": [],
    "outsideViewport": [],
-   "cls": 0.0186,
+   "cls": 0.0185,
    "errors": []
   }
  ],
- "hardFails": [
-  "360x740 mobile: CLS 0.1004"
- ],
+ "hardFails": [],
  "reducedMotion": {
   "invisibleText": []
  },
- "verdict": "FAIL"
+ "verdict": "PASS"
 }
