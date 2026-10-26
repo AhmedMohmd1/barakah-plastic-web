@@ -68,6 +68,7 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
         <div className="space-y-4">
           <ImageGallery
             images={images}
+            productName={product.name}
             selectedImage={selectedImage}
             onImageSelect={setSelectedImage}
             onZoom={handleZoom}
@@ -103,7 +104,7 @@ const ProductDetailContent: React.FC<ProductDetailContentProps> = ({ productId }
         >
           <img
             src={zoomedImage}
-            alt="Zoomed product"
+            alt={`${product.name} — صورة مكبرة`}
             className="max-w-full max-h-full object-contain"
           />
         </div>

@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://barakah-plastic-web.lovable.app/sitemap.xml

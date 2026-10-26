@@ -1,4 +1,7 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+
+const SITE_URL = 'https://barakah-plastic-web.lovable.app';
 import { useParams, useNavigate } from 'react-router-dom';
 import ProductDetailContent from '@/components/products/ProductDetailContent';
 import {
@@ -49,8 +52,34 @@ const ProductDetails = () => {
     );
   }
 
+  const url = `${SITE_URL}/products/${product.id}`;
+  const title = `${product.name} | البركة بلاست`;
+  const description = product.description.slice(0, 155);
+  const productLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: (product.images?.length ? product.images : [product.image]).map((src) => `${SITE_URL}${src}`),
+    url,
+    brand: { '@type': 'Brand', name: 'البركة بلاست' },
+    additionalProperty: (product.specifications ?? []).map((s) => ({ '@type': 'PropertyValue', name: s.name, value: s.value })),
+  };
+
   return (
     <div className="container-custom py-8 pb-24 md:pb-8 dir-rtl">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={url} />
+        <meta property="og:url" content={url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="product" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <script type="application/ld+json">{JSON.stringify(productLd)}</script>
+      </Helmet>
       <div className="mb-6" dir="rtl">
         <Breadcrumb>
           <BreadcrumbList>
