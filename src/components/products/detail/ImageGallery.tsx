@@ -8,6 +8,7 @@ interface ImageGalleryProps {
   selectedImage: number;
   onImageSelect: (index: number) => void;
   onZoom: (image: string) => void;
+  productName?: string;
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({
@@ -15,6 +16,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   selectedImage,
   onImageSelect,
   onZoom,
+  productName = 'المنتج',
 }) => {
   const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
     console.log('Image failed to load:', event.currentTarget.src);
@@ -35,7 +37,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
       <div className="relative overflow-hidden rounded-lg bg-gray-100 aspect-square">
         <img
           src={images[selectedImage]}
-          alt="Product"
+          alt={`${productName} — صورة ${selectedImage + 1}`}
           className="w-full h-full object-cover transition-transform duration-300"
           onError={handleImageError}
         />
@@ -48,6 +50,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
               size="icon"
               className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
               onClick={goToPrevious}
+              aria-label="الصورة السابقة"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -56,6 +59,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
               size="icon"
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
               onClick={goToNext}
+              aria-label="الصورة التالية"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -68,7 +72,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
           size="icon"
           onClick={() => onZoom(images[selectedImage])}
           className="absolute bottom-4 right-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white"
-          aria-label="Zoom image"
+          aria-label="تكبير الصورة"
         >
           <ImageIcon className="w-5 h-5" />
         </Button>
@@ -82,6 +86,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
               <button
                 key={index}
                 onClick={() => onImageSelect(index)}
+                aria-label={`عرض الصورة ${index + 1}`}
+                aria-current={selectedImage === index}
                 className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${
                   selectedImage === index
                     ? 'border-primary ring-2 ring-primary/20'
@@ -90,7 +96,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
               >
                 <img
                   src={img}
-                  alt={`Product view ${index + 1}`}
+                  alt=""
                   className="w-full h-full object-cover"
                   onError={handleImageError}
                 />

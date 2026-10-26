@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Products from '@/components/Products';
@@ -17,6 +18,10 @@ import MobileDock from '@/components/MobileDock';
 const Index = () => {
   return (
     <div className="min-h-screen font-tajawal bg-background pb-20 md:pb-0">
+      <Helmet>
+        <link rel="canonical" href="https://barakah-plastic-web.lovable.app/" />
+        <meta property="og:url" content="https://barakah-plastic-web.lovable.app/" />
+      </Helmet>
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:right-3 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-secondary"
