@@ -1,16 +1,4 @@
-
-import React, { useEffect, useState } from 'react';
-import Autoplay from 'embla-carousel-autoplay';
-import {
-  Carousel,
-  CarouselApi,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
-import { Card, CardContent } from "@/components/ui/card";
+import React from 'react';
 import { QuoteIcon } from "lucide-react";
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -48,96 +36,68 @@ const testimonials: Testimonial[] = [
   },
 ];
 
+const Author = ({ t, inverse = false }: { t: Testimonial; inverse?: boolean }) => (
+  <figcaption className="flex items-center gap-3">
+    <span
+      aria-hidden="true"
+      className={
+        inverse
+          ? "h-11 w-11 rounded-full bg-white/10 text-white ring-1 ring-white/20 flex items-center justify-center font-cairo font-bold shrink-0"
+          : "h-11 w-11 rounded-full bg-primary/5 text-primary ring-1 ring-primary/10 flex items-center justify-center font-cairo font-bold shrink-0"
+      }
+    >
+      {t.name.charAt(0)}
+    </span>
+    <span className="flex flex-col">
+      <cite className={inverse ? "not-italic font-bold text-white" : "not-italic font-bold text-foreground"}>
+        {t.name}
+      </cite>
+      <span className={inverse ? "text-sm text-white/70" : "text-sm text-muted-foreground"}>{t.role}</span>
+    </span>
+  </figcaption>
+);
+
 const Testimonials = () => {
   const ref = useScrollAnimation();
-  const [api, setApi] = useState<CarouselApi>();
-  const [selected, setSelected] = useState(0);
-  const [snapCount, setSnapCount] = useState(0);
-
-  useEffect(() => {
-    if (!api) return;
-    const update = () => {
-      setSnapCount(api.scrollSnapList().length);
-      setSelected(api.selectedScrollSnap());
-    };
-    update();
-    api.on('select', update);
-    api.on('reInit', update);
-    return () => {
-      api.off('select', update);
-      api.off('reInit', update);
-    };
-  }, [api]);
+  const [featured, ...rest] = testimonials;
 
   return (
-    <section id="testimonials" className="section-padding bg-muted/30" ref={ref}>
+    <section id="testimonials" className="section-padding bg-background" ref={ref}>
       <div className="container-custom">
-        <div className="text-center mb-14 scroll-animate">
+        <div className="max-w-2xl mb-12 scroll-animate">
           <span className="eyebrow">ماذا يقول عملاؤنا</span>
           <h2 className="heading-2 text-foreground mb-4">آراء العملاء</h2>
-          <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            نفخر بثقة عملائنا الكرام ونسعى دائماً لتحقيق رضاهم من خلال خدماتنا ومنتجاتنا
+          <p className="text-muted-foreground leading-relaxed">
+            ثقة عملائنا هي مقياس نجاحنا، وهذه بعض كلماتهم عن تجربتهم معنا.
           </p>
         </div>
 
-        <div className="scroll-animate" style={{ transitionDelay: '150ms' }}>
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-              direction: "rtl",
-            }}
-            plugins={[
-              Autoplay({ delay: 5000, stopOnInteraction: true }),
-            ]}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {testimonials.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <Card variant="interactive" className="overflow-hidden h-full">
-                    <CardContent className="p-6 md:p-8 flex flex-col h-full">
-                      <QuoteIcon className="h-8 w-8 text-secondary/40 mb-4" />
-                      <p className="text-foreground/80 mb-6 flex-grow leading-relaxed">{testimonial.content}</p>
-                      <div className="flex items-center gap-3 mt-auto pt-4 border-t border-border/50">
-                        <div className="h-12 w-12 rounded-full bg-gradient-to-br from-primary to-primary-light text-white flex items-center justify-center font-bold font-cairo text-lg shrink-0">
-                          {testimonial.name.charAt(0)}
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-foreground">{testimonial.name}</h4>
-                          <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex items-center justify-center md:justify-between gap-4 mt-6">
-              {/* Position dots — primary affordance on mobile (arrows are desktop-only) */}
-              <div className="flex items-center gap-2" role="tablist" aria-label="شرائح آراء العملاء">
-                {Array.from({ length: snapCount }).map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    role="tab"
-                    aria-label={`الانتقال إلى الشريحة ${i + 1}`}
-                    aria-selected={i === selected}
-                    onClick={() => api?.scrollTo(i)}
-                    className={cn(
-                      "h-2.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2",
-                      i === selected ? "w-6 bg-secondary" : "w-2.5 bg-border hover:bg-secondary/50"
-                    )}
-                  />
-                ))}
-              </div>
-              <div className="hidden md:flex gap-2">
-                <CarouselPrevious className="relative left-0 right-auto h-9 w-9 rounded-full border-border hover:bg-secondary hover:text-white hover:border-secondary transition-colors" />
-                <CarouselNext className="relative right-0 h-9 w-9 rounded-full border-border hover:bg-secondary hover:text-white hover:border-secondary transition-colors" />
-              </div>
-            </div>
-          </Carousel>
+        {/* Featured quote */}
+        <figure
+          className="scroll-animate relative overflow-hidden rounded-2xl bg-primary text-white p-8 md:p-12 mb-5"
+          style={{ transitionDelay: '100ms' }}
+        >
+          <QuoteIcon aria-hidden="true" className="absolute -top-4 start-6 h-28 w-28 text-white/5 rotate-180" />
+          <blockquote className="relative max-w-3xl text-xl md:text-2xl font-cairo font-semibold leading-loose mb-8">
+            “{featured.content}”
+          </blockquote>
+          <Author t={featured} inverse />
+        </figure>
+
+        {/* Supporting quotes */}
+        <div className="grid gap-5 md:grid-cols-3">
+          {rest.map((t, i) => (
+            <figure
+              key={t.id}
+              className="scroll-animate flex flex-col rounded-2xl border border-border bg-card p-6 md:p-7 transition-colors duration-300 hover:border-secondary/50"
+              style={{ transitionDelay: `${200 + i * 100}ms` }}
+            >
+              <blockquote className="flex-grow text-foreground/80 leading-loose mb-6">
+                “{t.content}”
+              </blockquote>
+              <Author t={t} />
+            </figure>
+          ))}
         </div>
       </div>
     </section>
