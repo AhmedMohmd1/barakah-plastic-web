@@ -54,7 +54,7 @@ export const Close = ({ name, ink, onQuote, closeRef }: CloseProps) => {
           const k = i === STACK.length - 1 ? ink : others[i % others.length];
           const color = INKS.find((x) => x.key === k)!.color;
           return (
-            <div key={i} className="v2-close__bag" style={css({ '--x': b.x, '--y': b.y, '--r': `${b.r}deg`, '--d': `${(STACK.length - 1 - i) * 0.07}s` })}>
+            <div key={i} className={`v2-close__bag${b.x !== 0 && Math.abs(b.x) < 400 ? ' v2-close__bag--mid' : ''}`} style={css({ '--x': b.x, '--y': b.y, '--r': `${b.r}deg`, '--d': `${(STACK.length - 1 - i) * 0.07}s` })}>
               <Bag size="xs">
                 <span className="v2-close__print" style={css({ '--ink-c': color })}>
                   {shown}
@@ -67,6 +67,14 @@ export const Close = ({ name, ink, onQuote, closeRef }: CloseProps) => {
     </section>
   );
 };
+
+// the bag's own 22-px registration mark (same drawing as Bag.tsx), at print scale
+const SlugMark = () => (
+  <svg className="v2-foot__reg" viewBox="0 0 22 22" width="22" height="22">
+    <circle cx="11" cy="11" r="6.5" />
+    <path d="M0 11H22M11 0V22" />
+  </svg>
+);
 
 export const Footer = () => {
   const year = new Date().getFullYear();
@@ -118,14 +126,25 @@ export const Footer = () => {
             <p>{ADDRESS}</p>
           </div>
         </div>
-        <div className="v2-foot__legal">
-          <span>© {year} البركة بلاست. جميع الحقوق محفوظة.</span>
-          <span>قليوب، القليوبية، مصر</span>
+        {/* the print slug on a bag's bottom edge: register mark, ink patches, one line of small print */}
+        <div className="v2-foot__slug">
+          <span className="v2-foot__marks" aria-hidden="true">
+            <SlugMark />
+            <span className="v2-foot__bar">
+              <i />
+              <i />
+              <i />
+              <i />
+            </span>
+          </span>
+          <span>البركة بلاست · قليوب، القليوبية · منذ{' '}2011</span>
+          <span>© {year} جميع الحقوق محفوظة</span>
+          <span className="v2-foot__marks" aria-hidden="true">
+            <SlugMark />
+          </span>
         </div>
       </div>
-      <div className="v2-foot__word" aria-hidden="true">
-        البركة بلاست
-      </div>
+      <div className="v2-foot__rib" aria-hidden="true" />
     </footer>
   );
 };

@@ -1,0 +1,146 @@
+[
+ {
+  "mode": "desktop",
+  "run": 1,
+  "path": "/v2",
+  "fcp": 2676,
+  "lcp": 2676,
+  "lcpEl": "IMG.v2-hero__photo",
+  "longest": 474,
+  "dcl": 780,
+  "load": 963,
+  "kb": 536,
+  "chunk": [
+   "index-DNsjfLZO.js@292",
+   "index-qiX5Wvwg.css@293",
+   "LandingV2-eAWOHkCK.js@758",
+   "LandingV2-C3kA91FE.css@758",
+   "hero.webp@835"
+  ]
+ },
+ {
+  "mode": "desktop",
+  "run": 1,
+  "path": "/",
+  "fcp": 1384,
+  "lcp": 1468,
+  "lcpEl": "IMG.absolute",
+  "longest": 352,
+  "dcl": 831,
+  "load": 900,
+  "kb": 714,
+  "chunk": [
+   "index-DNsjfLZO.js@49",
+   "index-qiX5Wvwg.css@49",
+   "hero.webp@740"
+  ]
+ },
+ {
+  "mode": "desktop",
+  "run": 2,
+  "path": "/v2",
+  "fcp": 1792,
+  "lcp": 1792,
+  "lcpEl": "IMG.v2-hero__photo",
+  "longest": 278,
+  "dcl": 392,
+  "load": 511,
+  "kb": 536,
+  "chunk": [
+   "index-DNsjfLZO.js@39",
+   "index-qiX5Wvwg.css@39",
+   "LandingV2-eAWOHkCK.js@375",
+   "LandingV2-C3kA91FE.css@375",
+   "hero.webp@419"
+  ]
+ },
+ {
+  "mode": "desktop",
+  "run": 2,
+  "path": "/",
+  "fcp": 1576,
+  "lcp": 1660,
+  "lcpEl": "IMG.absolute",
+  "longest": 465,
+  "dcl": 1121,
+  "load": 1581,
+  "kb": 714,
+  "chunk": [
+   "index-DNsjfLZO.js@163",
+   "index-qiX5Wvwg.css@164",
+   "hero.webp@1014"
+  ]
+ },
+ {
+  "mode": "mobile",
+  "run": 1,
+  "path": "/v2",
+  "fcp": 5600,
+  "lcp": 5600,
+  "lcpEl": "IMG.v2-hero__photo",
+  "longest": 1731,
+  "dcl": 1530,
+  "load": 1845,
+  "kb": 536,
+  "chunk": [
+   "index-DNsjfLZO.js@222",
+   "index-qiX5Wvwg.css@223",
+   "LandingV2-eAWOHkCK.js@1404",
+   "LandingV2-C3kA91FE.css@1408",
+   "hero.webp@1753"
+  ]
+ },
+ {
+  "mode": "mobile",
+  "run": 1,
+  "path": "/",
+  "fcp": 3856,
+  "lcp": 5704,
+  "lcpEl": "IMG.absolute",
+  "longest": 1928,
+  "dcl": 1280,
+  "load": 1282,
+  "kb": 749,
+  "chunk": [
+   "index-DNsjfLZO.js@249",
+   "index-qiX5Wvwg.css@256",
+   "hero.webp@3197"
+  ]
+ },
+ {
+  "mode": "mobile",
+  "run": 2,
+  "path": "/v2",
+  "fcp": 5636,
+  "lcp": 5636,
+  "lcpEl": "IMG.v2-hero__photo",
+  "longest": 2064,
+  "dcl": 1376,
+  "load": 1628,
+  "kb": 536,
+  "chunk": [
+   "index-DNsjfLZO.js@256",
+   "index-qiX5Wvwg.css@260",
+   "LandingV2-eAWOHkCK.js@1321",
+   "LandingV2-C3kA91FE.css@1322",
+   "hero.webp@1565"
+  ]
+ },
+ {
+  "mode": "mobile",
+  "run": 2,
+  "path": "/",
+  "fcp": 4748,
+  "lcp": 6248,
+  "lcpEl": "IMG.absolute",
+  "longest": 2556,
+  "dcl": 1296,
+  "load": 1297,
+  "kb": 749,
+  "chunk": [
+   "index-DNsjfLZO.js@224",
+   "index-qiX5Wvwg.css@230",
+   "hero.webp@3772"
+  ]
+ }
+]

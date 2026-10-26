@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowLeft, Download } from 'lucide-react';
+import { ArrowLeft, Download, Share2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PRODUCTS } from '@/constants/products';
 import Bag from './Bag';
 import { FACTORY_STEPS, FAQ, INKS, MANIFESTO, STEPS, WHO, type InkKey } from './content';
 import { usePlayOnce } from './hooks';
-import { downloadBag } from './printBag';
+import { prepareBag, saveBag } from './printBag';
 
 const css = (v: Record<string, string | number>) => v as React.CSSProperties;
 
@@ -64,6 +64,8 @@ const Colorbar = ({ on }: { on: number }) => (
 export const Factory = () => {
   const [step, setStep] = useState(0);
   const sentinels = useRef<(HTMLDivElement | null)[]>([]);
+  // fallback only (no scroll-driven animations): open the window once the pinned stage is in view
+  const stickRef = usePlayOnce<HTMLDivElement>(0.85);
 
   useEffect(() => {
     if (!('IntersectionObserver' in window)) return;
@@ -93,15 +95,19 @@ export const Factory = () => {
             const c = camera(s.px, s.py, s.s, 0.5);
             return (
               <figure className="v2-fac__card" key={s.title}>
-                <div className="v2-fac__crop">
-                  <img
-                    src="/images/hero.webp"
-                    alt={`داخل مصنع البركة بلاست: ${s.title}`}
-                    loading="lazy"
-                    width={1536}
-                    height={1024}
-                    style={{ transform: `translate(${c.tx * 100}%, ${c.ty * 100}%) scale(${s.s})` }}
-                  />
+                {/* only the first crop is punched open (the hero's handle, on screen); the rest just fade */}
+                <div className="v2-fac__cropwrap">
+                  <div className="v2-fac__crop">
+                    <img
+                      src="/images/hero.webp"
+                      alt={`داخل مصنع البركة بلاست: ${s.title}`}
+                      loading="lazy"
+                      width={1536}
+                      height={1024}
+                      style={{ transform: `translate(${c.tx * 100}%, ${c.ty * 100}%) scale(${s.s})` }}
+                    />
+                  </div>
+                  {i === 0 && <span className="v2-bag__die v2-fac__die" aria-hidden="true" />}
                 </div>
                 <figcaption>
                   <h3>
@@ -130,17 +136,24 @@ export const Factory = () => {
           <div
             key={i}
             className="v2-fac__sentinel"
-            style={{ top: `${i * 100}vh` }}
+            style={{ top: `${60 + i * 100}vh` }}
             data-i={i}
             ref={(el) => (sentinels.current[i] = el)}
           />
         ))}
-        <div className="v2-fac__stick">
-          <div className="v2-fac__cam" style={css({ '--tx': cam.tx, '--ty': cam.ty, '--s': cam.s })}>
-            <img src="/images/hero.webp" alt="خطوط الإنتاج داخل مصنع البركة بلاست في قليوب" width={1536} height={1024} loading="lazy" />
+        <div className="v2-fac__stick" ref={stickRef}>
+          {/* the window: opens from the hero's 196×64 handle slot once the stage is pinned */}
+          <div className="v2-fac__win">
+            <div
+              className="v2-fac__cam"
+              role="img"
+              aria-label="خطوط الإنتاج داخل مصنع البركة بلاست في قليوب"
+              style={css({ '--tx': cam.tx, '--ty': cam.ty, '--s': cam.s })}
+            />
           </div>
           <div className="v2-fac__shade" aria-hidden="true" />
           <div className="v2-fac__finder" aria-hidden="true" />
+          <span className="v2-bag__die v2-fac__die" aria-hidden="true" />
           <div className="v2-fac__panel">
             <span className="v2-opener">المصنع</span>
             <h2 id="v2-fac-h" className="v2-h2">
@@ -170,17 +183,33 @@ export const Factory = () => {
   );
 };
 
-/* 4 · Products — five cards; each photo is printed in by a plate wipe when it is seen */
-const PCard = ({ lg, children }: { lg: boolean; children: React.ReactNode }) => {
-  const ref = usePlayOnce<HTMLLIElement>(0.3);
-  return (
-    <li ref={ref} className={`v2-pcard${lg ? ' v2-pcard--lg' : ''}`}>
-      {children}
-    </li>
-  );
-};
+/* 4 · Products — desktop: one proof sheet (the colour bar runs across it, then the photos
+   take their ink; hover opens a photo from the handle-slot shape). Phones: an RTL swipe rail. */
+const PCard = ({ lg, i, children }: { lg: boolean; i: number; children: React.ReactNode }) => (
+  <li className={`v2-pcard${lg ? ' v2-pcard--lg' : ''}`} style={css({ '--i': i })}>
+    {children}
+  </li>
+);
 
-export const Products = ({ onQuote }: { onQuote: (name: string, image: string) => void }) => (
+export const Products = ({ onQuote }: { onQuote: (name: string, image: string) => void }) => {
+  const sheet = usePlayOnce<HTMLDivElement>(0.2);
+  const rail = useRef<HTMLUListElement>(null);
+  const [at, setAt] = useState(0);
+  const raf = useRef(0);
+  const onRail = () => {
+    cancelAnimationFrame(raf.current);
+    raf.current = requestAnimationFrame(() => {
+      const el = rail.current;
+      const first = el?.firstElementChild as HTMLElement | null;
+      if (!el || !first) return;
+      const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+      // Math.abs: in an RTL scroller Chrome reports a negative scrollLeft
+      const i = Math.round(Math.abs(el.scrollLeft) / (first.offsetWidth + gap));
+      setAt(Math.max(0, Math.min(PRODUCTS.length - 1, i)));
+    });
+  };
+  useEffect(() => () => cancelAnimationFrame(raf.current), []);
+  return (
   <section id="products" className="v2-prod v2-sec" aria-labelledby="v2-prod-h">
     <div className="v2-wrap">
       <header className="v2-split">
@@ -192,11 +221,18 @@ export const Products = ({ onQuote }: { onQuote: (name: string, image: string) =
         </div>
         <p className="v2-lead">بدل ما تتعامل مع مورّد لكل نوع، اطلب كل شنطك من مكان واحد. الصور لشنط من إنتاجنا.</p>
       </header>
-      <ul className="v2-prod__grid">
+      <div className="v2-prod__sheet" ref={sheet}>
+      <span className="v2-prod__bar" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+      <ul className="v2-prod__grid" ref={rail} onScroll={onRail}>
         {PRODUCTS.map((p, i) => {
           const photo = p.images[1] ?? p.image;
           return (
-            <PCard key={p.id} lg={i < 2}>
+            <PCard key={p.id} lg={i < 2} i={i}>
               <div className="v2-pcard__win">
                 <img src={photo} alt={p.name} loading="lazy" width={1024} height={1024} />
               </div>
@@ -229,9 +265,21 @@ export const Products = ({ onQuote }: { onQuote: (name: string, image: string) =
           );
         })}
       </ul>
+      <div className="v2-prod__cue" aria-hidden="true">
+        <span className="v2-colorbar v2-colorbar--5">
+          {PRODUCTS.map((p, i) => (
+            <i key={p.id} className={i <= at ? 'is-on' : ''} />
+          ))}
+        </span>
+        <span>
+          {at + 1} من {PRODUCTS.length} · اسحب للمزيد
+        </span>
+      </div>
+      </div>
     </div>
   </section>
-);
+  );
+};
 
 /* 5 · Try your name — the visitor's name printed on our bag, in two plates */
 export const TryName = ({
@@ -260,11 +308,30 @@ export const TryName = ({
     return () => window.clearTimeout(t);
   }, [name, phone, ink, shown]);
   const inkDef = INKS.find((i) => i.key === ink)!;
+  // touch devices share the PNG (WhatsApp); fine pointers save the file
+  const [coarse, setCoarse] = useState(() => typeof window !== 'undefined' && !!window.matchMedia?.('(pointer: coarse)').matches);
+  useEffect(() => {
+    const mq = window.matchMedia?.('(pointer: coarse)');
+    if (!mq) return;
+    const on = () => setCoarse(mq.matches);
+    mq.addEventListener?.('change', on);
+    return () => mq.removeEventListener?.('change', on);
+  }, []);
+  // warm the factory photo + logo so the tap renders inside its user activation
+  useEffect(() => {
+    const t = window.setTimeout(() => void prepareBag(), 1500);
+    return () => window.clearTimeout(t);
+  }, []);
   const [saving, setSaving] = useState(false);
+  const [saveMsg, setSaveMsg] = useState('');
   const save = async () => {
     setSaving(true);
+    setSaveMsg('');
     try {
-      await downloadBag(shown, phone, inkDef.hex);
+      const r = await saveBag(shown, phone, inkDef.hex, coarse);
+      if (r === 'downloaded') setSaveMsg('اتحفظت صورة الشنطة على جهازك.');
+    } catch {
+      setSaveMsg('ما قدرناش نجهّز الصورة، جرّب تاني.');
     } finally {
       setSaving(false);
     }
@@ -321,22 +388,29 @@ export const TryName = ({
                 اطلب تسعيرة لهذه الشنطة
                 <ArrowLeft className="v2-arrow" size={20} aria-hidden="true" />
               </button>
-              <button type="button" className="v2-link v2-link--btn" onClick={save} disabled={saving}>
-                <Download size={18} aria-hidden="true" />
-                {saving ? 'جاري التجهيز…' : 'احفظ صورة الشنطة'}
+              <button type="button" className="v2-link v2-link--btn" onClick={save} disabled={saving} aria-busy={saving || undefined}>
+                {coarse ? <Share2 size={18} aria-hidden="true" /> : <Download size={18} aria-hidden="true" />}
+                {saving ? 'جاري التجهيز…' : coarse ? 'ابعت الصورة على واتساب' : 'احفظ صورة الشنطة'}
               </button>
             </div>
             <p className="v2-try__note">الاسم يبقى على جهازك فقط، ولا يُرسل لأي مكان.</p>
+            <span className="v2-sr" role="status">
+              {saveMsg}
+            </span>
           </form>
           <div className="v2-try__stage">
-            <Bag size="sm" aria-hidden>
-              <div key={pressKey} className="v2-try__print" style={css({ '--ink-c': inkDef.color, '--len': Math.max(5, shown.length) })}>
-                <span className="v2-try__name" data-ghost={shown}>
-                  {shown}
-                </span>
-                {phone && <span className="v2-try__phone">{phone}</span>}
-              </div>
-            </Bag>
+            {/* re-keyed after typing pauses: the bag dips as plate 1 lands, then the plates run once */}
+            <div key={pressKey} className="v2-try__press">
+              <span className="v2-try__window" aria-hidden="true" />
+              <Bag size="sm" aria-hidden>
+                <div className="v2-try__print" style={css({ '--ink-c': inkDef.color, '--len': Math.max(5, [...shown].length) })}>
+                  <span className="v2-try__name" data-ghost={shown}>
+                    {shown}
+                  </span>
+                  {phone && <span className="v2-try__phone">{phone}</span>}
+                </div>
+              </Bag>
+            </div>
             <span className="v2-sr" aria-live="polite">
               المعاينة: {spoken}
             </span>
@@ -347,16 +421,8 @@ export const TryName = ({
   );
 };
 
-/* 6 · Who it's for — two cards from opposite sides */
-const BagGlyph = ({ stack }: { stack?: boolean }) => (
-  <svg width="56" height="64" viewBox="0 0 56 64" fill="none" aria-hidden="true">
-    {stack && <path d="M14 4h34v52" stroke="currentColor" strokeOpacity=".35" strokeWidth="1.5" />}
-    {stack && <path d="M10 8h34v52" stroke="currentColor" strokeOpacity=".6" strokeWidth="1.5" />}
-    <path d="M4 12h36v48H4z" fill="var(--film)" stroke="currentColor" strokeWidth="1.5" />
-    <rect x="15" y="17" width="14" height="5" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
-    {!stack && <path d="M12 38h20M15 44h14" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" />}
-  </svg>
-);
+/* 6 · Who it's for — two bags, the copy printed on them: a wholesale stack of plain bags
+   (the copies fan out as you scroll) and one bag printed with the shop's own brand */
 export const Who = () => (
   <section id="who" className="v2-who v2-sec" aria-labelledby="v2-who-h">
     <div className="v2-wrap">
@@ -368,17 +434,21 @@ export const Who = () => (
       </header>
       <div className="v2-who__grid">
         {WHO.map((w) => (
-          <article key={w.key} className={`v2-who__card v2-who__card--${w.key}`}>
-            <span className="v2-who__icon">
-              <BagGlyph stack={w.key === 'a'} />
-            </span>
-            <h3>{w.title}</h3>
-            <p>{w.who}</p>
-            <ul>
-              {w.points.map((p) => (
-                <li key={p}>{p}</li>
-              ))}
-            </ul>
+          <article key={w.key} className={`v2-who__item v2-who__item--${w.key}`}>
+            <Bag size="sm" copies={w.key === 'a'}>
+              {w.key === 'b' && (
+                <span className="v2-who__brand" aria-hidden="true">
+                  براندك
+                </span>
+              )}
+              <h3>{w.title}</h3>
+              <p>{w.who}</p>
+              <ul>
+                {w.points.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            </Bag>
           </article>
         ))}
       </div>
@@ -436,7 +506,7 @@ export const Faq = () => (
           <details key={f.q} className="v2-faq__item">
             <summary>
               {f.q}
-              <span className="v2-faq__x" aria-hidden="true" />
+              <span className="v2-reg v2-faq__x" aria-hidden="true" />
             </summary>
             <div className="v2-faq__a">
               {typeof f.a === 'string' ? (

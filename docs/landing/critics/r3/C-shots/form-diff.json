@@ -1,0 +1,673 @@
+{
+ "cmp": {
+  "empty": {
+   "nativeInvalid": true,
+   "errors": true,
+   "toast": true,
+   "posts": true,
+   "reset": true,
+   "v2": {
+    "invalid": [
+     "name",
+     "phone",
+     "message"
+    ],
+    "errs": [],
+    "toast": [],
+    "posts": 0
+   },
+   "root": {
+    "invalid": [
+     "name",
+     "phone",
+     "message"
+    ],
+    "errs": [],
+    "toast": [],
+    "posts": 0
+   }
+  },
+  "shortPhone": {
+   "nativeInvalid": true,
+   "errors": true,
+   "toast": true,
+   "posts": true,
+   "reset": true,
+   "v2": {
+    "invalid": [],
+    "errs": [
+     "phone-error:يجب أن يكون رقم الهاتف 11 رقم"
+    ],
+    "toast": [
+     "يرجى تصحيح الأخطاء في النموذج"
+    ],
+    "posts": 0
+   },
+   "root": {
+    "invalid": [],
+    "errs": [
+     "phone-error:يجب أن يكون رقم الهاتف 11 رقم"
+    ],
+    "toast": [
+     "يرجى تصحيح الأخطاء في النموذج"
+    ],
+    "posts": 0
+   }
+  },
+  "badPrefix": {
+   "nativeInvalid": true,
+   "errors": true,
+   "toast": true,
+   "posts": true,
+   "reset": true,
+   "v2": {
+    "invalid": [],
+    "errs": [
+     "phone-error:يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010"
+    ],
+    "toast": [
+     "يرجى تصحيح الأخطاء في النموذج"
+    ],
+    "posts": 0
+   },
+   "root": {
+    "invalid": [],
+    "errs": [
+     "phone-error:يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010"
+    ],
+    "toast": [
+     "يرجى تصحيح الأخطاء في النموذج"
+    ],
+    "posts": 0
+   }
+  },
+  "badEmail": {
+   "nativeInvalid": true,
+   "errors": true,
+   "toast": true,
+   "posts": true,
+   "reset": true,
+   "v2": {
+    "invalid": [],
+    "errs": [
+     "email-error:يرجى إدخال بريد إلكتروني صحيح"
+    ],
+    "toast": [
+     "يرجى تصحيح الأخطاء في النموذج"
+    ],
+    "posts": 0
+   },
+   "root": {
+    "invalid": [],
+    "errs": [
+     "email-error:يرجى إدخال بريد إلكتروني صحيح"
+    ],
+    "toast": [
+     "يرجى تصحيح الأخطاء في النموذج"
+    ],
+    "posts": 0
+   }
+  },
+  "blankMessage": {
+   "nativeInvalid": true,
+   "errors": true,
+   "toast": true,
+   "posts": true,
+   "reset": true,
+   "v2": {
+    "invalid": [],
+    "errs": [
+     "message-error:يرجى إدخال الرسالة"
+    ],
+    "toast": [
+     "يرجى تصحيح الأخطاء في النموذج"
+    ],
+    "posts": 0
+   },
+   "root": {
+    "invalid": [],
+    "errs": [
+     "message-error:يرجى إدخال الرسالة"
+    ],
+    "toast": [
+     "يرجى تصحيح الأخطاء في النموذج"
+    ],
+    "posts": 0
+   }
+  },
+  "spacedPhone": {
+   "nativeInvalid": true,
+   "errors": true,
+   "toast": true,
+   "posts": true,
+   "reset": true,
+   "v2": {
+    "invalid": [],
+    "errs": [],
+    "toast": [
+     "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+    ],
+    "posts": 1
+   },
+   "root": {
+    "invalid": [],
+    "errs": [],
+    "toast": [
+     "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+    ],
+    "posts": 1
+   }
+  },
+  "valid": {
+   "nativeInvalid": true,
+   "errors": true,
+   "toast": true,
+   "posts": true,
+   "reset": true,
+   "v2": {
+    "invalid": [],
+    "errs": [],
+    "toast": [
+     "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+    ],
+    "posts": 1
+   },
+   "root": {
+    "invalid": [],
+    "errs": [],
+    "toast": [
+     "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+    ],
+    "posts": 1
+   }
+  }
+ },
+ "v2": {
+  "empty": {
+   "invalid": [
+    "name",
+    "phone",
+    "message"
+   ],
+   "errs": [],
+   "toast": [],
+   "posts": [],
+   "after": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "shortPhone": {
+   "invalid": [],
+   "errs": [
+    "phone-error:يجب أن يكون رقم الهاتف 11 رقم"
+   ],
+   "toast": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "after": [
+    "أحمد",
+    "",
+    "0101234",
+    "",
+    "",
+    "",
+    "",
+    "رسالة"
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "badPrefix": {
+   "invalid": [],
+   "errs": [
+    "phone-error:يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010"
+   ],
+   "toast": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "after": [
+    "أحمد",
+    "",
+    "01412345678",
+    "",
+    "",
+    "",
+    "",
+    "رسالة"
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "badEmail": {
+   "invalid": [],
+   "errs": [
+    "email-error:يرجى إدخال بريد إلكتروني صحيح"
+   ],
+   "toast": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "after": [
+    "أحمد",
+    "",
+    "01012345678",
+    "a@b",
+    "",
+    "",
+    "",
+    "رسالة"
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "blankMessage": {
+   "invalid": [],
+   "errs": [
+    "message-error:يرجى إدخال الرسالة"
+   ],
+   "toast": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "after": [
+    "أحمد",
+    "",
+    "01012345678",
+    "",
+    "",
+    "",
+    "",
+    "   "
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "spacedPhone": {
+   "invalid": [],
+   "errs": [],
+   "toast": [
+    "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+   ],
+   "posts": [
+    {
+     "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+     "method": "POST",
+     "headers": {
+      "Content-Type": "application/json"
+     },
+     "body": {
+      "الأسم": "أحمد",
+      "اسم الشركة": "",
+      "رقم التليفون": "010 1234 5678",
+      "البريد الالكتروني": "",
+      "الموضوع": "",
+      "الكمية المطلوبة": "",
+      "المقاس أو السماكة": "",
+      "الرسالة": "رسالة"
+     }
+    }
+   ],
+   "after": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "valid": {
+   "invalid": [],
+   "errs": [],
+   "toast": [
+    "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+   ],
+   "posts": [
+    {
+     "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+     "method": "POST",
+     "headers": {
+      "Content-Type": "application/json"
+     },
+     "body": {
+      "الأسم": "اختبار الناقد",
+      "اسم الشركة": "مخبز النور",
+      "رقم التليفون": "01512345678",
+      "البريد الالكتروني": "x@y.co",
+      "الموضوع": "شنط قماش",
+      "الكمية المطلوبة": "5000",
+      "المقاس أو السماكة": "30×40",
+      "الرسالة": "اختبار — لا ترسل"
+     }
+    }
+   ],
+   "after": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  }
+ },
+ "root": {
+  "empty": {
+   "invalid": [
+    "name",
+    "phone",
+    "message"
+   ],
+   "errs": [],
+   "toast": [],
+   "posts": [],
+   "after": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "shortPhone": {
+   "invalid": [],
+   "errs": [
+    "phone-error:يجب أن يكون رقم الهاتف 11 رقم"
+   ],
+   "toast": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "after": [
+    "أحمد",
+    "",
+    "0101234",
+    "",
+    "",
+    "",
+    "",
+    "رسالة"
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "badPrefix": {
+   "invalid": [],
+   "errs": [
+    "phone-error:يجب أن يبدأ رقم الهاتف بـ 011 أو 012 أو 015 أو 010"
+   ],
+   "toast": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "after": [
+    "أحمد",
+    "",
+    "01412345678",
+    "",
+    "",
+    "",
+    "",
+    "رسالة"
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "badEmail": {
+   "invalid": [],
+   "errs": [
+    "email-error:يرجى إدخال بريد إلكتروني صحيح"
+   ],
+   "toast": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "after": [
+    "أحمد",
+    "",
+    "01012345678",
+    "a@b",
+    "",
+    "",
+    "",
+    "رسالة"
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "blankMessage": {
+   "invalid": [],
+   "errs": [
+    "message-error:يرجى إدخال الرسالة"
+   ],
+   "toast": [
+    "يرجى تصحيح الأخطاء في النموذج"
+   ],
+   "posts": [],
+   "after": [
+    "أحمد",
+    "",
+    "01012345678",
+    "",
+    "",
+    "",
+    "",
+    "   "
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "spacedPhone": {
+   "invalid": [],
+   "errs": [],
+   "toast": [
+    "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+   ],
+   "posts": [
+    {
+     "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+     "method": "POST",
+     "headers": {
+      "Content-Type": "application/json"
+     },
+     "body": {
+      "الأسم": "أحمد",
+      "اسم الشركة": "",
+      "رقم التليفون": "010 1234 5678",
+      "البريد الالكتروني": "",
+      "الموضوع": "",
+      "الكمية المطلوبة": "",
+      "المقاس أو السماكة": "",
+      "الرسالة": "رسالة"
+     }
+    }
+   ],
+   "after": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  },
+  "valid": {
+   "invalid": [],
+   "errs": [],
+   "toast": [
+    "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً"
+   ],
+   "posts": [
+    {
+     "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+     "method": "POST",
+     "headers": {
+      "Content-Type": "application/json"
+     },
+     "body": {
+      "الأسم": "اختبار الناقد",
+      "اسم الشركة": "مخبز النور",
+      "رقم التليفون": "01512345678",
+      "البريد الالكتروني": "x@y.co",
+      "الموضوع": "شنط قماش",
+      "الكمية المطلوبة": "5000",
+      "المقاس أو السماكة": "30×40",
+      "الرسالة": "اختبار — لا ترسل"
+     }
+    }
+   ],
+   "after": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "types": [
+    "name:text*",
+    "company:text",
+    "phone:text*",
+    "email:email",
+    "product:select-one",
+    "quantity:text",
+    "size:text",
+    "message:textarea*"
+   ]
+  }
+ }
+}

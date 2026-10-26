@@ -1,0 +1,275 @@
+{
+ "1440": {
+  "firstLoad": {
+   "Document": "2 KB",
+   "Stylesheet": "25 KB",
+   "Script": "159 KB",
+   "Manifest": "1 KB",
+   "Image": "199 KB",
+   "Other": "8 KB",
+   "Font": "119 KB",
+   "total": "513 KB"
+  },
+  "firstLoadList": [
+   "Document 2KB 200 /v2",
+   "Stylesheet 2KB 200 https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&family=Sora:wght@400;600;",
+   "Script 53KB 200 /assets/index-BXfJgj_t.js",
+   "Script 44KB 200 /assets/vendor-BtPQM8GQ.js",
+   "Script 30KB 200 /assets/ui-CuROwe5G.js",
+   "Script 7KB 200 /assets/utils-qJ7GjZ6G.js",
+   "Script 4KB 200 /assets/icons-DkfBouir.js",
+   "Script 8KB 200 /assets/router-B1pT5lLW.js",
+   "Stylesheet 14KB 200 /assets/index-BbTWTdtR.css",
+   "Script 0KB 200 https://cdn.gpteng.co/gptengineer.js",
+   "Manifest 1KB 200 /site.webmanifest",
+   "Script 13KB 200 /assets/LandingV2-K8YmXryH.js",
+   "Stylesheet 9KB 200 /assets/LandingV2-6ClJOOxi.css",
+   "Image 163KB 200 /images/hero.webp",
+   "Image 37KB 200 /assets/logo-clear-C0A1Ksr3.png",
+   "Other 1KB 200 /favicon.ico",
+   "Other 7KB 200 /icon-192.png",
+   "Image 0KB 200 data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 188 56'%3E%3Crect width='188' height='56' rx='28'/%3E%3C/svg%3E",
+   "Image 0KB 200 data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 40'%3E%3Crect width='128' height='40' rx='20'/%3E%3C/svg%3E",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+   "Image 0KB 200 data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 22'%3E%3Crect width='72' height='22' rx='11'/%3E%3C/svg%3E",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+   "Font 30KB 200 https://fonts.gstatic.com/s/cairo/v31/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscQyyS4J0.woff2",
+   "Font 33KB 200 https://fonts.gstatic.com/s/cairo/v31/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscRiyS.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+   "Image 0KB 200 data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' bas",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrFpiQ.woff2"
+  ],
+  "afterScroll": {
+   "Document": "2 KB",
+   "Stylesheet": "25 KB",
+   "Script": "159 KB",
+   "Manifest": "1 KB",
+   "Image": "662 KB",
+   "Other": "8 KB",
+   "Font": "119 KB",
+   "total": "975 KB"
+  },
+  "afterScrollNew": [
+   "Image 39KB /images/plasticbag2.webp",
+   "Image 126KB /images/softbag2.webp",
+   "Image 37KB /images/canvas2.webp",
+   "Image 19KB /images/solfan2.webp",
+   "Image 214KB /images/ziplockBag.webp",
+   "Image 27KB /assets/logo-inv-B5DeSWZY.png"
+  ],
+  "lcp": [
+   {
+    "t": 1548,
+    "size": 1192320,
+    "url": "http://127.0.0.1:4173/images/hero.webp",
+    "el": "IMG.v2-hero__photo "
+   }
+  ],
+  "paint": [
+   "first-paint:496",
+   "first-contentful-paint:1548"
+  ],
+  "heroPlaying": true,
+  "longTasksLoad": [
+   {
+    "t": 567,
+    "d": 244
+   },
+   {
+    "t": 978,
+    "d": 77
+   }
+  ],
+  "longTasksTotal": [
+   {
+    "t": 567,
+    "d": 244
+   },
+   {
+    "t": 978,
+    "d": 77
+   },
+   {
+    "t": 21461,
+    "d": 278
+   }
+  ],
+  "errors": [],
+  "console": [],
+  "sheetdbReal": 0,
+  "domContentLoaded": 479,
+  "load": 517
+ },
+ "390-throttled": {
+  "firstLoad": {
+   "Document": "2 KB",
+   "Stylesheet": "25 KB",
+   "Script": "159 KB",
+   "Manifest": "1 KB",
+   "Image": "199 KB",
+   "Other": "8 KB",
+   "Font": "119 KB",
+   "total": "513 KB"
+  },
+  "firstLoadList": [
+   "Document 2KB 200 /v2",
+   "Stylesheet 2KB 200 https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&family=Sora:wght@400;600;",
+   "Script 53KB 200 /assets/index-BXfJgj_t.js",
+   "Script 44KB 200 /assets/vendor-BtPQM8GQ.js",
+   "Script 30KB 200 /assets/ui-CuROwe5G.js",
+   "Script 7KB 200 /assets/utils-qJ7GjZ6G.js",
+   "Script 4KB 200 /assets/icons-DkfBouir.js",
+   "Script 8KB 200 /assets/router-B1pT5lLW.js",
+   "Stylesheet 14KB 200 /assets/index-BbTWTdtR.css",
+   "Script 0KB 200 https://cdn.gpteng.co/gptengineer.js",
+   "Manifest 1KB 200 /site.webmanifest",
+   "Script 13KB 200 /assets/LandingV2-K8YmXryH.js",
+   "Stylesheet 9KB 200 /assets/LandingV2-6ClJOOxi.css",
+   "Image 163KB 200 /images/hero.webp",
+   "Image 37KB 200 /assets/logo-clear-C0A1Ksr3.png",
+   "Other 1KB 200 /favicon.ico",
+   "Other 7KB 200 /icon-192.png",
+   "Image 0KB 200 data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 40'%3E%3Crect width='128' height='40' rx='20'/%3E%3C/svg%3E",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+   "Image 0KB 200 data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 22'%3E%3Crect width='72' height='22' rx='11'/%3E%3C/svg%3E",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+   "Font 30KB 200 https://fonts.gstatic.com/s/cairo/v31/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscQyyS4J0.woff2",
+   "Font 33KB 200 https://fonts.gstatic.com/s/cairo/v31/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscRiyS.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+   "Image 0KB 200 data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' bas",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+   "Font 10KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrFpiQ.woff2",
+   "Font 9KB 200 https://fonts.gstatic.com/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2"
+  ],
+  "afterScroll": {
+   "Document": "2 KB",
+   "Stylesheet": "25 KB",
+   "Script": "159 KB",
+   "Manifest": "1 KB",
+   "Image": "662 KB",
+   "Other": "8 KB",
+   "Font": "119 KB",
+   "total": "976 KB"
+  },
+  "afterScrollNew": [
+   "Image 39KB /images/plasticbag2.webp",
+   "Image 126KB /images/softbag2.webp",
+   "Image 37KB /images/canvas2.webp",
+   "Image 19KB /images/solfan2.webp",
+   "Image 214KB /images/ziplockBag.webp",
+   "Image 27KB /assets/logo-inv-B5DeSWZY.png"
+  ],
+  "lcp": [
+   {
+    "t": 7312,
+    "size": 305760,
+    "url": "http://127.0.0.1:4173/images/hero.webp",
+    "el": "IMG.v2-hero__photo "
+   }
+  ],
+  "paint": [
+   "first-paint:1164",
+   "first-contentful-paint:7312"
+  ],
+  "heroPlaying": true,
+  "longTasksLoad": [
+   {
+    "t": 1154,
+    "d": 111
+   },
+   {
+    "t": 1908,
+    "d": 104
+   },
+   {
+    "t": 2624,
+    "d": 59
+   },
+   {
+    "t": 2809,
+    "d": 2909
+   },
+   {
+    "t": 7382,
+    "d": 221
+   },
+   {
+    "t": 7658,
+    "d": 285
+   },
+   {
+    "t": 8035,
+    "d": 529
+   }
+  ],
+  "longTasksTotal": [
+   {
+    "t": 1154,
+    "d": 111
+   },
+   {
+    "t": 1908,
+    "d": 104
+   },
+   {
+    "t": 2624,
+    "d": 59
+   },
+   {
+    "t": 2809,
+    "d": 2909
+   },
+   {
+    "t": 7382,
+    "d": 221
+   },
+   {
+    "t": 7658,
+    "d": 285
+   },
+   {
+    "t": 8035,
+    "d": 529
+   },
+   {
+    "t": 24953,
+    "d": 99
+   },
+   {
+    "t": 28995,
+    "d": 110
+   },
+   {
+    "t": 30312,
+    "d": 68
+   },
+   {
+    "t": 31216,
+    "d": 129
+   },
+   {
+    "t": 34401,
+    "d": 144
+   },
+   {
+    "t": 34558,
+    "d": 64
+   },
+   {
+    "t": 38848,
+    "d": 70
+   },
+   {
+    "t": 40375,
+    "d": 71
+   }
+  ],
+  "errors": [],
+  "console": [],
+  "sheetdbReal": 0,
+  "domContentLoaded": 2017,
+  "load": 2685
+ }
+}

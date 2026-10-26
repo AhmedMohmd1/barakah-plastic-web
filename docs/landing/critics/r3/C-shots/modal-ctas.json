@@ -1,0 +1,326 @@
+{
+ "390": [
+  {
+   "label": "hero",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة»"
+  },
+  {
+   "label": "mbar",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة»"
+  },
+  {
+   "label": "drawer",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": false,
+   "activeAfter": "body «تخطَّ إلى المحتوى مصنع شنط وأكياس · قليو»"
+  },
+  {
+   "label": "product1",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شُنط مطبوعة بشعارك",
+   "img": "/images/plasticbag2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product2",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شنط سوفت للمحلات الملابس",
+   "img": "/images/softbag2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product3",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شنط قماش",
+   "img": "/images/canvas2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product4",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اكياس سلوفان بشريطه",
+   "img": "/images/solfan2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product5",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اكياس ذات غالق - ziplock bags",
+   "img": "/images/ziplockBag.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "try",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شُنط مطبوعة بشعارك",
+   "img": "/images/plasticbag.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة لهذه الشنطة»"
+  },
+  {
+   "label": "close",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة»"
+  }
+ ],
+ "768": [
+  {
+   "label": "hero",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة»"
+  },
+  {
+   "label": "mbar",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة»"
+  },
+  {
+   "label": "drawer",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": false,
+   "activeAfter": "body «تخطَّ إلى المحتوى مصنع شنط وأكياس · قليو»"
+  },
+  {
+   "label": "product1",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شُنط مطبوعة بشعارك",
+   "img": "/images/plasticbag2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product2",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شنط سوفت للمحلات الملابس",
+   "img": "/images/softbag2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product3",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شنط قماش",
+   "img": "/images/canvas2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product4",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اكياس سلوفان بشريطه",
+   "img": "/images/solfan2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product5",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اكياس ذات غالق - ziplock bags",
+   "img": "/images/ziplockBag.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "try",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شُنط مطبوعة بشعارك",
+   "img": "/images/plasticbag.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة لهذه الشنطة»"
+  },
+  {
+   "label": "close",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة»"
+  }
+ ],
+ "1440": [
+  {
+   "label": "hero",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة»"
+  },
+  {
+   "label": "nav",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة»"
+  },
+  {
+   "label": "product1",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شُنط مطبوعة بشعارك",
+   "img": "/images/plasticbag2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product2",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شنط سوفت للمحلات الملابس",
+   "img": "/images/softbag2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product3",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شنط قماش",
+   "img": "/images/canvas2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product4",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اكياس سلوفان بشريطه",
+   "img": "/images/solfan2.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "product5",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اكياس ذات غالق - ziplock bags",
+   "img": "/images/ziplockBag.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-link «اطلب تسعيرة لهذا المنتج»"
+  },
+  {
+   "label": "try",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "شُنط مطبوعة بشعارك",
+   "img": "/images/plasticbag.webp",
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة لهذه الشنطة»"
+  },
+  {
+   "label": "close",
+   "opened": true,
+   "title": "طلب عرض سعر",
+   "product": "اختر المنتج",
+   "img": null,
+   "closedOk": true,
+   "focusBack": true,
+   "activeAfter": "button.v2-btn «اطلب تسعيرة»"
+  }
+ ],
+ "submit-product3": {
+  "posts": [
+   {
+    "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+    "method": "POST",
+    "headers": {
+     "Content-Type": "application/json"
+    },
+    "body": "{\"الأسم\":\"اختبار الناقد\",\"اسم الشركة\":\"\",\"رقم التليفون\":\"01012345678\",\"البريد الالكتروني\":\"\",\"الموضوع\":\"شنط قماش\",\"الكمية المطلوبة\":\"5000\",\"المقاس أو السماكة\":\"\",\"الرسالة\":\"اختبار — لا ترسل\"}"
+   }
+  ],
+  "open": false,
+  "focusBack": true
+ },
+ "submit-try": {
+  "posts": [
+   {
+    "url": "https://sheetdb.io/api/v1/az68rhltg636u",
+    "method": "POST",
+    "headers": {
+     "Content-Type": "application/json"
+    },
+    "body": "{\"الأسم\":\"اختبار الناقد\",\"اسم الشركة\":\"\",\"رقم التليفون\":\"01012345678\",\"البريد الالكتروني\":\"\",\"الموضوع\":\"شُنط مطبوعة بشعارك\",\"الكمية المطلوبة\":\"5000\",\"المقاس أو السماكة\":\"\",\"الرسالة\":\"اختبار — لا ترسل\"}"
+   }
+  ],
+  "open": false,
+  "focusBack": true
+ }
+}

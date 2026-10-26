@@ -45,6 +45,7 @@ const Bag = ({ size = 'lg', story = false, copies = false, className = '', style
           <span className={`v2-bag__seal v2-bag__seal--s${a}`} aria-hidden="true" />
           <span className={`v2-bag__seal v2-bag__seal--e${a}`} aria-hidden="true" />
           <span className="v2-bag__rib" aria-hidden="true" />
+          {story && <span className="v2-bag__fold" aria-hidden="true" />}
           <span className="v2-bag__patch" aria-hidden="true">
             {story && <span className={`v2-bag__patch-sheen${a}`} />}
           </span>
@@ -67,6 +68,7 @@ const Bag = ({ size = 'lg', story = false, copies = false, className = '', style
       {story && (
         <div className="v2-bag__at-slot" aria-hidden="true">
           <span className={`v2-bag__chip${a}`} />
+          <span className={`v2-bag__flash${a}`} />
           <span className={`v2-bag__die${a}`} />
         </div>
       )}

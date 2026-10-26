@@ -14,7 +14,16 @@ type Quote = { open: boolean; name?: string; image?: string; n: number };
 const LandingV2 = () => {
   const [quote, setQuote] = useState<Quote>({ open: false, n: 0 });
   // each open mounts a fresh modal, so a product chosen earlier never leaks into a generic request
-  const openQuote = useCallback((name?: string, image?: string) => setQuote((q) => ({ open: true, name, image, n: q.n + 1 })), []);
+  const opener = useRef<HTMLElement | null>(null);
+  const openQuote = useCallback((name?: string, image?: string) => {
+    opener.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setQuote((q) => ({ open: true, name, image, n: q.n + 1 }));
+  }, []);
+  const closeQuote = useCallback(() => {
+    setQuote((q) => ({ ...q, open: false }));
+    // the modal does not restore focus itself; give it back to the button that opened it
+    window.setTimeout(() => opener.current?.isConnected && opener.current.focus(), 0);
+  }, []);
   const [menuOpen, setMenuOpen] = useState(false);
   const [printName, setPrintName] = useState('');
   const [printInk, setPrintInk] = useState<InkKey>('navy');
@@ -28,6 +37,7 @@ const LandingV2 = () => {
   const [closeSeen, setCloseSeen] = useState(false);
   useEffect(() => {
     const hdr = window.matchMedia('(max-width: 767px)').matches ? 60 : 72;
+    // (the contact ticket counts as a primary CTA: its submit button is the orange one there)
     // any primary CTA on screen (hero, try-your-name, close) hides the nav CTA and the mobile bar
     const visible = new Set<Element>();
     const io1 = new IntersectionObserver(
@@ -38,7 +48,7 @@ const LandingV2 = () => {
       { rootMargin: `-${hdr}px 0px 0px 0px` },
     );
     const io2 = new IntersectionObserver(([e]) => setCloseSeen(e.isIntersecting || e.boundingClientRect.top < 0));
-    document.querySelectorAll('.v2 .v2-cta-primary').forEach((el) => io1.observe(el));
+    document.querySelectorAll('.v2 .v2-cta-primary, .v2 .v2-ticket').forEach((el) => io1.observe(el));
     if (closeRef.current) io2.observe(closeRef.current);
     return () => {
       io1.disconnect();
@@ -64,8 +74,18 @@ const LandingV2 = () => {
         menuBtnRef.current?.focus();
       }
     };
+    const inside = (t: EventTarget | null) =>
+      t instanceof Node && (drawerRef.current?.contains(t) || menuBtnRef.current?.contains(t));
+    const onDown = (e: PointerEvent) => !inside(e.target) && setMenuOpen(false);
+    const onFocus = (e: FocusEvent) => !inside(e.target) && setMenuOpen(false);
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    document.addEventListener('pointerdown', onDown);
+    document.addEventListener('focusin', onFocus);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('pointerdown', onDown);
+      document.removeEventListener('focusin', onFocus);
+    };
   }, [menuOpen]);
 
   // Keep the global trigger used elsewhere in the app (MobileDock) working here too.
@@ -88,6 +108,18 @@ const LandingV2 = () => {
   useEffect(() => {
     if (mobileBar) mbarRef.current?.removeAttribute('inert');
     else mbarRef.current?.setAttribute('inert', '');
+    if (!mobileBar) return;
+    const onFocus = (e: FocusEvent) => {
+      const el = e.target;
+      const bar = mbarRef.current;
+      if (!(el instanceof HTMLElement) || !bar || bar.contains(el)) return;
+      // the bar is display:none from 1100px — its rect would read 0 and push every focus off screen
+      if (!bar.getClientRects().length) return;
+      const overlap = el.getBoundingClientRect().bottom - bar.getBoundingClientRect().top;
+      if (overlap > 0) window.scrollBy({ top: overlap + 16 });
+    };
+    document.addEventListener('focusin', onFocus);
+    return () => document.removeEventListener('focusin', onFocus);
   }, [mobileBar]);
 
   return (
@@ -180,7 +212,7 @@ const LandingV2 = () => {
       <RequestQuoteModal
         key={quote.n}
         isOpen={quote.open}
-        onClose={() => setQuote((q) => ({ ...q, open: false }))}
+        onClose={closeQuote}
         productName={quote.name}
         productImage={quote.image}
       />

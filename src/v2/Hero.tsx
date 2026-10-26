@@ -94,7 +94,7 @@ const Hero = ({ onQuote, ctaRef }: HeroProps) => {
       <div className="v2-hero__veil2" aria-hidden="true" />
       <span className="v2-hero__caption">في الخلفية: خطوط الإنتاج داخل مصنعنا في قليوب</span>
 
-      <div className="v2-hero__stage" ref={bagRef}>
+      <div className="v2-hero__stage v2-a" ref={bagRef}>
         <span className="v2-hero__window" aria-hidden="true" />
         <Bag story copies size="lg" className="v2-hero__bag">
           <div className="v2-hero__content">
@@ -122,13 +122,17 @@ const Hero = ({ onQuote, ctaRef }: HeroProps) => {
             </div>
             <p className="v2-hero__note v2-a">قل لنا الكمية والمقاس، ونرد عليك بالسعر والحد الأدنى للطلب.</p>
           </div>
-          <p className="v2-hero__fine">
-            البركة بلاست — قليوب، طريق مصر إسكندرية الزراعي ·{' '}
+        </Bag>
+        {/* the bag's small print; on phones it moves under the bag, onto the deep ground */}
+        <p className="v2-hero__fine">
+          البركة بلاست — قليوب، طريق مصر إسكندرية الزراعي{' '}
+          <span className="v2-hero__tel">
+            ·{' '}
             <a href={TEL_HREF} dir="ltr">
               {PHONE}
             </a>
-          </p>
-        </Bag>
+          </span>
+        </p>
       </div>
     </section>
   );
